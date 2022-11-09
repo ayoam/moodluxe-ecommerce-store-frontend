@@ -4,6 +4,7 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import ProductPage from "./pages/productPage/ProductPage";
 import ProductListingsPage from "./pages/productListingsPage/ProductListingsPage";
 import LoginPage from "./pages/loginPage/LoginPage";
+import RegisterPage from "./pages/registerPage/RegisterPage";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/products/:productId" element={<ProductPage/>}/>
                 <Route path="/collections/:collectionId" element={<ProductListingsPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/register" element={<RegisterPage/>}/>
             </Routes>
         </BrowserRouter>
     </>

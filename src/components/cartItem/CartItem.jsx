@@ -41,7 +41,7 @@ const CartItem = ({item})=>{
                     />
                 </div>
             </div>
-            <div className={"flex flex-col justify-between"}>
+            <div className={"flex flex-col justify-between w-full"}>
                 <p className={"text-[14px]"}>{item.libelle}</p>
                 <div className={"flex flex-row justify-between items-center mt-2"}>
                     <ProductQuantity quantity={item.quantity} setQuantity={handleQuantityChange}/>

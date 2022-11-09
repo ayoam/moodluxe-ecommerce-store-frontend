@@ -33,7 +33,7 @@ const Cart = ({className})=>{
     }, [cartItems]);
 
     return(
-        <div className={`${className} h-full py-6 flex flex-col justify-between`}>
+        <div className={`${className} h-full py-6 flex flex-col justify-between w-full`}>
             <div>
                 <div className={"flex flex-row @bg-red-300 justify-between items-center px-6"}>
                     <p className={"text-2xl font-semibold"}>Cart</p>
@@ -44,21 +44,6 @@ const Cart = ({className})=>{
                     {cartItems.map((item,index)=>{
                         return <CartItem item={item} key={index}/>
                     })}
-                    {/*{cartItems.map((item,index)=>{*/}
-                    {/*    return <CartItem item={item} key={index}/>*/}
-                    {/*})}*/}
-                    {/*{cartItems.map((item,index)=>{*/}
-                    {/*    return <CartItem item={item} key={index}/>*/}
-                    {/*})}*/}
-                    {/*{cartItems.map((item,index)=>{*/}
-                    {/*    return <CartItem item={item} key={index}/>*/}
-                    {/*})}*/}
-                    {/*{cartItems.map((item,index)=>{*/}
-                    {/*    return <CartItem item={item} key={index}/>*/}
-                    {/*})}*/}
-                    {/*{cartItems.map((item,index)=>{*/}
-                    {/*    return <CartItem item={item} key={index}/>*/}
-                    {/*})}*/}
                 </div>
             </div>
 
