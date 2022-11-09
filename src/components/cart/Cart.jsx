@@ -39,11 +39,26 @@ const Cart = ({className})=>{
                     <p className={"text-2xl font-semibold"}>Cart</p>
                     <button onClick={()=>setCartIsActive(false)}><IoClose className={"text-3xl"}/></button>
                 </div>
-                <div className={"mt-8 pl-6 mr-2 flex flex-col gap-10 max-h-[450px] overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100"}>
+                <div className={"mt-8 pl-6 pr-6 @mr-2 flex flex-col gap-10 max-h-[400px] sm:max-h-[450px] overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100"}>
                     {cartItems.length<=0 && <p className={"text-center font-light"}>CART IS EMPTY</p>}
                     {cartItems.map((item,index)=>{
                         return <CartItem item={item} key={index}/>
                     })}
+                    {/*{cartItems.map((item,index)=>{*/}
+                    {/*    return <CartItem item={item} key={index}/>*/}
+                    {/*})}*/}
+                    {/*{cartItems.map((item,index)=>{*/}
+                    {/*    return <CartItem item={item} key={index}/>*/}
+                    {/*})}*/}
+                    {/*{cartItems.map((item,index)=>{*/}
+                    {/*    return <CartItem item={item} key={index}/>*/}
+                    {/*})}*/}
+                    {/*{cartItems.map((item,index)=>{*/}
+                    {/*    return <CartItem item={item} key={index}/>*/}
+                    {/*})}*/}
+                    {/*{cartItems.map((item,index)=>{*/}
+                    {/*    return <CartItem item={item} key={index}/>*/}
+                    {/*})}*/}
                 </div>
             </div>
 

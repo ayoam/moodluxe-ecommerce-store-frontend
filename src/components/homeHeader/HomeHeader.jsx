@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import NavbarDropdownList from "../navbarDropdownList/NavbarDropdownList";
 import {useRecoilState} from 'recoil';
 import {cartIsActiveState,cartItemsState} from "../../recoil/atoms/cartAtom"
+import {useNavigate} from "react-router-dom";
 
 const categoryItems=["Chronograph watches","Digital watches","Automatic watches","Quartz watches","Skeleton watches"]
 const brandItems=["Casio","Fossil","Rolex","Guess","Swatch","Hugo","Tissot"]
@@ -19,12 +20,14 @@ const HomeHeader = ()=>{
     const [menuActive,setMenuActive] =  useState(false);
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
     const [cartItems,setCartItems] = useRecoilState(cartItemsState);
+    const navigate = useNavigate();
 
     const [dimensions, setDimensions] = React.useState({
         width: window.innerWidth,
     });
 
     useEffect(() => {
+
         const handleResize = () => {
             setDimensions({
                 width: window.innerWidth,
@@ -41,6 +44,14 @@ const HomeHeader = ()=>{
         }
     },[window.innerWidth]);
 
+    const logoClickHandler = () =>{
+        navigate("/home");
+    }
+
+    const userBtnClickHandler = () =>{
+        navigate("/login")
+    }
+
     return(
         <header className={"bg-mainBgColor"}>
             <div className={"max-w-7xl p-4 mx-auto flex justify-between"}>
@@ -53,12 +64,12 @@ const HomeHeader = ()=>{
                     }
                 </div>
                 <div>
-                    <img src={logo} alt={"logo"} className={"w-[200px] hidden sm:block"}/>
-                    <img src={smallLogo} alt={"logo"} className={"w-[40px] block sm:hidden"}/>
+                    <img src={logo} alt={"logo"} className={"w-[200px] hidden sm:block cursor-pointer"} onClick={logoClickHandler}/>
+                    <img src={smallLogo} alt={"logo"} className={"w-[40px] block sm:hidden cursor-pointer"} onClick={logoClickHandler}/>
                 </div>
                 <div className={"flex gap-3"}>
                     <button className={"hidden sm:flex justify-center items-center"}>
-                        <HiOutlineUser className={"text-3xl text-white"}/>
+                        <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnClickHandler}/>
                     </button>
                     <button className={"flex justify-center items-center relative"} onClick={()=>setCartIsActive(prev=>!prev)}>
                         {cartItems.length>0 && <div className={"bg-green-500 w-[10px] h-[10px] absolute bottom-2 right-0 rounded-full"}/>}
@@ -101,7 +112,7 @@ const HomeHeader = ()=>{
                             <li className={"p-4"}>Contact us</li>
                         </NavLink>
                         <button className={"flex sm:hidden justify-center items-center py-5"}>
-                            <HiOutlineUser className={"text-3xl text-white"}/>
+                            <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnClickHandler}/>
                         </button>
                     </ul>
                 </div>

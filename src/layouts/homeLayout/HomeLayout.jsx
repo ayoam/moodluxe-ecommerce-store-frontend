@@ -25,7 +25,7 @@ const HomeLayout = ({children})=>{
     return(
         <>
             <div className={"flex flex-row-reverse w-full relative"}>
-                <div className={`bg-gray-100 h-screen ${cartIsActive?"w-[400px]":"w-0"} transition-all ease-out fixed`}>
+                <div className={`bg-gray-100 h-screen ${cartIsActive?"w-full sm:w-[400px]":"w-0"} transition-all ease-out fixed`}>
                     <Cart className={`${!cartIsActive && "hidden"}`}/>
                 </div>
                 <div className={`w-screen ${cartIsActive && "translate-x-[-400px]"} transition-transform ease-out`}>
