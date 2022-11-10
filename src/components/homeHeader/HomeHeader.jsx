@@ -15,6 +15,7 @@ const categoryItems=["Chronograph watches","Digital watches","Automatic watches"
 const brandItems=["Casio","Fossil","Rolex","Guess","Swatch","Hugo","Tissot"]
 
 const HomeHeader = ()=>{
+    const [progress,setProgress] = useState(0);
     const [categoryActive,setCategoryActive]=useState(false);
     const [brandActive,setBrandActive]=useState(false);
     const [menuActive,setMenuActive] =  useState(false);

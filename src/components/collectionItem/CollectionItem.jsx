@@ -1,14 +1,14 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 
-const CollectionItem = ({classes,collection})=>{
+const CollectionItem = ({classes,collection,brand})=>{
     const otherClasses = classes?classes:" ";
     const navigate = useNavigate();
 
     return(
         <>
             <div className={"relative text-white bg-white/20 cursor-pointer overflow-hidden "+otherClasses}
-                 onClick={()=>{navigate(`/category/${collection.name.toLowerCase()}-watches`)}}>
+                 onClick={()=>{navigate(`/collections/${collection.name.toLowerCase()}-watches?${brand && `brand=`+brand}`)}}>
                 {collection?.image &&
                     <img
                         src={require(`../../assets/img/${collection.image}`)}

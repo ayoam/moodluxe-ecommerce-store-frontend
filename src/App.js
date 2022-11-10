@@ -5,10 +5,11 @@ import ProductPage from "./pages/productPage/ProductPage";
 import ProductListingsPage from "./pages/productListingsPage/ProductListingsPage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import RegisterPage from "./pages/registerPage/RegisterPage";
-
+import BrandPage from "./pages/brandPage/BrandPage";
+import React, {useState} from 'react'
 function App() {
 
-  return (
+    return (
     <>
         <BrowserRouter>
             <Routes>
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/collections/:collectionId" element={<ProductListingsPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
+                <Route path="/brands/:brandName" element={<BrandPage/>}/>
             </Routes>
         </BrowserRouter>
     </>

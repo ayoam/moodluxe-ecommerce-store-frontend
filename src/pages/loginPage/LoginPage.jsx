@@ -37,7 +37,7 @@ const LoginPage = ()=>{
                                     required: "password required!"
                                 })}/>
                                 {errors?.email && <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.password.message}</p>}
-                                <button className={"underline text-sm font-extralight mt-2 hover:text-blue-300"} onClick={()=>navigate("/forgotten-password")}>Forgotten your password?</button>
+                                <a className={"underline text-sm font-extralight mt-2 hover:text-blue-300"} href={"/forgotten-password"} alt={"forgotten password"}>Forgotten your password?</a>
                             </div>
                             <input type={"submit"} value={"LOG IN "} className={"bg-white text-black p-2 hover:bg-black hover:text-white cursor-pointer border-[1px] border-transparent hover:border-gray-200 transition-all mt-4"}/>
                         </form>
