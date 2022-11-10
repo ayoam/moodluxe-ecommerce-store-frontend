@@ -5,7 +5,7 @@ const RegisterPage = ()=>{
     return(
         <HomeLayout>
             <div className={"bg-secondaryBgColor"}>
-                <div className={"max-w-5xl mx-auto text-white py-14"}>
+                <div className={"max-w-5xl mx-auto text-white py-16"}>
                     <h1 className={"text-4xl font-semibold"}>REGISTER</h1>
                     <p className={"text-sm font-light mt-5 leading-6"}>To register for your Moodluxe shop account, please fill in the below form then click 'Register'</p>
                     <form className={"mt-8"}>
@@ -54,7 +54,7 @@ const RegisterPage = ()=>{
                                 <input type={"password"} placeholder={""} className={"w-full p-1 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"}/>
                             </div>
                             <div className={""}>
-                                <p className={"text-sm font-light mb-2"}>State</p>
+                                <p className={"text-sm font-light mb-2"}>State/Province</p>
                                 <input type={"password"} placeholder={""} className={"w-full p-1 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"}/>
                             </div>
                             <div className={""}>

@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
-import Slider from '@material-ui/core/Slider';
+// import Slider from '@material-ui/core/Slider';
+import Slider from '@mui/material/Slider';
 
 const PriceFilter = ({minMaxPrices,getminMaxPrice})=>{
     const [values, setValues] = useState([200,4500]);
