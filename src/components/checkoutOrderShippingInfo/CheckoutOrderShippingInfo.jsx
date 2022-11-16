@@ -1,7 +1,11 @@
 import React, {useState} from 'react'
 import {useForm} from "react-hook-form";
+// import PhoneInput from 'react-phone-input-2'
+// import 'react-phone-input-2/lib/style.css'
 
 const CheckoutOrderShippingInfo = ()=>{
+    // const [phone,setPhone] = useState("");
+
     const [shippingFormEditing,setShippingFormEditing] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 

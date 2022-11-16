@@ -1,10 +1,11 @@
 import React, {useRef, useState} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
-import {useForm} from "react-hook-form";
-
+import {useForm,Controller} from "react-hook-form";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 const RegisterPage = () => {
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, watch, formState: {errors},control} = useForm();
 
 
     const onSubmit = (data) => {
@@ -56,14 +57,39 @@ const RegisterPage = () => {
                             </div>
                             <div className={""}>
                                 <p className={"text-sm font-light mb-2"}>Phone number</p>
-                                <input type={"text"} placeholder={"+1 923 343 2329"}
-                                       className={"w-full py-1 px-2  outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("phoneNumber", {
-                                    required: "phone number required!",
-                                    pattern: {
-                                        value: /^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/,
-                                        message: "invalid phone number!"
-                                    }
-                                })}/>
+                                {/*<input type={"text"} placeholder={"+1 923 343 2329"}*/}
+                                {/*       className={"w-full py-1 px-2  outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("phoneNumber", {*/}
+                                {/*    required: "phone number required!",*/}
+                                {/*    pattern: {*/}
+                                {/*        value: /^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/,*/}
+                                {/*        message: "invalid phone number!"*/}
+                                {/*    }*/}
+                                {/*})}/>*/}
+                                <div className={"text-white"}>
+                                    <Controller
+                                    control={control}
+                                    name="phoneNumber"
+                                    rules={{
+                                        required: "phone number required!",
+                                        pattern: {
+                                            value: /^(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/,
+                                            message: "invalid phone number!"
+                                        }
+                                    }}
+                                    render={({ field }) => (
+                                                <PhoneInput
+                                                    country={'us'}
+                                                    value={field.value}
+                                                    onChange={(e)=>{field.onChange(e)}}
+                                                    inputRef={field.ref}
+                                                    containerClass={""}
+                                                    inputClass={"!w-full !rounded-none !bg-secondaryBgColor !border-[1px] !border-gray-400 !py-4 !text-base"}
+                                                    dropdownClass={"!text-black"}
+                                                    buttonClass={"!bg-white !rounded-none !border-none"}
+                                                />
+                                            )}
+                                        />
+                                </div>
                                 {errors?.phoneNumber &&
                                     <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.phoneNumber.message}</p>}
                             </div>
@@ -81,9 +107,9 @@ const RegisterPage = () => {
                                 <select
                                     className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("gender", {
                                     required: "gender required!",
-                                })}>
-                                    <option className={"text-black"} disabled selected value={""}>-- select gender --
-                                    </option>
+                                })}
+                                defaultValue={""}>
+                                    <option className={"text-black"} disabled value={""}>-- select gender --</option>
                                     <option className={"text-black"} value={"male"}>male</option>
                                     <option className={"text-black"} value={"female"}>female</option>
                                 </select>
@@ -143,11 +169,11 @@ const RegisterPage = () => {
                                 <select
                                     className={"w-full p-1 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("country", {
                                     required: "country required!",
-                                })}>
-                                    <option className={"text-black"} value={""} disabled selected>-- select country --
-                                    </option>
-                                    <option className={"text-black"} value={"1"}>United states</option>
-                                    <option className={"text-black"} value={"2"}>Denmark</option>
+                                })}
+                                defaultValue={""}>
+                                    <option className={"text-black"} value={""} disabled>-- select country --</option>
+                                    <option className={"text-black"}>United states</option>
+                                    <option className={"text-black"}>Denmark</option>
                                 </select>
                                 {errors?.country &&
                                     <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.country.message}</p>}
@@ -165,7 +191,6 @@ const RegisterPage = () => {
                             </div>
 
                             <div></div>
-
 
                             <div className={"flex flex-col my-4"}>
                                 <span className={"flex flex-row gap-2 items-center"}>
