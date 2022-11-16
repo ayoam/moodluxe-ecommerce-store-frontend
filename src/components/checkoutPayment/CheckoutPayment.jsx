@@ -1,10 +1,6 @@
 import React from 'react'
 import {FaCcPaypal, FaRegCreditCard} from "react-icons/fa";
-
-const paymentOptions = {
-    PAYPAL:"paypal",
-    CARD:"credit card"
-}
+import {paymentOptions} from "../../constants/paymentConstants";
 
 const CheckoutPayment = ({paymentMethod,setPaymentMethod})=>{
     return(

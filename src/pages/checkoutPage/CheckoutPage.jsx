@@ -4,12 +4,9 @@ import CheckoutLayout from "../../layouts/checkoutLayout/CheckoutLayout";
 import CheckoutOrderShippingInfo from "../../components/checkoutOrderShippingInfo/CheckoutOrderShippingInfo";
 import CheckoutOrderItems from "../../components/checkoutOrderItems/CheckoutOrderItems";
 import CheckoutPayment from "../../components/checkoutPayment/CheckoutPayment";
-
-
-const paymentOptions = {
-    PAYPAL:"paypal",
-    CARD:"credit card"
-}
+import {paymentOptions} from "../../constants/paymentConstants";
+// aloha
+//hi
 
 const CheckoutPage = ()=>{
     const [paymentMethod,setPaymentMethod] = useState(paymentOptions.CARD);
