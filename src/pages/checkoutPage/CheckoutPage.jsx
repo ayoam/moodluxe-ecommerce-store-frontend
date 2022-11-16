@@ -6,6 +6,7 @@ import CheckoutOrderItems from "../../components/checkoutOrderItems/CheckoutOrde
 import CheckoutPayment from "../../components/checkoutPayment/CheckoutPayment";
 
 // aloha
+//hi
 
 const paymentOptions = {
     PAYPAL:"paypal",
