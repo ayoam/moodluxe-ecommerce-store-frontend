@@ -3,13 +3,17 @@ import {HiMenuAlt2, HiOutlineUser} from "react-icons/hi"
 import {IoClose} from "react-icons/io5"
 import {NavLink, useNavigate} from "react-router-dom";
 import NavbarDropdownList from "../navbarDropdownList/NavbarDropdownList";
+import {useRecoilState} from "recoil"
+import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
 
 
 const categoryItems = ["Chronograph watches", "Digital watches", "Automatic watches", "Quartz watches", "Skeleton watches"]
 const brandItems = ["Casio", "Fossil", "Rolex", "Guess", "Swatch", "Hugo", "Tissot"]
 
-const MobileMenu = () => {
-    const [menuActive, setMenuActive] = useState(false);
+const HomeMenu = () => {
+    // const [menuActive, setMenuActive] = useState(false);
+    const [menuActive,setMenuActive] = useRecoilState(menuActiveState);
+
     const [dimensions, setDimensions] = React.useState({
         width: window.innerWidth,
     });
@@ -42,20 +46,20 @@ const MobileMenu = () => {
 
     return (
         <div>
-            <div className={"flex justify-center items-center sm:hidden"}>
-                {
-                    !menuActive ?
-                        <button onClick={() => setMenuActive(true)}><HiMenuAlt2 className={"text-white text-3xl"}/>
-                        </button>
-                        :
-                        <button onClick={() => setMenuActive(false)}><IoClose className={"text-white text-3xl"}/>
-                        </button>
-                }
-            </div>
+            {/*<div className={"flex justify-center items-center sm:hidden"}>*/}
+            {/*    {*/}
+            {/*        !menuActive ?*/}
+            {/*            <button onClick={() => setMenuActive(true)}><HiMenuAlt2 className={"text-white text-3xl"}/>*/}
+            {/*            </button>*/}
+            {/*            :*/}
+            {/*            <button onClick={() => setMenuActive(false)}><IoClose className={"text-white text-3xl"}/>*/}
+            {/*            </button>*/}
+            {/*    }*/}
+            {/*</div>*/}
 
 
             {menuActive &&
-                <div className={"absolute left-0 right-0 z-50 bg-red-600 w-full text-white text-lg font-semibold"}>
+                <div className={"absolute sm:relative z-50 bg-red-600 w-full  text-white text-lg font-semibold"}>
                     <ul className={"flex flex-col sm:flex-row justify-center mx-auto text-center py-5 sm:py-0"}>
                         <NavLink
                             className={(navData) => (navData.isActive ? 'sm:border-b-4 sm:border-white' : '')}
@@ -98,4 +102,4 @@ const MobileMenu = () => {
     );
 }
 
-export default MobileMenu;
+export default HomeMenu;
