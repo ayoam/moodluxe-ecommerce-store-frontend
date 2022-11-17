@@ -5,6 +5,7 @@ import testPhoto from "../../assets/testPhoto";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {cartIsActiveState,cartItemsState} from "../../recoil/atoms/cartAtom"
 import {useLocalStorage} from "../../hooks/useLocalStorage";
+import {useNavigate} from "react-router-dom";
 
 const Cart = ({className})=>{
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
@@ -22,6 +23,7 @@ const Cart = ({className})=>{
         "quantity":1
     }])
 
+    const navigate =useNavigate();
 
     useEffect(() => {
         setCartItems(cartItemsLC);
@@ -53,7 +55,7 @@ const Cart = ({className})=>{
                     <p>{cartItems.length>0 ? cartItems.map((item)=>item.quantity*item.price).reduce((sum,num)=>sum+num).toFixed(2):"0.00"}$</p>
                 </div>
                 <div className={"px-6 mt-6"}>
-                    <button className={"bg-black text-white w-full p-3 hover:bg-transparent border-2 border-transparent hover:border-black hover:text-black transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} disabled={cartItems.length<=0}>CONTINUE TO CHECKOUT</button>
+                    <button className={"bg-black text-white w-full p-3 hover:bg-transparent border-2 border-transparent hover:border-black hover:text-black transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} disabled={cartItems.length<=0} onClick={()=>navigate("/checkout")}>CONTINUE TO CHECKOUT</button>
                 </div>
             </div>
         </div>
