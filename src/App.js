@@ -9,6 +9,7 @@ import BrandPage from "./pages/brandPage/BrandPage";
 import React, {useState} from 'react'
 import CheckoutPage from "./pages/checkoutPage/CheckoutPage";
 import ContactPage from "./pages/contactPage/ContactPage";
+import CartPage from "./pages/cartPage/CartPage";
 function App() {
 
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/brands/:brandName" element={<BrandPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/> {/*protected route*/}
                 <Route path="/contact-us" element={<ContactPage/>}/>
+                <Route path="/cart" element={<CartPage/>}/>
             </Routes>
         </BrowserRouter>
     </>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect} from 'react'
 import HomeHeader from "../../components/homeHeader/HomeHeader";
 import HomeFooter from "../../components/homeFooter/HomeFooter";
 import Cart from "../../components/cart/Cart";
