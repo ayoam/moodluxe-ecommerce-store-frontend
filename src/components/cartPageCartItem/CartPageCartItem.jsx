@@ -31,29 +31,26 @@ const CartItem = ({item})=>{
     }
 
     return(
-        <>
-            {
-                item &&
-                <div className={"flex flex-row gap-2"}>
-                    <div>
-                        <div className={"w-[90px] h-[90px]"}>
-                            <img
-                                src={`data:image/${item.mainPhoto.extension};base64,${item.mainPhoto.photo}`}
-                                alt={'image photo'}
-                                className={"w-full h-full object-cover"}
-                            />
-                        </div>
-                    </div>
-                    <div className={"flex flex-col justify-between w-full"}>
-                        <p className={"text-[14px]"}>{item.libelle}</p>
-                        <div className={"flex flex-row justify-between items-center mt-2"}>
-                            <ProductQuantity quantity={item.quantity} setQuantity={handleQuantityChange}/>
-                            <p className={"font-semibold"}>{(item.quantity*item.price).toFixed(2)}$</p>
-                        </div>
-                    </div>
+        <div className={"flex flex-row gap-2 border-[1px] border-white/30 items-center p-4 shadow-white/20 shadow-md from-white via-red-400 to-gray-100 bg-gradient-to-br"}>
+            <div>
+                <div className={"w-[130px] h-[130px] shadow shadow-sm"}>
+                    <img
+                        src={`data:image/${item.mainPhoto.extension};base64,${item.mainPhoto.photo}`}
+                        alt={'image photo'}
+                        className={"w-full h-full object-cover"}
+                    />
                 </div>
-            }
-        </>
+            </div>
+            <div className={"flex flex-row justify-between items-center w-full text-black"}>
+                <div className={""}>
+                    <p className={"text-lg"}>{item.libelle}</p>
+                </div>
+                <div className={"flex flex-row justify-between items-center mt-2 gap-6 px-4"}>
+                    <ProductQuantity quantity={item.quantity} setQuantity={handleQuantityChange}/>
+                    <p className={"font-semibold text-lg"}>{(item.quantity*item.price).toFixed(2)}$</p>
+                </div>
+            </div>
+        </div>
     )
 }
 
