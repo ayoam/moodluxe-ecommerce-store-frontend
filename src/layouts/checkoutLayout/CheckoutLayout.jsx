@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import logo from "../../assets/img/logo.png";
 import smallLogo from "../../assets/img/small-logo.png";
 import {useNavigate} from "react-router-dom";
 
 const CheckoutLayout = ({children})=>{
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        document.body.style.overflow="auto";
+    },[])
 
     const logoClickHandler = () => {
         navigate("/home");
