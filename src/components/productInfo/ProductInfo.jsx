@@ -28,7 +28,7 @@ const ProductInfo = ()=>{
         })
     }
     return(
-        <div className={"max-w-5xl mx-auto mt-20 p-4 lg:p-16 xl:p-0"}>
+        <div className={"w-full mx-auto mt-20 p-4 lg:p-16 xl:p-0"}>
             {tabsState.map((item,index)=>{
                 return <ProductInfoTab key={index} item={item}
                                        setIsActive={handleSetIsActive}

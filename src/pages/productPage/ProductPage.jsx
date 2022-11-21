@@ -63,11 +63,13 @@ const ProductPage = ()=>{
         <>
             <HomeLayout>
                 <section className={"bg-secondaryBgColor py-16"}>
-                    <div className={"max-w-5xl mx-auto flex flex-col lg:flex-row p-8 lg:p-16 xl:p-0 lg:justify-between gap-12"}>
-                        <ProductImages images={product.photoList}/>
-                        <ProductCTA item={product}/>
+                    <div className={"max-w-6xl mx-auto"}>
+                        <div className={"flex flex-col lg:flex-row p-8 lg:p-16 xl:p-0 lg:justify-between gap-16"}>
+                            <ProductImages images={product.photoList}/>
+                            <ProductCTA item={product}/>
+                        </div>
+                        <ProductInfo/>
                     </div>
-                    <ProductInfo/>
                 </section>
             </HomeLayout>
         </>
