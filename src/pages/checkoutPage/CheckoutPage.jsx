@@ -23,7 +23,7 @@ const CheckoutPage = ()=>{
     return(
         <CheckoutLayout>
             <section className={"bg-secondaryBgColor"}>
-                <div className={"max-w-6xl pt-8 pb-12 mx-auto px-2 sm:px-6 text-white"}>
+                <div className={"max-w-6xl min-h-screen pt-8 pb-12 mx-auto px-2 sm:px-6 text-white"}>
                     <h1 className={"text-3xl font-semibold mb-6 text-center lg:text-left"}>CHECKOUT</h1>
                     <div className={"flex flex-col-reverse gap-6 lg:gap-0 lg:flex-row w-full sm:w-[90%] md:w-[80%] lg:w-full mx-auto justify-between"}>
                         <div className={"flex flex-col w-full lg:pr-6 justify-between gap-6"}>

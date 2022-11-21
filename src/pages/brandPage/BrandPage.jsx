@@ -9,7 +9,7 @@ const BrandPage = ()=>{
     return(
         <HomeLayout>
             <div className={"bg-secondaryBgColor"}>
-                <div className={"max-w-5xl mx-auto text-white py-16 min-h-[90vh]"}>
+                <div className={"max-w-7xl mx-auto text-white py-16 min-h-[90vh]"}>
                     <h1 className={"text-4xl font-semibold text-center"}>{brandName.toUpperCase()} WATCHES</h1>
                     <div className={"my-10"}>
                         <BrandCatgories brand={brandName}/>
