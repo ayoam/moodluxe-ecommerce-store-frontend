@@ -32,7 +32,7 @@ const CheckoutPage = ()=>{
                                 <CheckoutPayment paymentMethod={paymentMethod} setPaymentMethod={handleSetPaymentMethod}/>
                             </div>
                             <div className={"text-right lg:text-left flex flex-col md:flex-row gap-4 md:gap-0 items-center sm:justify-between"}>
-                                <button className={"py-4 px-4 rounded-md bg-white text-black hover:bg-transparent border-2 border-white hover:border-red-500 hover:text-white transition-all hover:hover:bg-white/5 w-full md:w-auto"}>COMPLETE ORDER</button>
+                                <button className={"py-4 px-4 rounded-md bg-white text-black hover:bg-transparent border-2 border-white hover:border-red-600 hover:text-white transition-all hover:hover:bg-white/5 w-full md:w-auto"}>COMPLETE ORDER</button>
                                 <a href={"/cart"} className={"flex flex-row items-center gap-1 text-blue-400"}>
                                     <IoIosArrowBack/>
                                     Return to cart

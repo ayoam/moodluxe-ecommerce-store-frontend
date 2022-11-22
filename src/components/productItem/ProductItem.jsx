@@ -9,7 +9,7 @@ const ProductItem = ({product})=>{
             <div className={"relative bg-black p-3 pb-6 cursor-pointer border-[1px] border-transparent hover:border-white/50 transition-colors hover:shadow-sm hover:shadow-white/30"}
                  onClick={()=> navigate("/products/"+product.idp)}
             >
-                {product.discountPrice && <p className={"absolute bg-red-500 text-white font-semibold top-[-5px] left-[-5px] px-2 py-1"}>SALE</p>}
+                {product.discountPrice && <p className={"absolute bg-red-600 text-white font-semibold top-[-5px] left-[-5px] px-2 py-1"}>SALE</p>}
                 <div className={"w-full mx-auto  bg-red-300"}>
                     <img
                         src={`data:image/${product.photoList[0].extension};base64,${product.photoList[0].photo}`}
