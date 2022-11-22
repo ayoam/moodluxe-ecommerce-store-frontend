@@ -55,7 +55,7 @@ const Cart = ({className})=>{
                     <p>{cartItems.length>0 ? cartItems.map((item)=>item.quantity*item.price).reduce((sum,num)=>sum+num).toFixed(2):"0.00"}$</p>
                 </div>
                 <div className={"px-6 mt-6 space-y-2"}>
-                    <button className={"bg-red-500 text-white w-full p-3 hover:bg-transparent border-2 border-transparent hover:border-black hover:text-black transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} disabled={cartItems.length<=0} onClick={()=>{navigate("/checkout");}}>CONTINUE TO CHECKOUT</button>
+                    <button className={"bg-red-600 text-white w-full p-3 hover:bg-transparent border-2 border-transparent hover:border-black hover:text-black transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} disabled={cartItems.length<=0} onClick={()=>{navigate("/checkout");}}>CONTINUE TO CHECKOUT</button>
                     <button className={"bg-black text-white w-full p-3 hover:bg-transparent border-2 border-transparent hover:border-black hover:text-black transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} onClick={()=>{navigate("/cart");}}>VIEW CART</button>
                 </div>
             </div>

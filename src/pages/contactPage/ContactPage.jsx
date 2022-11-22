@@ -45,13 +45,13 @@ const ContactPage = () => {
                                 </div>
                                 <div className={"flex space-x-4 text-lg"}>
                                     <a href={"/facebook"}>
-                                        <FaFacebook className={"text-white text-2xl"}/>
+                                        <FaFacebook className={"text-white hover:text-red-600 transition-colors text-2xl"}/>
                                     </a>
                                     <a href={"/instagram"}>
-                                        <FaInstagram className={"text-white text-2xl"}/>
+                                        <FaInstagram className={"text-white hover:text-red-600 transition-colors text-2xl"}/>
                                     </a>
                                     <a href={"/twitter"}>
-                                        <FaTwitter className={"text-white text-2xl"}/>
+                                        <FaTwitter className={"text-white hover:text-red-600 transition-colors text-2xl"}/>
                                     </a>
 
                                 </div>
@@ -100,7 +100,7 @@ const ContactPage = () => {
                                 </div>
 
                                 <input type={"submit"} value={"SEND MESSAGE"}
-                                       className={"bg-black text-white p-2 cursor-pointer border-[1px] border-transparent hover:border-white hover:bg-red-500 transition-all mt-4"}/>
+                                       className={"bg-black text-white p-2 cursor-pointer border-[1px] border-transparent hover:border-white hover:bg-red-600 transition-all mt-4"}/>
                             </form>
 
 

@@ -45,7 +45,7 @@ const CartPage = ()=>{
                         </div>
                         <div className={"flex flex-col sm:flex-row w-full gap-2 justify-end"}>
                             <button className={"bg-white text-black p-3 hover:bg-black border-2 border-transparent hover:border-white hover:text-white transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} onClick={()=>navigate("/")}>CONTINUE SHOPPING</button>
-                            <button className={"bg-red-500 text-white p-3 hover:bg-black border-2 border-transparent hover:border-white hover:text-white transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} disabled={cartItems.length<=0} onClick={()=>navigate("/checkout")}>PROCCED TO CHECKOUT</button>
+                            <button className={"bg-red-600 text-white p-3 hover:bg-black border-2 border-transparent hover:border-white hover:text-white transition-all font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:hover:border-transparent disabled:hover:text-white/70 disabled:text-white/70"} disabled={cartItems.length<=0} onClick={()=>navigate("/checkout")}>PROCCED TO CHECKOUT</button>
                         </div>
                     </div>
                 </div>
