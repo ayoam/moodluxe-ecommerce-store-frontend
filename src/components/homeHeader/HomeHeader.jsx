@@ -12,6 +12,8 @@ import HomeMenu from "../homeMenu/HomeMenu";
 import {IoClose} from "react-icons/io5";
 import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
 import HomeMenuButton from "../homeMenuButton/HomeMenuButton";
+import {AiOutlineSearch} from "react-icons/ai"
+import {searchIsActiveState} from "../../recoil/atoms/searchBarAtom";
 
 const categoryItems = ["Chronograph watches", "Digital watches", "Automatic watches", "Quartz watches", "Skeleton watches"]
 const brandItems = ["Casio", "Fossil", "Rolex", "Guess", "Swatch", "Hugo", "Tissot"]
@@ -21,6 +23,7 @@ const HomeHeader = () => {
     const [brandActive, setBrandActive] = useState(false);
     const [cartIsActive, setCartIsActive] = useRecoilState(cartIsActiveState);
     const [cartItems, setCartItems] = useRecoilState(cartItemsState);
+    const [searchIsActive, setSearchIsActive] = useRecoilState(searchIsActiveState);
 
     const navigate = useNavigate();
 
@@ -44,6 +47,9 @@ const HomeHeader = () => {
                          onClick={logoClickHandler}/>
                 </div>
                 <div className={"flex gap-3"}>
+                    <button className={"flex justify-center items-center relative"}>
+                        <AiOutlineSearch className={"text-3xl text-white"} onClick={() => setSearchIsActive(true)}/>
+                    </button>
                     <button className={"hidden sm:flex justify-center items-center"}>
                         <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnClickHandler}/>
                     </button>
