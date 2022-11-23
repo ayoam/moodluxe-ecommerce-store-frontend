@@ -39,7 +39,7 @@ const HomeLayout = ({children}) => {
                     </div>
                 </div>
                 <div
-                    className={`w-screen ${cartIsActive && "translate-x-[0px] sm:translate-x-[-400px] transition-transform ease-out"} ${searchIsActive && "translate-x-[0px] sm:translate-y-[400px]"}`}>
+                    className={`w-screen ${cartIsActive && "translate-x-[0px] sm:translate-x-[-400px] transition-transform ease-out"} ${searchIsActive && "translate-x-[0px] translate-y-[400px]"}`}>
                     <HomeHeader/>
                     <main>{children}</main>
                     <HomeFooter/>

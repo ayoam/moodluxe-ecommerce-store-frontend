@@ -10,6 +10,7 @@ import React, {useState} from 'react'
 import CheckoutPage from "./pages/checkoutPage/CheckoutPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import CartPage from "./pages/cartPage/CartPage";
+import SearchPage from "./pages/searchPage/SearchPage";
 function App() {
 
     return (
@@ -26,6 +27,8 @@ function App() {
                 <Route path="/checkout" element={<CheckoutPage/>}/> {/*protected route*/}
                 <Route path="/contact-us" element={<ContactPage/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
+                <Route path="/search" element={<SearchPage/>}/>
+
             </Routes>
         </BrowserRouter>
     </>

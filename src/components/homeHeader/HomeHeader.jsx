@@ -43,7 +43,7 @@ const HomeHeader = () => {
                 <div>
                     <img src={logo} alt={"logo"} className={"w-[200px] hidden sm:block cursor-pointer"}
                          onClick={logoClickHandler}/>
-                    <img src={smallLogo} alt={"logo"} className={"w-[40px] block sm:hidden cursor-pointer"}
+                    <img src={smallLogo} alt={"logo"} className={"w-[40px] justify-center block sm:hidden cursor-pointer mx-auto "}
                          onClick={logoClickHandler}/>
                 </div>
                 <div className={"flex gap-3"}>
