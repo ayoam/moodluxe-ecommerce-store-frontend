@@ -84,11 +84,11 @@ function SearchPage() {
     return (
         <HomeLayout>
                 <div className={"bg-secondaryBgColor"}>
-                <div className={"py-6"}>
-                    <p className={"text-2xl text-center italic mx-auto text-white"}>YOUR SEARCH FOR "{getSearchKeyWord()}" REVEALED THE FOLLOWING:</p>
+                <div className={"py-16"}>
+                    <p className={"text-2xl text-center mx-auto text-white"}>YOUR SEARCH FOR <b>"{getSearchKeyWord()}"</b> REVEALED THE FOLLOWING:</p>
                 </div>
-                <div className={"container mx-auto w-full sm:col-span-2 order-4 sm:order-none"}>
-                    <div className={`grid grid-cols-1   md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-3 gap-4`}>
+                <div className={"container mx-auto w-full sm:col-span-2 order-4 sm:order-none px-8 pb-12"}>
+                    <div className={`grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-3 gap-4`}>
                         {querySearchList.map((item,index)=>{
                             return <ProductItem key={index} product={item}/>
                         })}
