@@ -9,7 +9,7 @@ const HomeMenuButton = ()=>{
 
     return(
         <>
-            <div className={"flex justify-center items-center sm:hidden"}>
+            <div className={"flex justify-center items-center sm:hidden mr-10"}>
                 {
                     <button onClick={() => setMenuActive(prev=>!prev)}>
                         {
