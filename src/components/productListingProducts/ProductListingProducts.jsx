@@ -83,7 +83,7 @@ const ProductListingProducts = ({filtersHidden,productsList,pageCount})=>{
                         return <ProductItem key={index} product={item}/>
                     })}
                 </div>
-                <ProductListingPagination pageCount={pageCount}/>
+                <ProductListingPagination/>
             </div>
         </>
     )
