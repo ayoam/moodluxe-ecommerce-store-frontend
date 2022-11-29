@@ -18,10 +18,6 @@ const ProductListingsFilter = ({filtersHidden})=>{
 
         setFilters(initialFilterParams);
 
-        // if((Object.keys(initialParams).includes("minPrice")) || (Object.keys(initialParams).includes("maxPrice")) || (Object.keys(initialParams).includes("brand"))){
-        //     setFiltersApplied(true);
-        // }
-
         if(Object.keys(initialFilterParams).length>0){
             setFiltersApplied(true);
         }

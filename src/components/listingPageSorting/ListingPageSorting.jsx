@@ -8,7 +8,7 @@ const ListingPageSorting = ()=>{
 
 
     useEffect(() => {
-        let sortParam = null;
+        let sortParam = "";
         for (let [key, value] of searchParams.entries()) {
             if(key==="sort"){
                 sortParam = value;
