@@ -7,12 +7,25 @@ import {useSearchParams} from "react-router-dom";
 import ListingPageSorting from "../../components/listingPageSorting/ListingPageSorting";
 import ReactPaginate from "react-paginate";
 import ProductListingPagination from "../../components/productListingPagination/ProductListingPagination";
+import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
+import useUrlSearchParams from "../../hooks/useUrlSearchParams";
+import {getCLS} from "web-vitals";
+import {unstable_ClassNameGenerator} from "@mui/material";
+import {useSetRecoilState} from "recoil"
+import {
+    defaultMaxPriceState,
+    defaultMinPriceState,
+    totalCountState
+} from "../../recoil/atoms/productListingAtom";
 
 const ProductListingsPage = ()=>{
+    const limit = 8;
+    const {urlSearchParams, page} = useUrlSearchParams();
     const [filtersHidden,setFiltersHidden] = useState(true);
-    const [dimensions, setDimensions] = useState({
-        width: window.innerWidth,
-    });
+    const [dimensions, setDimensions] = useState({width: window.innerWidth,});
+    const setTotalCount = useSetRecoilState(totalCountState);
+    const setDefaultMaxPrice = useSetRecoilState(defaultMaxPriceState);
+    const setDefaultMinPrice = useSetRecoilState(defaultMinPriceState);
 
     useEffect(() => {
         const handleResize = () => {
@@ -32,6 +45,26 @@ const ProductListingsPage = ()=>{
     },[window.innerWidth]);
 
 
+    const [productsList,setProductsList] = useState(null);
+    useEffect(() => {
+        if(urlSearchParams){
+            GetProductsByQueryParams({...urlSearchParams,limit})
+                .then(response =>{
+                    // console.log(response);
+                    setTotalCount(Math.ceil(parseInt(response?.data?.totalCount) / limit));
+                    setDefaultMaxPrice(parseInt(response?.data?.maxPrice));
+                    setDefaultMinPrice(parseInt(response?.data?.minPrice));
+                    setProductsList(response?.data?.data);
+                });
+        }
+    }, [urlSearchParams]);
+
+
+    // useEffect(() => {
+    //     console.log(productsList);
+    // }, [productsList]);
+
+
     return(
         <>
             <HomeLayout>
@@ -46,7 +79,7 @@ const ProductListingsPage = ()=>{
                             </div>
                             <ListingPageSorting/>
                             <ProductListingsFilter filtersHidden={filtersHidden}/>
-                            <ProductListingProducts filtersHidden={filtersHidden}/>
+                            <ProductListingProducts filtersHidden={filtersHidden} productsList={productsList}/>
                         </div>
                     </div>
                 </section>
