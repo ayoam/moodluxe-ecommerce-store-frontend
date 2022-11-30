@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ProductInfoTab from "../productInfoTab/ProductInfoTab";
 
-const ProductInfo = ()=>{
+const ProductInfo = ({item})=>{
     const [tabsState,setTabsState]=useState([
         {
             "id":1,
@@ -12,10 +12,17 @@ const ProductInfo = ()=>{
         {
             "id":2,
             "title":"DELIVERY & RETURNS",
-            "content":"",
+            "content":"delivery and returns dummy text",
             "isActive":false
         }
         ]);
+
+    useEffect(() => {
+        setTabsState(prev=>{
+            return [{...prev[0],content:item?.description},{...prev[1]}]
+        })
+    }, [item]);
+
 
     const handleSetIsActive = (id)=>{
         setTabsState(prev=>{

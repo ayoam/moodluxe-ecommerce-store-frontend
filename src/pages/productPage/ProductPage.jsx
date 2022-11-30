@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import testPhoto from "../../assets/testPhoto"
 import {testPhoto2} from "../../assets/testPhoto"
 import ProductImages from "../../components/productImages/ProductImages";
 import ProductCTA from "../../components/productCTA/ProductCTA";
 import ProductInfo from "../../components/productInfo/ProductInfo";
+import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
+import useUrlSearchParams from "../../hooks/useUrlSearchParams";
+import {useParams} from "react-router-dom";
+import GetProductById from "../../service/productRequests/GetProductById";
 
 
 const photoList= [
@@ -59,16 +63,32 @@ const product =
 
 
 const ProductPage = ()=>{
+    const {productId}=useParams();
+    const [product,setProduct] = useState(null);
+
+
+    useEffect(() => {
+        GetProductById(productId)
+            .then(response =>{
+            // console.log(response);
+            setProduct(response?.data)
+        });
+    }, []);
+
     return(
         <>
             <HomeLayout>
                 <section className={"bg-secondaryBgColor py-16"}>
                     <div className={"max-w-6xl mx-auto"}>
                         <div className={"flex flex-col lg:flex-row p-8 lg:p-16 xl:p-0 lg:justify-between gap-16"}>
-                            <ProductImages images={product.photoList}/>
-                            <ProductCTA item={product}/>
+                            {product &&
+                                <>
+                                    <ProductImages images={product.photoList}/>
+                                    <ProductCTA item={product}/>
+                                </>
+                            }
                         </div>
-                        <ProductInfo/>
+                        <ProductInfo item={product}/>
                     </div>
                 </section>
             </HomeLayout>

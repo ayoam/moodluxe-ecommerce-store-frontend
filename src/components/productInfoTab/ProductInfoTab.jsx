@@ -14,8 +14,7 @@ const ProductInfoTab = ({item,setIsActive})=>{
             {
                 item.isActive &&
                 <div className={"py-8 text-sm font-light"}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias aliquid aperiam deserunt dolorem, eos esse fugiat incidunt, iste qui ratione sit soluta vel. Incidunt praesentium provident soluta tempore vitae.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab debitis deserunt dicta doloremque dolorum ea et exercitationem molestiae, nam nesciunt officiis quaerat quos, rerum saepe, voluptate. Asperiores et quia repellat.
+                    {item?.content}
                 </div>
             }
 

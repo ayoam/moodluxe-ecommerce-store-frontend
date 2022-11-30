@@ -24,7 +24,7 @@ const BrandFilter = ({selectedBrands,getSelectedBrands})=>{
                 }
                 return {...item,checked:false};
             })
-            console.log(newState);
+            // console.log(newState);
             return newState;
         })
     },[])
