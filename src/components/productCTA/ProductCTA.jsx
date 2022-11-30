@@ -5,7 +5,6 @@ import {BiLockAlt} from "react-icons/bi"
 import {useRecoilState} from 'recoil';
 import {cartIsActiveState,cartItemsState} from "../../recoil/atoms/cartAtom"
 import testPhoto from "../../assets/testPhoto";
-
 const ProductCTA = ({item})=>{
     const [cartItems,setCartItems] = useRecoilState(cartItemsState);
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
