@@ -15,7 +15,7 @@ const ListingPageSorting = ()=>{
             }
         }
 
-        console.log(sortParam);
+        // console.log(sortParam);
         setSortBy(sortParam);
 
     }, []);

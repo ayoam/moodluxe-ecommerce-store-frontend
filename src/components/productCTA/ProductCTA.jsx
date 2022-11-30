@@ -52,8 +52,15 @@ const ProductCTA = ({item})=>{
                 <p className={"font-extralight text-xl"}>{item.libelle}</p>
 
                 <div className={"flex flex-row items-center gap-4 text-2xl"}>
-                    <p className={"line-through font-extralight text-xl"}>{item.originalPrice}$</p>
-                    <p className={""}>{item.discountPrice}$</p>
+                    {item.discountPrice ?
+                        <>
+                            <p className={"line-through font-extralight text-xl"}>{item.originalPrice}$</p>
+                            <p className={""}>{item.discountPrice}$</p>
+                        </>
+                        :
+                        <p className={""}>{item.originalPrice}$</p>
+                    }
+
                 </div>
 
                 <div className={"flex flex-row gap-3 items-center"}>

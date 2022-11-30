@@ -3,7 +3,7 @@ import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import ProductItem from "../../components/productItem/ProductItem";
 import ProductListingsFilter from "../../components/productListingsFilter/ProductListingsFilter";
 import ProductListingProducts from "../../components/productListingProducts/ProductListingProducts";
-import {useSearchParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import ListingPageSorting from "../../components/listingPageSorting/ListingPageSorting";
 import ReactPaginate from "react-paginate";
 import ProductListingPagination from "../../components/productListingPagination/ProductListingPagination";
@@ -20,12 +20,14 @@ import {
 
 const ProductListingsPage = ()=>{
     const limit = 8;
+    const {collectionId:category}=useParams();
     const {urlSearchParams, page} = useUrlSearchParams();
     const [filtersHidden,setFiltersHidden] = useState(true);
     const [dimensions, setDimensions] = useState({width: window.innerWidth,});
     const setTotalCount = useSetRecoilState(totalCountState);
     const setDefaultMaxPrice = useSetRecoilState(defaultMaxPriceState);
     const setDefaultMinPrice = useSetRecoilState(defaultMinPriceState);
+    const [productsList,setProductsList] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -45,10 +47,9 @@ const ProductListingsPage = ()=>{
     },[window.innerWidth]);
 
 
-    const [productsList,setProductsList] = useState(null);
     useEffect(() => {
         if(urlSearchParams){
-            GetProductsByQueryParams({...urlSearchParams,limit})
+            GetProductsByQueryParams({...urlSearchParams,limit,category})
                 .then(response =>{
                     // console.log(response);
                     setTotalCount(Math.ceil(parseInt(response?.data?.totalCount) / limit));
