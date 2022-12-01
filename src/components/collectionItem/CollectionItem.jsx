@@ -8,7 +8,7 @@ const CollectionItem = ({classes,collection,brand})=>{
     return(
         <>
             <div className={"relative text-white bg-white/20 cursor-pointer overflow-hidden "+otherClasses}
-                 onClick={()=>{navigate(`/collections/${collection.name.toLowerCase()}-watches?${brand && `brand=`+brand}`)}}>
+                 onClick={()=>{navigate(`/collections/${collection.name.toLowerCase()}-watches${brand?`?brand=`+brand:""}`)}}>
                 {collection?.image &&
                     <img
                         src={require(`../../assets/img/${collection.image}`)}
