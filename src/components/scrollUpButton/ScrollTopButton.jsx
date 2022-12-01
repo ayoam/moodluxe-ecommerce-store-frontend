@@ -28,7 +28,8 @@ const ScrollTopButton = ()=>{
             {
                 visible &&
                 <button className={"fixed bottom-6 right-6"} onClick={()=>scrollToTop()}>
-                    <BsFillArrowUpSquareFill className={"text-red-600 text-4xl bg-white rounded-md"}/>
+                    <BsFillArrowUpSquareFill className={"text-red-600 text-4xl rounded-md"}/>
+                    <div className={"absolute bg-white w-[80%] h-[80%] translate-x-[50%] translate-y-[-50%] -z-50 right-[50%] top-[50%]"}></div>
                 </button>
             }
         </>
