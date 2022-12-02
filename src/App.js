@@ -11,6 +11,7 @@ import CheckoutPage from "./pages/checkoutPage/CheckoutPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import CartPage from "./pages/cartPage/CartPage";
 import SearchPage from "./pages/searchPage/SearchPage";
+import NotFoundPage from "./pages/404Page/NotFoundPage";
 
 function App() {
 
@@ -29,7 +30,8 @@ function App() {
                 <Route path="/contact-us" element={<ContactPage/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/search" element={<SearchPage/>}/>
-
+                <Route path="/notFound" element={<NotFoundPage/>}/>
+                <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
         </BrowserRouter>
     </>
