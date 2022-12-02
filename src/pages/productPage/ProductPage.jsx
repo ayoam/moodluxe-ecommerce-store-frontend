@@ -7,71 +7,74 @@ import ProductCTA from "../../components/productCTA/ProductCTA";
 import ProductInfo from "../../components/productInfo/ProductInfo";
 import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
 import useUrlSearchParams from "../../hooks/useUrlSearchParams";
-import {useParams} from "react-router-dom";
+import {useParams,useNavigate} from "react-router-dom";
 import GetProductById from "../../service/productRequests/GetProductById";
+import {logDOM} from "@testing-library/react";
 
 
-const photoList= [
-    {
-        "photoId":1655121,
-        "photo":testPhoto,
-        "extension":"jpg"
-    },
-    {
-        "photoId":14545121,
-        "photo":testPhoto2,
-        "extension":"jpg"
-    },
-    {
-        "photoId":121233321,
-        "photo":testPhoto,
-        "extension":"jpg"
-    },
-    {
-        "photoId":1212321,
-        "photo":testPhoto2,
-        "extension":"jpg"
-    }
-    ,
-    {
-        "photoId":1212121,
-        "photo":testPhoto,
-        "extension":"jpg"
-    }
-    ,
-    {
-        "photoId":1212121,
-        "photo":testPhoto,
-        "extension":"jpg"
-    }
-
-];
-
-
-const product =
-    {
-        "brand":{
-            "idb":1,
-            "name":"Fossil"
-        },
-        "libelle":"Captain Cook Chronograph 43mm",
-        "originalPrice":399.99,
-        "discountPrice":329.99,
-        "photoList":photoList,
-        "idp":"12SQZ21SDE",
-    };
+// const photoList= [
+//     {
+//         "photoId":1655121,
+//         "photo":testPhoto,
+//         "extension":"jpg"
+//     },
+//     {
+//         "photoId":14545121,
+//         "photo":testPhoto2,
+//         "extension":"jpg"
+//     },
+//     {
+//         "photoId":121233321,
+//         "photo":testPhoto,
+//         "extension":"jpg"
+//     },
+//     {
+//         "photoId":1212321,
+//         "photo":testPhoto2,
+//         "extension":"jpg"
+//     }
+//     ,
+//     {
+//         "photoId":1212121,
+//         "photo":testPhoto,
+//         "extension":"jpg"
+//     }
+//     ,
+//     {
+//         "photoId":1212121,
+//         "photo":testPhoto,
+//         "extension":"jpg"
+//     }
+//
+// ];
+//
+//
+// const product =
+//     {
+//         "brand":{
+//             "idb":1,
+//             "name":"Fossil"
+//         },
+//         "libelle":"Captain Cook Chronograph 43mm",
+//         "originalPrice":399.99,
+//         "discountPrice":329.99,
+//         "photoList":photoList,
+//         "idp":"12SQZ21SDE",
+//     };
 
 
 const ProductPage = ()=>{
     const {productId}=useParams();
+    const navigate = useNavigate();
     const [product,setProduct] = useState(null);
-
 
     useEffect(() => {
         GetProductById(productId)
             .then(response =>{
             // console.log(response);
             setProduct(response?.data)
+        }).catch(e=> {
+            navigate("/notFound");
         });
     }, []);
 

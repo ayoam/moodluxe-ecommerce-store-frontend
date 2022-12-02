@@ -11,6 +11,7 @@ module.exports = {
         "whiteBgColor":"#F9F9F9"
       },
       fontFamily: {
+        'montserrat': ['Montserrat', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
         'playfair': ['Playfair Display', 'serif']
       },

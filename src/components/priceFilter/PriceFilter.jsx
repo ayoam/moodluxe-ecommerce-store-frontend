@@ -15,7 +15,9 @@ const PriceFilter = ({minMaxPrices,getminMaxPrice})=>{
     }, [values]);
 
     useEffect(() => {
-        setValues([defaultMinPrice,defaultMaxPrice])
+        if(defaultMaxPrice && defaultMinPrice){
+            setValues([defaultMinPrice,defaultMaxPrice])
+        }
     }, [defaultMinPrice,defaultMaxPrice]);
 
     useEffect(() => {

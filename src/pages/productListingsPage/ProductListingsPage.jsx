@@ -51,10 +51,10 @@ const ProductListingsPage = ()=>{
         if(urlSearchParams){
             GetProductsByQueryParams({...urlSearchParams,limit,category})
                 .then(response =>{
-                    // console.log(response);
-                    setTotalCount(Math.ceil(parseInt(response?.data?.totalCount) / limit));
-                    setDefaultMaxPrice(parseInt(response?.data?.maxPrice));
-                    setDefaultMinPrice(parseInt(response?.data?.minPrice));
+                    console.log(response);
+                    setTotalCount(response && Math.ceil(parseInt(response?.data?.totalCount) / limit));
+                    setDefaultMaxPrice(response && parseInt(response?.data?.maxPrice));
+                    setDefaultMinPrice(response && parseInt(response?.data?.minPrice));
                     setProductsList(response?.data?.data);
                 });
         }
