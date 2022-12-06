@@ -1,15 +1,45 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import {useForm,Controller} from "react-hook-form";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import RegisterCustomer from "../../service/customerRequests/RegisterCustomer";
+import {axiosInstance} from "../../service/apiService";
+import {POST_REGISTER_CUSTOMER_URL} from "../../constants/apiUrlsConstants";
 
 const RegisterPage = () => {
     const {register, handleSubmit, watch, formState: {errors},control} = useForm();
 
 
     const onSubmit = (data) => {
-        console.log(data);
+        const customerAdresse = {
+            adresse:data.adresse,
+            city:data.city,
+            stateProvince:data.stateProvince,
+            postalCode:data.postalCode,
+            countryId:data.country
+        }
+
+        const customerDetails = {
+            firstName:data.firstName,
+            lastName:data.lastName,
+            email:data.email,
+            phoneNumber:data.phoneNumber,
+            birthDate:data.birthDate,
+            password:data.password,
+            gender:data.gender,
+        };
+
+        RegisterCustomer({...customerDetails, customerAdresse})
+            .then(response =>{
+                console.log(response);
+            })
+            .catch(e=>{
+                console.log(e);
+            })
+            .finally(()=>{
+                console.log("hi");
+            });
     }
 
     const password = useRef({});
@@ -44,7 +74,7 @@ const RegisterPage = () => {
                             </div>
                             <div className={""}>
                                 <p className={"text-sm font-light mb-2"}>Email</p>
-                                <input type={"password"} placeholder={"mark.zuckerberg@mail.com"}
+                                <input type={"text"} placeholder={"mark.zuckerberg@mail.com"}
                                        className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("email", {
                                     required: "email required!",
                                     pattern: {
@@ -158,7 +188,7 @@ const RegisterPage = () => {
                             <div className={""}>
                                 <p className={"text-sm font-light mb-2"}>State/Province</p>
                                 <input type={"text"} placeholder={""}
-                                       className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("state", {
+                                       className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("stateProvince", {
                                     required: "state required!",
                                 })}/>
                                 {errors?.state &&
@@ -172,16 +202,16 @@ const RegisterPage = () => {
                                 })}
                                 defaultValue={""}>
                                     <option className={"text-black"} value={""} disabled>-- select country --</option>
-                                    <option className={"text-black"}>United states</option>
-                                    <option className={"text-black"}>Denmark</option>
+                                    <option className={"text-black"} value={1}>United states</option>
+                                    <option className={"text-black"} value={2}>Denmark</option>
                                 </select>
                                 {errors?.country &&
                                     <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.country.message}</p>}
                             </div>
                             <div className={""}>
-                                <p className={"text-sm font-light mb-2"}>Zip Code</p>
+                                <p className={"text-sm font-light mb-2"}>Postal Code</p>
                                 <input type={"number"}
-                                       className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("zipCode", {
+                                       className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("postalCode", {
                                     required: "Zip Code required!",
                                     minLength: {value: 5, message: "Zip Code must be 5 numbers"},
                                     maxLength: {value: 5, message: "Zip Code must be 5 numbers"},
