@@ -28,6 +28,7 @@ const ProductListingsPage = ()=>{
     const setDefaultMaxPrice = useSetRecoilState(defaultMaxPriceState);
     const setDefaultMinPrice = useSetRecoilState(defaultMinPriceState);
     const [productsList,setProductsList] = useState(null);
+    const [brandsList,setBrandsList] = useState(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -51,14 +52,22 @@ const ProductListingsPage = ()=>{
         if(urlSearchParams){
             GetProductsByQueryParams({...urlSearchParams,limit,category})
                 .then(response =>{
+
                     console.log(response);
                     setTotalCount(response && Math.ceil(parseInt(response?.data?.totalCount) / limit));
                     setDefaultMaxPrice(response && parseInt(response?.data?.maxPrice));
                     setDefaultMinPrice(response && parseInt(response?.data?.minPrice));
+
+                    //console.log(response);
+                    setTotalCount(Math.ceil(parseInt(response?.data?.totalCount) / limit));
+                    setDefaultMaxPrice(parseInt(response?.data?.maxPrice));
+                    setDefaultMinPrice(parseInt(response?.data?.minPrice));
+
                     setProductsList(response?.data?.data);
                 });
         }
     }, [urlSearchParams]);
+
 
 
     // useEffect(() => {

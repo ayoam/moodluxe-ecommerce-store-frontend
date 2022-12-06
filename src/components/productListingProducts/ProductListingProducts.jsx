@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import testPhoto from "../../assets/testPhoto";
 import ProductItem from "../productItem/ProductItem";
 import ProductListingPagination from "../productListingPagination/ProductListingPagination";
@@ -75,9 +75,15 @@ import ProductListingPagination from "../productListingPagination/ProductListing
 // ]
 
 const ProductListingProducts = ({filtersHidden,productsList,pageCount})=>{
+
     return(
         <>
             <div className={`w-full ${filtersHidden && "sm:col-span-2"} order-4 sm:order-none`}>
+                {!productsList && <div className={"grid place-items-center text-white"}>
+                <span className="animate-spin h-5 w-5 mr-3">
+                </span>
+                    Loading...
+                </div>}
                 {productsList?.length>1 &&
                     <>
                         <div className={`grid grid-cols-1  ${filtersHidden?"sm:grid-cols-2":"sm:grid-cols-1"} md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-3 gap-4`}>
@@ -96,6 +102,7 @@ const ProductListingProducts = ({filtersHidden,productsList,pageCount})=>{
 
 
             </div>
+
         </>
     )
 }
