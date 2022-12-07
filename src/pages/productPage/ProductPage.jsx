@@ -10,6 +10,7 @@ import useUrlSearchParams from "../../hooks/useUrlSearchParams";
 import {useParams,useNavigate} from "react-router-dom";
 import GetProductById from "../../service/productRequests/GetProductById";
 import {logDOM} from "@testing-library/react";
+import NotFoundPage from "../404Page/NotFoundPage";
 
 
 // const photoList= [
@@ -67,18 +68,25 @@ const ProductPage = ()=>{
     const {productId}=useParams();
     const navigate = useNavigate();
     const [product,setProduct] = useState(null);
+    const [isLoading,setIsLoading] = useState(false);
+    const [status,setStatus] = useState(null);
 
     useEffect(() => {
+        setIsLoading(true);
         GetProductById(productId)
             .then(response =>{
-            // console.log(response);
-            setProduct(response?.data)
-        }).catch(e=> {
-            navigate("/notFound");
+            setProduct(response?.data);
+            setStatus(response?.status);
+        }).catch(error=> {
+            console.log(error);
+            setStatus(error?.response?.status);
+        }).finally(()=>{
+            setIsLoading(false);
         });
     }, []);
 
-    return(
+    if(isLoading) {return <HomeLayout><p className={"h-screen bg-secondaryBgColor text-white pt-28 text-center text-lg"}>loading ...</p></HomeLayout>}
+    if(status===200) return(
         <>
             <HomeLayout>
                 <section className={"bg-secondaryBgColor py-16"}>
@@ -97,6 +105,7 @@ const ProductPage = ()=>{
             </HomeLayout>
         </>
     )
+    if([400,404,500].includes(status)){return  <NotFoundPage/>}
 }
 
 export default ProductPage

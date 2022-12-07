@@ -12,6 +12,7 @@ import ContactPage from "./pages/contactPage/ContactPage";
 import CartPage from "./pages/cartPage/CartPage";
 import SearchPage from "./pages/searchPage/SearchPage";
 import NotFoundPage from "./pages/404Page/NotFoundPage";
+import VerifyEmailPage from "./pages/verifyEmailPage/VerifyEmailPage";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/search" element={<SearchPage/>}/>
                 <Route path="/notFound" element={<NotFoundPage/>}/>
+                <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
         </BrowserRouter>
