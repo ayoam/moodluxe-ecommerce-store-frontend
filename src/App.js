@@ -13,6 +13,8 @@ import CartPage from "./pages/cartPage/CartPage";
 import SearchPage from "./pages/searchPage/SearchPage";
 import NotFoundPage from "./pages/404Page/NotFoundPage";
 import VerifyEmailPage from "./pages/verifyEmailPage/VerifyEmailPage";
+import MyAccountPage from "./pages/myAccountPage/MyAccountPage";
+
 
 function App() {
 
@@ -34,6 +36,7 @@ function App() {
                 <Route path="/notFound" element={<NotFoundPage/>}/>
                 <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
+                <Route path="/myAccount" element={<MyAccountPage/>}/>
             </Routes>
         </BrowserRouter>
     </>
