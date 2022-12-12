@@ -7,16 +7,12 @@ function OrderPage(props) {
     return (
         <HomeLayout>
             <AccountLayout>
-
-                <section className={"bg-secondaryBgColor flex flex-col md:flex-row px-8"}>
-
-                    <div className={"container mx-auto max-w-screen-sm text-white"}>
+                <div className={"flex flex-col lg:flex-row gap-6 lg:gap-10"}>
+                    <div className={"@mx-auto @max-w-screen-sm text-white w-full"}>
                         <a href={"/myAccount"} className={"text-sm mt-5 py-12 underline"}>return to account details</a>
 
-
-                        <h3 className={"font-medium mt-14"}> ORDER #1001 </h3>
+                        <h3 className={"font-semibold text-lg mt-10"}> ORDER #1001 </h3>
                         <p className={"text-sm py-8"}>Placed on November 23, 2022 at 8.19 pm</p>
-
 
                         <div className="flex flex-col">
                             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -28,10 +24,6 @@ function OrderPage(props) {
                                                 <th scope="col"
                                                     className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                                     Product
-                                                </th>
-                                                <th scope="col"
-                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                                    Sku
                                                 </th>
                                                 <th scope="col"
                                                     className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -53,9 +45,6 @@ function OrderPage(props) {
                                                     Thinkpad T480s
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    27-11-2022
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                     $620.00
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -68,19 +57,19 @@ function OrderPage(props) {
                                             <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
                                                 <td colSpan="5" className="text-sm  text-gray-900 w-full font-light px-6 py-4 whitespace-nowrap">
-                                                    <div className="grid grid-cols-[20%_70%_10%]">
+                                                    <div className="grid grid-cols-[20%_68%_10%] md:grid-cols-[20%_65%_10%] lg:grid-cols-[20%_66%_10%]">
                                                         <div>
-                                                            <p> SubTotal</p>
-                                                            <p> Shipping (Standard)</p>
+                                                            <p className={"mb-2"}> SubTotal</p>
+                                                            <p> Shipping</p>
                                                             <p className="my-4 font-semibold">Total</p>
                                                         </div>
                                                         <div></div>
                                                         <div className="table-active text-sm text-gray-900 font-light whitespace-nowrap">
-                                                            <p className="text-sm font-light">
+                                                            <p className="text-sm font-light mb-2">
                                                                 $620.00
                                                             </p>
                                                             <p className="text-sm font-light">
-                                                                $0.00
+                                                                free
                                                             </p>
                                                             <p className="font-semibold my-4">
                                                                 $620.00
@@ -96,7 +85,7 @@ function OrderPage(props) {
                             </div>
                         </div>
                     </div>
-                    <div className={"w-1/2 text-white pt-6 px-0 md:px-16 my-24"}>
+                    <div className={"w-full lg:w-[30%] @w-1/2 text-white pt-6 @px-0 @md:px-16 @my-24"}>
                         <div>
                             <h1 className={"font-medium text-2xl  tracking-wide"}>Billing Address</h1>
                         </div>
@@ -138,13 +127,9 @@ function OrderPage(props) {
                             <div className={"inline-flex space-x-2 text-sm"}>
                                 <span>Canada</span>
                             </div>
-
-
                         </div>
                     </div>
-                </section>
-
-
+                </div>
             </AccountLayout>
         </HomeLayout>
     );
