@@ -40,7 +40,7 @@ function App() {
                 <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
                 <Route path="/myAccount" element={<MyAccountPage/>}/>
-                <Route path="/order" element={<OrderPage/>}/>
+                <Route path="/order/:orderId" element={<OrderPage/>}/>
             </Routes>
         </BrowserRouter>
     </>
