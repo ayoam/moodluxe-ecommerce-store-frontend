@@ -13,7 +13,10 @@ import CartPage from "./pages/cartPage/CartPage";
 import SearchPage from "./pages/searchPage/SearchPage";
 import NotFoundPage from "./pages/404Page/NotFoundPage";
 import VerifyEmailPage from "./pages/verifyEmailPage/VerifyEmailPage";
+
 import MyAccountPage from "./pages/myAccountPage/MyAccountPage";
+import OrderPage from "./pages/orderPage/OrderPage";
+
 
 
 function App() {
@@ -27,7 +30,7 @@ function App() {
                 <Route path="/products/:productId" element={<ProductPage/>}/>
                 <Route path="/collections/:collectionId" element={<ProductListingsPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/register" element={<RegisterPage/>}/>
+                <Route path="/register" element={<RegisterPage/>}/>git statu
                 <Route path="/brands/:brandName" element={<BrandPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/> {/*protected route*/}
                 <Route path="/contact-us" element={<ContactPage/>}/>
@@ -37,6 +40,7 @@ function App() {
                 <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
                 <Route path="*" element={<NotFoundPage/>}/>
                 <Route path="/myAccount" element={<MyAccountPage/>}/>
+                <Route path="/order" element={<OrderPage/>}/>
             </Routes>
         </BrowserRouter>
     </>
