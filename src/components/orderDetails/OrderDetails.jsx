@@ -1,4 +1,5 @@
 import React from 'react';
+import OrderDetailsTableRow from "./OrderDetailsTableRow";
 
 function OrderDetails(props) {
     return (
@@ -33,20 +34,7 @@ function OrderDetails(props) {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">lenovo
-                                        Thinkpad T480s
-                                    </td>
-                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        $620.00
-                                    </td>
-                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        1
-                                    </td>
-                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        $620.00
-                                    </td>
-                                </tr>
+                                <OrderDetailsTableRow/>
                                 <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
                                     <td colSpan="5" className="text-sm  text-gray-900 w-full font-light px-6 py-4 whitespace-nowrap">
