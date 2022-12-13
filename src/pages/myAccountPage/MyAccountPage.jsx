@@ -16,18 +16,9 @@ function MyAccountPage() {
                     your shipping and billing addresses.</p>
                 <div className={"card border-white bg-black text-white mt-12 py-3 pl-4 shadow-lg"}>
                     <h3 className={"font-medium"}> ORDER HISTORY</h3>
-
                 </div>
                 {!orderHistory ?
-                    <div className="flex flex-col">
-                        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                                <div className="overflow-hidden">
-                                    <OrderHistory/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <OrderHistory/>
                     : <p className={"text-sm mt-5"}>you haven't placed any orders yet.</p>
                 }
                 <div className={"card border-white bg-black text-white my-8 py-3 pl-4  shadow-lg"}>

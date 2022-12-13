@@ -14,51 +14,52 @@ function OrderDetails(props) {
                         <div className="overflow-hidden">
                             <table className="min-w-full">
                                 <thead className="bg-white border-b">
-                                <tr>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Product
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Price
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Quantity
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Total
-                                    </th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Price
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Quantity
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Total
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <OrderDetailsTableRow/>
-                                <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
-                                    <td colSpan="5" className="text-sm  text-gray-900 w-full font-light px-6 py-4 whitespace-nowrap">
-                                        <div className="grid grid-cols-[20%_68%_10%] md:grid-cols-[20%_65%_10%] lg:grid-cols-[20%_66%_10%]">
-                                            <div>
-                                                <p className={"mb-2"}> SubTotal</p>
-                                                <p> Shipping</p>
-                                                <p className="my-4 font-semibold">Total</p>
+                                    <OrderDetailsTableRow/>
+
+                                    <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                        <td colSpan="5" className="text-sm  text-gray-900 w-full font-light px-6 py-4 whitespace-nowrap">
+                                            <div className="grid grid-cols-[20%_68%_10%] md:grid-cols-[20%_65%_10%] lg:grid-cols-[20%_66%_10%]">
+                                                <div>
+                                                    <p className={"mb-2"}> SubTotal</p>
+                                                    <p> Shipping</p>
+                                                    <p className="my-4 font-semibold">Total</p>
+                                                </div>
+                                                <div></div>
+                                                <div className="table-active text-sm text-gray-900 font-light whitespace-nowrap">
+                                                    <p className="text-sm font-light mb-2">
+                                                        $620.00
+                                                    </p>
+                                                    <p className="text-sm font-light">
+                                                        free
+                                                    </p>
+                                                    <p className="font-semibold my-4">
+                                                        $620.00
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div></div>
-                                            <div className="table-active text-sm text-gray-900 font-light whitespace-nowrap">
-                                                <p className="text-sm font-light mb-2">
-                                                    $620.00
-                                                </p>
-                                                <p className="text-sm font-light">
-                                                    free
-                                                </p>
-                                                <p className="font-semibold my-4">
-                                                    $620.00
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
