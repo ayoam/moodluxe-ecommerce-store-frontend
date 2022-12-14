@@ -9,6 +9,7 @@ import {POST_REGISTER_CUSTOMER_URL} from "../../constants/apiUrlsConstants";
 import CheckEmailExistance from "../../service/customerRequests/CheckEmailExistance";
 import { useCookies } from "react-cookie";
 import{useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const RegisterPage = () => {
     const {register, handleSubmit, watch, formState: {errors},control} = useForm(
@@ -19,7 +20,21 @@ const RegisterPage = () => {
     );
     const [isLoading,setIsLoading] = useState(false);
     const [cookies, setCookie] = useCookies(["verify-email"]);
+    const [countries, setCountries] = useState([]);
     const navigate = useNavigate();
+
+
+    const getCountries = () =>{
+        axios.get("http://localhost:8080/api/v1/countries").then(
+            (response)=>{
+                console.log(response.data)
+                setCountries(response.data.data)
+            }
+        ).catch((error) => console.log(error));
+        }
+    useEffect(() => {
+        getCountries();
+    },[])
 
 
     const password = useRef({});
@@ -75,6 +90,7 @@ const RegisterPage = () => {
     //         maxAge:24*60*60
     //     });
     //     navigate("/verify-your-email");
+
     // }
 
     const checkEmailExistanceValidation = async(email)=>{
@@ -241,8 +257,12 @@ const RegisterPage = () => {
                                 })}
                                 defaultValue={""}>
                                     <option className={"text-black"} value={""} disabled>-- select country --</option>
-                                    <option className={"text-black"} value={1}>United states</option>
-                                    <option className={"text-black"} value={2}>Denmark</option>
+                                    {countries.map((country)=>(
+                                    <option className={"text-black"} key={country.idc}>{country.countryName}</option>
+                                        )
+                                    )
+                                    }
+                                    {/*<option className={"text-black"} value={2}>Denmark</option>*/}
                                 </select>
                                 {errors?.country &&
                                     <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.country.message}</p>}
