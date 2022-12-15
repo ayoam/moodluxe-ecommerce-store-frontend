@@ -3,6 +3,8 @@ import axios from 'axios';
 export const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(config => {
+
+    //TODO:refresh token here
     // if (keycloak.token !== undefined) {
     //     if (keycloak.isTokenExpired(1000)) {
     //         keycloak.updateToken(1).success((refreshed) => {

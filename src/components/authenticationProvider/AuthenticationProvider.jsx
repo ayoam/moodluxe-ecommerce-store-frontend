@@ -13,7 +13,6 @@ export const updateToken =(setUser)=>{
     else{
         refreshToken(localStorage.getItem('kc_refreshToken'))
             .then(response=>{
-                // console.log(response);
                 localStorage.setItem('kc_token', response?.data["access_token"]);
                 localStorage.setItem('kc_refreshToken', response?.data["refresh_token"]);
                 setUser(GetUserFromJWT(response.data["access_token"]));
