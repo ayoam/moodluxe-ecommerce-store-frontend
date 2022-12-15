@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import HeroSection from "../../components/heroSection/HeroSection";
 import CollectionItem from "../../components/collectionItem/CollectionItem";
