@@ -16,6 +16,7 @@ import VerifyEmailPage from "./pages/verifyEmailPage/VerifyEmailPage";
 
 import MyAccountPage from "./pages/myAccountPage/MyAccountPage";
 import OrderPage from "./pages/orderPage/OrderPage";
+import AuthenticationProvider from "./components/authenticationProvider/AuthenticationProvider";
 
 
 
@@ -25,22 +26,24 @@ function App() {
     <>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Navigate to="/home"/>}/>
-                <Route path="/home" element={<HomePage/>}/>
-                <Route path="/products/:productId" element={<ProductPage/>}/>
-                <Route path="/collections/:collectionId" element={<ProductListingsPage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/register" element={<RegisterPage/>}/>git statu
-                <Route path="/brands/:brandName" element={<BrandPage/>}/>
-                <Route path="/checkout" element={<CheckoutPage/>}/> {/*protected route*/}
-                <Route path="/contact-us" element={<ContactPage/>}/>
-                <Route path="/cart" element={<CartPage/>}/>
-                <Route path="/search" element={<SearchPage/>}/>
-                <Route path="/notFound" element={<NotFoundPage/>}/>
-                <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
-                <Route path="*" element={<NotFoundPage/>}/>
-                <Route path="/myAccount" element={<MyAccountPage/>}/>
-                <Route path="/order/:orderId" element={<OrderPage/>}/>
+                <Route element={<AuthenticationProvider/>}>
+                    <Route path="/" element={<Navigate to="/home"/>}/>
+                    <Route path="/home" element={<HomePage/>}/>
+                    <Route path="/products/:productId" element={<ProductPage/>}/>
+                    <Route path="/collections/:collectionId" element={<ProductListingsPage/>}/>
+                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/register" element={<RegisterPage/>}/>git statu
+                    <Route path="/brands/:brandName" element={<BrandPage/>}/>
+                    <Route path="/checkout" element={<CheckoutPage/>}/> {/*protected route*/}
+                    <Route path="/contact-us" element={<ContactPage/>}/>
+                    <Route path="/cart" element={<CartPage/>}/>
+                    <Route path="/search" element={<SearchPage/>}/>
+                    <Route path="/notFound" element={<NotFoundPage/>}/>
+                    <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
+                    <Route path="/myAccount" element={<MyAccountPage/>}/>
+                    <Route path="/order/:orderId" element={<OrderPage/>}/>
+                </Route>
             </Routes>
         </BrowserRouter>
     </>

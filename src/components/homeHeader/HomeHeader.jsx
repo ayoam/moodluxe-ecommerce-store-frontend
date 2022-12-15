@@ -5,7 +5,7 @@ import {MdOutlineShoppingBag} from "react-icons/md"
 import {HiMenuAlt2, HiOutlineUser} from "react-icons/hi"
 import {NavLink} from "react-router-dom";
 import NavbarDropdownList from "../navbarDropdownList/NavbarDropdownList";
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {cartIsActiveState, cartItemsState} from "../../recoil/atoms/cartAtom"
 import {useNavigate} from "react-router-dom";
 import HomeMenu from "../homeMenu/HomeMenu";
@@ -14,6 +14,7 @@ import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
 import HomeMenuButton from "../homeMenuButton/HomeMenuButton";
 import {AiOutlineSearch} from "react-icons/ai"
 import {searchIsActiveState} from "../../recoil/atoms/searchBarAtom";
+import {appUserState, authenticationState} from "../../recoil/atoms/AuthenticationAtom";
 
 const categoryItems = ["Chronograph watches", "Digital watches", "Automatic watches", "Quartz watches", "Skeleton watches"]
 const brandItems = ["Casio", "Fossil", "Rolex", "Guess", "Swatch", "Hugo", "Tissot"]
@@ -24,7 +25,7 @@ const HomeHeader = () => {
     const [cartIsActive, setCartIsActive] = useRecoilState(cartIsActiveState);
     const [cartItems, setCartItems] = useRecoilState(cartItemsState);
     const [searchIsActive, setSearchIsActive] = useRecoilState(searchIsActiveState);
-
+    const user = useRecoilValue(appUserState);
     const navigate = useNavigate();
 
 
@@ -33,7 +34,7 @@ const HomeHeader = () => {
     }
 
     const userBtnClickHandler = () => {
-        navigate("/login")
+        user ? navigate("/myAccount"):navigate("/login")
     }
 
     return (

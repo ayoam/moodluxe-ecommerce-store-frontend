@@ -3,13 +3,23 @@ import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import {AiOutlineCheckCircle} from "react-icons/ai"
 import { useForm } from "react-hook-form";
 import {useNavigate} from "react-router-dom";
+import loginCustomer from "../../service/customerRequests/LoginCustomer";
+import {useSetRecoilState} from "recoil";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import GetUserFromJWT from "../../utils/getUserFromJWT";
 
 const LoginPage = ()=>{
     const navigate = useNavigate();
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
+    const setUser = useSetRecoilState(appUserState);
     const onSubmit = (data) => {
-        console.log(data);
+        console.log(data)
+        loginCustomer(data).then(response=>{
+            localStorage.setItem('kc_token', response.data["access_token"]);
+            localStorage.setItem('kc_refreshToken', response.data["refresh_token"]);
+            setUser(GetUserFromJWT(response.data["access_token"]));
+            navigate("/myAccount")
+        });
     }
 
     return(
