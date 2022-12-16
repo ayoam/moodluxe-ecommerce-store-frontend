@@ -51,9 +51,6 @@ function App() {
                         <Route path="/checkout" element={<CheckoutPage/>}/>
                     </Route>
 
-                    <Route path="*" element={<NotFoundPage/>}/>
-                    <Route path="/myAccount" element={<MyAccountPage/>}/>
-                    <Route path="/order/:orderId" element={<OrderPage/>}/>
                     <Route path="/500" element={<InternalServerError/>}/>
                 </Route>
             </Routes>
