@@ -20,6 +20,10 @@ import AuthenticationProvider from "./components/authenticationProvider/Authenti
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import {ROLE_CUSTOMER} from "./constants/rolesConstants";
 
+import InternalServerError from "./components/internalServerError/InternalServerError";
+
+
+
 
 function App() {
 
@@ -47,6 +51,7 @@ function App() {
                         <Route path="/checkout" element={<CheckoutPage/>}/>
                     </Route>
 
+                    <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
             </Routes>
