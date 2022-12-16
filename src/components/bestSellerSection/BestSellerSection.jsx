@@ -5,15 +5,17 @@ import testPhoto from "../../assets/testPhoto"
 import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
 
 
-const BestSellerSection = ()=>{
+const BestSellerSection = ({setHideBestSeller})=>{
     const [productsList,setProductsList]=useState(null);
 
     useEffect(() => {
         GetProductsByQueryParams({page:0,limit:4,category:"best-seller"})
             .then(response =>{
-                // console.log(response);
+                if(!response){
+                    setHideBestSeller(true)
+                }
                 setProductsList(response?.data?.data);
-            });
+            })
     }, []);
 
 
