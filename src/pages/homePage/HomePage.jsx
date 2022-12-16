@@ -10,16 +10,12 @@ import ScrollTopButton from "../../components/scrollUpButton/ScrollTopButton";
 import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
 
 const HomePage = ()=>{
-    const [hideBestSeller,setHideBestSeller]=useState(false);
-
-    useEffect(() => {
-    }, [hideBestSeller]);
 
     return(
         <HomeLayout>
             <HeroSection/>
             <CollectionsSection/>
-            {!hideBestSeller && <BestSellerSection setHideBestSeller={setHideBestSeller} />}
+            <BestSellerSection/>
             <AboutSection/>
             <NewsLettersSection/>
             <ScrollTopButton/>
