@@ -52,6 +52,7 @@ function App() {
                     </Route>
 
                     <Route path="/500" element={<InternalServerError/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
