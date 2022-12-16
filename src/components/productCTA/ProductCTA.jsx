@@ -37,8 +37,8 @@ const ProductCTA = ({item})=>{
                     "mainPhoto":item.photoList[0],
                     "libelle":item.libelle,
                     "price":item.discountPrice?item.discountPrice:item.originalPrice,
-                    "quantity":quantity
-
+                    "quantity":quantity,
+                    "productStock":item.quantity,
                 }];
             })
         }
