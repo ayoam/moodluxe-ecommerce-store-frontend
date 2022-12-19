@@ -19,6 +19,7 @@ import OrderPage from "./pages/orderPage/OrderPage";
 import AuthenticationProvider from "./components/authenticationProvider/AuthenticationProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import {ROLE_CUSTOMER} from "./constants/rolesConstants";
+import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 
 import InternalServerError from "./components/internalServerError/InternalServerError";
 
@@ -53,6 +54,7 @@ function App() {
 
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
+                    <Route path="/401" element={<UnauthorizedPage/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
