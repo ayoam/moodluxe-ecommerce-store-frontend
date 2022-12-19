@@ -257,11 +257,10 @@ const RegisterPage = () => {
                                 })}
                                 defaultValue={""}>
                                     <option className={"text-black"} value={""} disabled>-- select country --</option>
-                                    {countries.map((country)=>(
-                                    <option className={"text-black"} key={country.idc}>{country.countryName}</option>
+                                    {countries.map((country,index)=>(
+                                        <option className={"text-black"} value={country.idc} key={index}>{country.countryName}</option>
                                         )
-                                    )
-                                    }
+                                    )}
                                     {/*<option className={"text-black"} value={2}>Denmark</option>*/}
                                 </select>
                                 {errors?.country &&

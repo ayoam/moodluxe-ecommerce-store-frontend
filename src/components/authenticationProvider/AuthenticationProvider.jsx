@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {appUserState, authenticationState} from "../../recoil/atoms/AuthenticationAtom"
-import {useSetRecoilState} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 import {Outlet} from 'react-router-dom'
 import refreshToken from "../../service/customerRequests/RefreshToken";
-import setUserFromJWT from "../../utils/getUserFromJWT";
-import GetUserFromJWT from "../../utils/getUserFromJWT";
 
 export const updateToken =(setUser)=>{
     if(!localStorage.getItem("kc_refreshToken") && !localStorage.getItem('kc_token')){
@@ -15,7 +13,7 @@ export const updateToken =(setUser)=>{
             .then(response=>{
                 localStorage.setItem('kc_token', response?.data["access_token"]);
                 localStorage.setItem('kc_refreshToken', response?.data["refresh_token"]);
-                setUser(GetUserFromJWT(response.data["access_token"]));
+                setUser(response?.data["userInfo"]);
             })
             .catch(error=>{
                 localStorage.removeItem('kc_token');
@@ -31,6 +29,7 @@ const AuthenticationProvider = ()=>{
     useEffect( () => {
         updateToken(setUser);
     }, []);
+
 
     return(
         <>

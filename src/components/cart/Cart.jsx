@@ -6,33 +6,50 @@ import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {cartIsActiveState,cartItemsState} from "../../recoil/atoms/cartAtom"
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 import {useNavigate} from "react-router-dom";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import getCustomerCartBycartId from "../../service/cartRequests/getCustomerCart";
+import postOfflineCartItems from "../../service/cartRequests/postOfflineCartItems";
 
 const Cart = ()=>{
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
     const [cartItems,setCartItems] = useRecoilState(cartItemsState);
 
-    const [cartItemsLC,setCartItemsLC]=useLocalStorage("cart_items",[{
-        "productId":"15JHSQS2",
-        "mainPhoto":{
-            "photoId":1,
-            "photo":testPhoto,
-            "extension":"jpg"
-        },
-        "libelle":"Captain Cook Chronograph 43mm",
-        "price":329.99,
-        "quantity":1
-    }])
+    const [cartItemsLC,setCartItemsLC]=useLocalStorage("cart_items",[
+        // {
+        //     "productId":"15JHSQS2",
+        //     "mainPhoto":{
+        //         "photoId":1,
+        //         "photo":testPhoto,
+        //         "extension":"jpg"
+        //     },
+        //     "libelle":"Captain Cook Chronograph 43mm",
+        //     "price":329.99,
+        //     "quantity":1
+        // }
+    ])
 
     const navigate =useNavigate();
+    const user = useRecoilValue(appUserState);
 
     useEffect(() => {
-        setCartItems(cartItemsLC);
-    }, []);
+        if(user){
+            getCustomerCartBycartId(user.cartId)
+                .then(response=>{
+                    setCartItems(response?.data?.cartItemList);
+                })
+        }else{
+            setCartItems(cartItemsLC);
+        }
+    }, [user]);
 
 
     useEffect(() => {
-        setCartItemsLC(cartItems);
-    }, [cartItems]);
+        if(!user){
+            setCartItemsLC(cartItems);
+        }else{
+            setCartItemsLC([]);
+        }
+    }, [cartItems,user]);
 
     return(
         <div className={`bg-gray-100 h-screen ${cartIsActive ? "w-full sm:w-[400px]" : "w-0"} transition-all ease-out fixed z-50`}>

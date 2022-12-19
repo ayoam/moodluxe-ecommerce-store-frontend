@@ -1,25 +1,39 @@
-import React from 'react'
+import React, {useState} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import {AiOutlineCheckCircle} from "react-icons/ai"
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import loginCustomer from "../../service/customerRequests/LoginCustomer";
-import {useSetRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
-import GetUserFromJWT from "../../utils/getUserFromJWT";
+import postOfflineCartItems from "../../service/cartRequests/postOfflineCartItems";
+import {cartItemsState} from "../../recoil/atoms/cartAtom";
 
 const LoginPage = ()=>{
     const navigate = useNavigate();
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const setUser = useSetRecoilState(appUserState);
+    const [user,setUser] = useRecoilState(appUserState);
+    const [cartItems,setCartItems] = useRecoilState(cartItemsState);
+    const [invalidCreds,setInvalidCreds] = useState(false);
     const onSubmit = (data) => {
-        console.log(data)
-        loginCustomer(data).then(response=>{
-            localStorage.setItem('kc_token', response.data["access_token"]);
-            localStorage.setItem('kc_refreshToken', response.data["refresh_token"]);
-            setUser(GetUserFromJWT(response.data["access_token"]));
-            navigate("/myAccount")
-        });
+        loginCustomer(data)
+            .then(response=>{
+                localStorage.setItem('kc_token', response?.data["access_token"]);
+                localStorage.setItem('kc_refreshToken', response?.data["refresh_token"]);
+                setUser(response?.data["userInfo"]);
+                setInvalidCreds(false);
+                //add current cart items to customers cart
+                postOfflineCartItems(response?.data["userInfo"].cartId,cartItems)
+                    .then(response=>{
+                        setCartItems(response?.data?.cartItemList);
+                        localStorage.removeItem("cartItems");
+                    })
+
+                navigate("/myAccount")
+            })
+            .catch((error)=>{
+                setInvalidCreds(true);
+            });
     }
 
     return(
@@ -50,6 +64,7 @@ const LoginPage = ()=>{
                                 <a className={"underline text-sm font-extralight mt-2 hover:text-blue-300"} href={"/forgotten-password"} alt={"forgotten password"}>Forgotten your password?</a>
                             </div>
                             <input type={"submit"} value={"LOG IN "} className={"bg-white text-black p-2 hover:bg-black hover:text-white cursor-pointer border-[1px] border-transparent hover:border-gray-200 transition-all mt-4"}/>
+                            {invalidCreds && <p className={"text-base mt-2 font-light text-red-400"}>username or password invalid!</p>}
                         </form>
                     </div>
                     <div className={"sm:border-l-[1px] border-gray-200/30 w-full text-white px-8"}>
