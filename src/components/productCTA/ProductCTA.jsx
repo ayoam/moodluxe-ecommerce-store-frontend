@@ -2,14 +2,18 @@ import React, {useState} from 'react'
 import ProductQuantity from "../productQuantity/ProductQuantity";
 import {BsPatchCheck,BsTruck,BsArrowCounterclockwise} from "react-icons/bs"
 import {BiLockAlt} from "react-icons/bi"
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {cartIsActiveState,cartItemsState} from "../../recoil/atoms/cartAtom"
 import testPhoto from "../../assets/testPhoto";
+import addToCartRequest from "../../service/cartRequests/addToCartRequest";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 
 const ProductCTA = ({item})=>{
     const [cartItems,setCartItems] = useRecoilState(cartItemsState);
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
     const [quantity,setQuantity] = useState(1);
+    const user = useRecoilValue(appUserState);
+
     const handleQuantityChange = (value)=>{
         if(value<=10 && value>0){
             setQuantity(value);
@@ -18,30 +22,40 @@ const ProductCTA = ({item})=>{
 
     const handleAddToCartClick = ()=>{
         setCartIsActive(true);
+        const newCartItem = {
+            "productId":item.idp,
+            "mainPhoto":item.photoList[0],
+            "libelle":item.libelle,
+            "price":item.discountPrice?item.discountPrice:item.originalPrice,
+            "quantity":quantity,
+            "productStock":item.quantity,
+        };
 
-        if(cartItems.find(x=>x.productId===item.idp)){
-            setCartItems(prev=>{
-                const newState = prev.map((x)=>{
-                    if(x.productId===item.idp){
-                        return {...x,quantity:x.quantity+quantity}
-                    }
-                    return x;
+        if(user){
+            addToCartRequest(user?.cartId,newCartItem)
+                .then(response=>{
+                    console.log(response);
+                    setCartItems(response?.data?.cartItemList);
                 })
-                return newState;
-            })
+        }else{
+            if(cartItems.find(x=>x.productId===item.idp)){
+                setCartItems(prev=>{
+                    const newState = prev.map((x)=>{
+                        if(x.productId===item.idp){
+                            return {...x,quantity:x.quantity+quantity}
+                        }
+                        return x;
+                    })
+                    return newState;
+                })
+            }
+            else{
+                setCartItems(prev=>{
+                    return [...prev,newCartItem];
+                })
+            }
         }
-        else{
-            setCartItems(prev=>{
-                return [...prev,{
-                    "productId":item.idp,
-                    "mainPhoto":item.photoList[0],
-                    "libelle":item.libelle,
-                    "price":item.discountPrice?item.discountPrice:item.originalPrice,
-                    "quantity":quantity,
-                    "productStock":item.quantity,
-                }];
-            })
-        }
+
     }
 
     return(

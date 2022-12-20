@@ -1,8 +1,9 @@
 import axios from 'axios';
+import useRefreshToken from "../hooks/useRefreshToken";
 
 export const axiosInstance = axios.create();
 
-axiosInstance.interceptors.request.use(config => {
+// axiosInstance.interceptors.request.use(config => {
 
     //TODO:refresh token here
     // if (keycloak.token !== undefined) {
@@ -15,5 +16,9 @@ axiosInstance.interceptors.request.use(config => {
     //     config.headers.Authorization = `Bearer ${keycloak.token}`;
     // }
 
-    return config;
-});
+//     return config;
+// });
+
+axiosInstance.interceptors.request.use(
+    config => config, (error) => Promise.reject(error)
+);

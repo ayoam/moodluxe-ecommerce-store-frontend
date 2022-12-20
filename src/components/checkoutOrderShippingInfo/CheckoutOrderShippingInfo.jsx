@@ -1,28 +1,54 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useForm} from "react-hook-form";
+import GetCustomerById from "../../service/customerRequests/GetCustomerById";
+import {useRecoilValue} from "recoil";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 // import PhoneInput from 'react-phone-input-2'
 // import 'react-phone-input-2/lib/style.css'
 
 const CheckoutOrderShippingInfo = ()=>{
     // const [phone,setPhone] = useState("");
-
+    const user = useRecoilValue(appUserState);
     const [shippingFormEditing,setShippingFormEditing] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    const [orderShippingAdresse,setOrderShippingAdresse] = useState({
-        firstName:"Mavrick",
-        lastName:"Russel",
-        adresse:"248 Main St",
-        city:"Ogunquit",
-        zipCode:"03907",
-        stateProvince:"Massachusetts",
-        country:"United States"
+    const [userInfo,setUserInfo] = useState({
+        // firstName:"Mavrick",
+        // lastName:"Russel",
+        // adresse:"248 Main St",
+        // city:"Ogunquit",
+        // zipCode:"03907",
+        // stateProvince:"Massachusetts",
+        // country:"United States"
     });
 
+    useEffect(()=>{
+        if(user){
+            GetCustomerById(user?.customerId)
+                .then(response=>{
+                    console.log(response.data);
+                    setUserInfo(response.data)
+                })
+        }
+    },[user])
+
     const onShippingInfoSubmit = (data) => {
-        setOrderShippingAdresse(data);
+        setUserInfo((prev)=>{
+            return {...prev,
+                firstName:data.firstName,
+                lastName:data.lastName,
+                adresse:{
+                    HomeAdresse:data.adresse,
+                    city:data.city,
+                    country:{countryName: data.country},
+                    postalCode:data.zipCode,
+                    stateProvince:data.stateProvince
+                }
+            }
+        });
         setShippingFormEditing(false);
     }
+
 
     return(
         <div className={"rounded-md overflow-hidden w-full"}>
@@ -38,7 +64,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>First name</p>
                                 <input type={"text"} placeholder={"First name"}
-                                       defaultValue={orderShippingAdresse.firstName}
+                                       defaultValue={userInfo?.firstName}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("firstName", {
                                     required: "first name required!",
                                 })}/>
@@ -48,7 +74,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>Last name</p>
                                 <input type={"text"} placeholder={"Last name"}
-                                       defaultValue={orderShippingAdresse.lastName}
+                                       defaultValue={userInfo?.lastName}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("lastName", {
                                     required: "last name required!",
                                 })}/>
@@ -58,7 +84,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={"md:col-span-2"}>
                                 <p className={"text-sm font-light mb-1"}>Adresse</p>
                                 <input type={"text"} placeholder={"Adresse"}
-                                       defaultValue={orderShippingAdresse.adresse}
+                                       defaultValue={userInfo?.adresse?.HomeAdresse}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("adresse", {
                                     required: "adresse required!",
                                 })}/>
@@ -68,7 +94,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>City</p>
                                 <input type={"text"} placeholder={"City"}
-                                       defaultValue={orderShippingAdresse.city}
+                                       defaultValue={userInfo?.adresse?.city}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("city", {
                                     required: "first name required!",
                                 })}/>
@@ -78,7 +104,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>State/Province</p>
                                 <input type={"text"} placeholder={"State/Province"}
-                                       defaultValue={orderShippingAdresse.stateProvince}
+                                       defaultValue={userInfo?.adresse?.stateProvince}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("stateProvince", {
                                     required: "state/province required!",
                                 })}/>
@@ -88,7 +114,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>Country</p>
                                 <select
-                                    defaultValue={orderShippingAdresse.country}
+                                    defaultValue={userInfo?.adresse?.country?.countryId}
                                     className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor"} {...register("country", {
                                     required: "country required!",
                                 })}>
@@ -102,7 +128,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>Zip code</p>
                                 <input type={"text"} placeholder={"Zip code"}
-                                       defaultValue={orderShippingAdresse.zipCode}
+                                       defaultValue={userInfo?.adresse?.postalCode}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("zipCode", {
                                     required: "zip code required!",
                                 })}/>
@@ -118,9 +144,9 @@ const CheckoutOrderShippingInfo = ()=>{
                     </form>
                     :
                     <div className={"p-4 border-[1px] border-t-[0] border-white/30 rounded-b-md bg-white/10"}>
-                        <p>{orderShippingAdresse.firstName} {orderShippingAdresse.lastName}</p>
-                        <p><span>{orderShippingAdresse.adresse}</span>. <span>{orderShippingAdresse.city}</span>, <span>{orderShippingAdresse.zipCode}</span></p>
-                        <p><span>{orderShippingAdresse.stateProvince}</span>, <span>{orderShippingAdresse.country}</span></p>
+                        <p>{userInfo.firstName} {userInfo.lastName}</p>
+                        <p><span>{userInfo?.adresse?.HomeAdresse}</span>. <span>{userInfo?.adresse?.city}</span>, <span>{userInfo?.adresse?.postalCode}</span></p>
+                        <p><span>{userInfo?.adresse?.stateProvince}</span>, <span>{userInfo?.adresse?.country.countryName}</span></p>
                     </div>
                 }
             </div>
