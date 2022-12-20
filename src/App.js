@@ -49,9 +49,9 @@ function App() {
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
                         <Route path="/myAccount" element={<MyAccountPage/>}/>
                         <Route path="/order/:orderId" element={<OrderPage/>}/>
-                        <Route path="/checkout" element={<CheckoutPage/>}/>
                     </Route>
 
+                    <Route path="/checkout" element={<CheckoutPage/>}/>
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>

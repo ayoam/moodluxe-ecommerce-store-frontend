@@ -8,6 +8,7 @@ import {useRecoilState, useSetRecoilState} from "recoil";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import postOfflineCartItems from "../../service/cartRequests/postOfflineCartItems";
 import {cartItemsState} from "../../recoil/atoms/cartAtom";
+import {axiosInstance} from "../../service/apiService";
 
 const LoginPage = ()=>{
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const LoginPage = ()=>{
                 localStorage.setItem('kc_token', response?.data["access_token"]);
                 localStorage.setItem('kc_refreshToken', response?.data["refresh_token"]);
                 setUser(response?.data["userInfo"]);
+                axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response?.data["access_token"]}`;
                 setInvalidCreds(false);
                 //add current cart items to customers cart
                 postOfflineCartItems(response?.data["userInfo"].cartId,cartItems)

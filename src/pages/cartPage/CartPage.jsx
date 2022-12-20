@@ -2,10 +2,8 @@ import React, {useEffect} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import {useRecoilState} from "recoil";
 import {cartIsActiveState, cartItemsState} from "../../recoil/atoms/cartAtom";
-import {useLocalStorage} from "../../hooks/useLocalStorage";
-import testPhoto from "../../assets/testPhoto";
 import {useNavigate} from "react-router-dom";
-import CartPageCartItem from "../../components/cartPageCartItem/CartPageCartItem";
+import CartItem from "../../components/cartItem/CartItem";
 
 const CartPage = ()=>{
     const [cartItems,setCartItems] = useRecoilState(cartItemsState);
@@ -28,10 +26,11 @@ const CartPage = ()=>{
                     {
                         cartItems.length>0
                         ?
-                        <div className={"p-2 mx-3 sm:p-4 sm:border-[1px] sm:border-white/50 space-y-2 min-h-[350px]"}>
-                            {cartItems?.length > 0 && <CartPageCartItem item={cartItems[0]}/>}
-                            {cartItems?.length > 0 && <CartPageCartItem item={cartItems[0]}/>}
-                            {cartItems?.length > 0 && <CartPageCartItem item={cartItems[0]}/>}
+                        <div className={"p-2 mx-3 space-y-3 min-h-[350px]"}>
+                            {cartItems?.map((item,index)=>{
+                                return <CartItem key={index} item={item} isForPage={true}/>
+                                })
+                            }
                         </div>
                         :
                         <div className={"pb-[250px]"}>
