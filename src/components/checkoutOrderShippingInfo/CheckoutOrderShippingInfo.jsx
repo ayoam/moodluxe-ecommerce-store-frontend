@@ -3,10 +3,8 @@ import {useForm} from "react-hook-form";
 import GetCustomerById from "../../service/customerRequests/GetCustomerById";
 import {useRecoilValue} from "recoil";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
-// import PhoneInput from 'react-phone-input-2'
-// import 'react-phone-input-2/lib/style.css'
 
-const CheckoutOrderShippingInfo = ()=>{
+const CheckoutOrderShippingInfo = ({orderAdresseInfo})=>{
     // const [phone,setPhone] = useState("");
     const user = useRecoilValue(appUserState);
     const [shippingFormEditing,setShippingFormEditing] = useState(false);
@@ -26,24 +24,38 @@ const CheckoutOrderShippingInfo = ()=>{
         if(user){
             GetCustomerById(user?.customerId)
                 .then(response=>{
-                    console.log(response.data);
-                    setUserInfo(response.data)
+                    // console.log(response?.data?.country);
+                    // setUserInfo(response.data)
+                    setUserInfo((prev)=>{
+                        return {
+                            firstName:response?.data?.firstName,
+                            lastName:response?.data?.lastName,
+                            HomeAdresse:response?.data?.adresse.HomeAdresse,
+                            city:response?.data?.adresse.city,
+                            country:response?.data?.adresse.country.countryName,
+                            postalCode:response?.data?.adresse.postalCode,
+                            stateProvince:response?.data?.adresse.stateProvince
+                        }
+                    });
                 })
         }
     },[user])
 
+    useEffect(() => {
+        orderAdresseInfo(userInfo);
+    }, [userInfo]);
+
+
     const onShippingInfoSubmit = (data) => {
         setUserInfo((prev)=>{
-            return {...prev,
+            return {
                 firstName:data.firstName,
                 lastName:data.lastName,
-                adresse:{
-                    HomeAdresse:data.adresse,
-                    city:data.city,
-                    country:{countryName: data.country},
-                    postalCode:data.zipCode,
-                    stateProvince:data.stateProvince
-                }
+                HomeAdresse:data.adresse,
+                city:data.city,
+                country:data.country,
+                postalCode:data.zipCode,
+                stateProvince:data.stateProvince
             }
         });
         setShippingFormEditing(false);
@@ -84,7 +96,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={"md:col-span-2"}>
                                 <p className={"text-sm font-light mb-1"}>Adresse</p>
                                 <input type={"text"} placeholder={"Adresse"}
-                                       defaultValue={userInfo?.adresse?.HomeAdresse}
+                                       defaultValue={userInfo?.HomeAdresse}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("adresse", {
                                     required: "adresse required!",
                                 })}/>
@@ -94,7 +106,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>City</p>
                                 <input type={"text"} placeholder={"City"}
-                                       defaultValue={userInfo?.adresse?.city}
+                                       defaultValue={userInfo?.city}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("city", {
                                     required: "first name required!",
                                 })}/>
@@ -104,7 +116,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>State/Province</p>
                                 <input type={"text"} placeholder={"State/Province"}
-                                       defaultValue={userInfo?.adresse?.stateProvince}
+                                       defaultValue={userInfo?.stateProvince}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("stateProvince", {
                                     required: "state/province required!",
                                 })}/>
@@ -114,7 +126,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>Country</p>
                                 <select
-                                    defaultValue={userInfo?.adresse?.country?.countryId}
+                                    defaultValue={userInfo?.country}
                                     className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor"} {...register("country", {
                                     required: "country required!",
                                 })}>
@@ -128,7 +140,7 @@ const CheckoutOrderShippingInfo = ()=>{
                             <div className={""}>
                                 <p className={"text-sm font-light mb-1"}>Zip code</p>
                                 <input type={"text"} placeholder={"Zip code"}
-                                       defaultValue={userInfo?.adresse?.postalCode}
+                                       defaultValue={userInfo?.postalCode}
                                        className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("zipCode", {
                                     required: "zip code required!",
                                 })}/>
@@ -145,8 +157,8 @@ const CheckoutOrderShippingInfo = ()=>{
                     :
                     <div className={"p-4 border-[1px] border-t-[0] border-white/30 rounded-b-md bg-white/10"}>
                         <p>{userInfo.firstName} {userInfo.lastName}</p>
-                        <p><span>{userInfo?.adresse?.HomeAdresse}</span>. <span>{userInfo?.adresse?.city}</span>, <span>{userInfo?.adresse?.postalCode}</span></p>
-                        <p><span>{userInfo?.adresse?.stateProvince}</span>, <span>{userInfo?.adresse?.country.countryName}</span></p>
+                        <p><span>{userInfo?.HomeAdresse}</span>. <span>{userInfo?.city}</span>, <span>{userInfo?.postalCode}</span></p>
+                        <p><span>{userInfo?.stateProvince}</span>, <span>{userInfo?.country}</span></p>
                     </div>
                 }
             </div>
