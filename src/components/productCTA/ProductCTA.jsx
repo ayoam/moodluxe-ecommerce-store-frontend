@@ -24,7 +24,7 @@ const ProductCTA = ({item})=>{
         setCartIsActive(true);
         const newCartItem = {
             "productId":item.idp,
-            "mainPhoto":item.photoList[0],
+            "mainPhoto":{extension:item.photoList[0].extension,photo:item.photoList[0].photo},
             "libelle":item.libelle,
             "price":item.discountPrice?item.discountPrice:item.originalPrice,
             "quantity":quantity,

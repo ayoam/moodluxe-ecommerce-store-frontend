@@ -22,6 +22,7 @@ import {ROLE_CUSTOMER} from "./constants/rolesConstants";
 import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 
 import InternalServerError from "./components/internalServerError/InternalServerError";
+import OrderCompletedPage from "./pages/orderCompletedPage/OrderCompletedPage";
 
 
 
@@ -49,6 +50,7 @@ function App() {
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
                         <Route path="/myAccount" element={<MyAccountPage/>}/>
                         <Route path="/order/:orderId" element={<OrderPage/>}/>
+                        <Route path="/order-completed" element={<OrderCompletedPage/>}/>
                     </Route>
 
                     <Route path="/checkout" element={<CheckoutPage/>}/>
