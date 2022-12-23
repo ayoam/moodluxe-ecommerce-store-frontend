@@ -10,7 +10,6 @@ const OrderCompletedPage = ()=>{
     const [cookies, setCookie] = useCookies();
     const user = useRecoilValue(appUserState);
 
-    if(!user) return <UnauthorizedPage/>
     if(!cookies["order-number"]) return <NotFoundPage/>
 
     return(

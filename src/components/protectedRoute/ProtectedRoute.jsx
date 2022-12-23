@@ -1,10 +1,15 @@
 import React from 'react'
 import {Outlet} from "react-router-dom";
 import {useRecoilValue} from "recoil";
-import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import {appUserState, userLoadingState} from "../../recoil/atoms/AuthenticationAtom";
+import UnauthorizedPage from "../unauthorizedPage/UnauthorizedPage";
 
 const ProtectedRoute = ({authorizedRoles})=>{
     const user = useRecoilValue(appUserState);
+    const userLoading = useRecoilValue(userLoadingState);
+
+    if(userLoading) return null
+
     return(
         <>
             {
@@ -12,7 +17,7 @@ const ProtectedRoute = ({authorizedRoles})=>{
                 ?
                 <Outlet/>
                 :
-                <p>access not allowed</p>
+                <UnauthorizedPage/>
             }
         </>
     )

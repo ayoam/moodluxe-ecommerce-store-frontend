@@ -5,6 +5,11 @@ export const appUserState= atom({
     default: null
 });
 
+export const userLoadingState= atom({
+    key:"userLoading",
+    default: true
+});
+
 export const authenticationState= atom({
     key:"authenticated",
     default: false

@@ -17,9 +17,9 @@ export const PUT_UPDATE_CART_ITEMS_QUANTITY_PATH = "/updateQuantity"
 export const DELETE_REMOVE_CART_ITEM_PATH = "/removeFromCart"
 export const CUSTOMER_MAIN_URL = `${SERVER_URL}/customers`;
 export const ORDERS_MAIN_URL = `${SERVER_URL}/orders`;
-
 export const GET_CUSTOMER_BY_ID_URL = `${CUSTOMER_MAIN_URL}`
 export const POST_STRIPE_CHARGE_URL = `${SERVER_URL}/payments/stripe/charge`;
 export const POST_PLACE_ORDER_URL = `${ORDERS_MAIN_URL}/placeOrder`;
+export const GET_CUSTOMER_ORDERS_URL = `${ORDERS_MAIN_URL}/customer`;
 
 

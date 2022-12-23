@@ -6,11 +6,8 @@ import {cartItemsState} from "../../recoil/atoms/cartAtom";
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 
-const CheckoutOrderItems = ()=>{
-    const [cartItems,setCartItems] = useRecoilState(cartItemsState);
-    const [cartItemsLC,setCartItemsLC]=useLocalStorage("cart_items",[]);
+const CheckoutOrderItems = ({orderItems,totalAmount})=>{
     const [orderSummaryVisible,setOrderSummaryVisible] = useState(false);
-
 
     const [dimensions, setDimensions] = React.useState({
         width: window.innerWidth,
@@ -34,9 +31,6 @@ const CheckoutOrderItems = ()=>{
         }
     },[window.innerWidth]);
 
-    useEffect(() => {
-        setCartItems(cartItemsLC);
-    }, []);
 
     return(
         <div className={"w-full lg:w-[800px] lg:border-l-[1px] lg:border-white/30 rounded-md lg:rounded-none overflow-hidden"}>
@@ -55,7 +49,7 @@ const CheckoutOrderItems = ()=>{
                             </>
                     }
                 </button>
-                <p className={"font-semibold"}>{cartItems.length>0 ? cartItems.map((item)=>item.quantity*item.price).reduce((sum,num)=>sum+num).toFixed(2):"0.00"}$</p>
+                <p className={"font-semibold"}>{orderItems.length>0 ? orderItems.map((item)=>item.quantity*item.price).reduce((sum,num)=>sum+num).toFixed(2):"0.00"}$</p>
             </div>
 
             {
@@ -64,7 +58,7 @@ const CheckoutOrderItems = ()=>{
                 <div className={"bg-white/10 lg:bg-transparent px-4 sm:px-6 py-4 lg:py-0 border-[1px] border-t-[0] border-white/30 rounded-b-md lg:border-none lg:rounded-none"}>
                     <h1 className={"font-semibold text-2xl mb-4 hidden lg:block"}>Your Order</h1>
                     <div className={"flex flex-col gap-3 h-[300px] overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100 pr-2"}>
-                        {cartItems.map((item,index)=>{
+                        {orderItems.map((item,index)=>{
                             return <CheckoutOrderItem item={item} key={index}/>
                         })}
                     </div>
@@ -72,7 +66,7 @@ const CheckoutOrderItems = ()=>{
                     <div className={"mt-6 flex flex-col gap-3"}>
                         <div className={"flex flex-row justify-between text-sm"}>
                             <p>Subtotal</p>
-                            <p>{cartItems.length>0 ? cartItems.map((item)=>item.quantity*item.price).reduce((sum,num)=>sum+num).toFixed(2):"0.00"}$</p>
+                            <p>{totalAmount}$</p>
                         </div>
                         <div className={"flex flex-row justify-between text-sm"}>
                             <p>Shipping</p>
@@ -80,7 +74,7 @@ const CheckoutOrderItems = ()=>{
                         </div>
                         <div className={"flex flex-row text-xl font-semibold justify-between border-t-2 border-white pt-3"}>
                             <p>Total</p>
-                            <p className={"text-2xl"}>{cartItems.length>0 ? cartItems.map((item)=>item.quantity*item.price).reduce((sum,num)=>sum+num).toFixed(2):"0.00"}$</p>
+                            <p className={"text-2xl"}>{totalAmount}$</p>
                         </div>
                     </div>
                 </div>
