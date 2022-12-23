@@ -48,12 +48,12 @@ function App() {
                     <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
 
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
+                        <Route path="/checkout" element={<CheckoutPage/>}/>
                         <Route path="/myAccount" element={<MyAccountPage/>}/>
-                        <Route path="/order/:orderId" element={<OrderPage/>}/>
+                        <Route path="/orders/:orderId" element={<OrderPage/>}/>
                         <Route path="/order-completed" element={<OrderCompletedPage/>}/>
                     </Route>
 
-                    <Route path="/checkout" element={<CheckoutPage/>}/>
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>

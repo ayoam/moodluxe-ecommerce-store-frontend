@@ -1,7 +1,7 @@
 import React from 'react';
 import OrderHistoryTableRow from "./OrderHistoryTableRow";
 
-function OrderHistory(props) {
+function OrderHistory({ordersList}) {
 
     return (
         <div className="flex flex-col">
@@ -34,7 +34,9 @@ function OrderHistory(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <OrderHistoryTableRow/>
+                                {ordersList?.map((item,index)=>{
+                                    return <OrderHistoryTableRow key={index} order={item}/>;
+                                })}
                             </tbody>
                         </table>
                     </div>

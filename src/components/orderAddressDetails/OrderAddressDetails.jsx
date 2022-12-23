@@ -1,6 +1,6 @@
 import React from 'react';
 
-function OrderAddressDetails(props) {
+function OrderAddressDetails({customerInfo,orderStatus}) {
     return (
         <div>
             <div>
@@ -12,16 +12,16 @@ function OrderAddressDetails(props) {
                     <span>Paid</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Louis John</span>
+                    <span>{customerInfo.firstName} {customerInfo.lastName}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>151 O'Connor Street</span>
+                    <span>{customerInfo.HomeAdresse}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Ottawa ON K2P 2L8</span>
+                    <span>{customerInfo.city} , {customerInfo.postalCode}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Canada</span>
+                    <span>{customerInfo.stateProvince} , {customerInfo.country}</span>
                 </div>
             </div>
             <div>
@@ -30,19 +30,19 @@ function OrderAddressDetails(props) {
             <div className={"flex flex-col gap-3"}>
                 <div className={"inline-flex space-x-2 text-sm mt-10"}>
                     <span className={"font-extralight"}>Fulfillment status:</span>
-                    <span>Unfulfilled</span>
+                    <span>{orderStatus}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Louis John</span>
+                    <span>{customerInfo.firstName} {customerInfo.lastName}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>151 O'Connor Street</span>
+                    <span>{customerInfo.HomeAdresse}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Ottawa ON K2P 2L8</span>
+                    <span>{customerInfo.city} , {customerInfo.postalCode}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Canada</span>
+                    <span>{customerInfo.stateProvince} , {customerInfo.country}</span>
                 </div>
             </div>
         </div>

@@ -1,12 +1,15 @@
 import React from 'react';
 import OrderDetailsTableRow from "./OrderDetailsTableRow";
+import {orderDateFormatter} from "../../utils/orderDateFormatter";
 
-function OrderDetails(props) {
-    return (
+function OrderDetails({order}) {
+    const orderAmount = order?.orderLineItemList.map((orderLineItem)=>orderLineItem.quantity*orderLineItem.price).reduce((sum,num)=>sum+num).toFixed(2);
+    const orderDate = orderDateFormatter(order?.orderDate);
+
+    if(order) return (
         <div>
-
-            <h3 className={"font-semibold text-lg mt-10"}> ORDER #1001 </h3>
-            <p className={"text-sm py-8"}>Placed on November 23, 2022 at 8.19 pm</p>
+            <h3 className={"font-semibold text-lg mt-10"}> ORDER #{order?.orderNumber} </h3>
+            <p className={"text-sm py-8"}>Placed on {orderDate}</p>
 
             <div className="flex flex-col">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -34,8 +37,9 @@ function OrderDetails(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    <OrderDetailsTableRow/>
+                                    {order?.orderLineItemList?.map((item,index)=>{
+                                        return <OrderDetailsTableRow key={index} orderLineItem={item}/>;
+                                    })}
 
                                     <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                                         <td colSpan="5" className="text-sm  text-gray-900 w-full font-light px-6 py-4 whitespace-nowrap">
@@ -48,13 +52,13 @@ function OrderDetails(props) {
                                                 <div></div>
                                                 <div className="table-active text-sm text-gray-900 font-light whitespace-nowrap">
                                                     <p className="text-sm font-light mb-2">
-                                                        $620.00
+                                                        ${orderAmount}
                                                     </p>
                                                     <p className="text-sm font-light">
                                                         free
                                                     </p>
                                                     <p className="font-semibold my-4">
-                                                        $620.00
+                                                        ${orderAmount}
                                                     </p>
                                                 </div>
                                             </div>

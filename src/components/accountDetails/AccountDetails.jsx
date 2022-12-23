@@ -1,20 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import GetCustomerById from "../../service/customerRequests/GetCustomerById";
+import {useRecoilValue} from "recoil";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 
-function AccountDetails(props) {
-    return (
+function AccountDetails({customerInfo}) {
+
+    if(customerInfo) return (
         <div>
             <div className={"flex flex-col gap-3 px-2"}>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Louis John</span>
+                    <span>{customerInfo.firstName} {customerInfo.lastName}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>151 O'Connor Street</span>
+                    <span>{customerInfo.adresse.HomeAdresse}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Ottawa ON K2P 2L8</span>
+                    <span>{customerInfo.adresse.city} , {customerInfo.adresse.postalCode}</span>
                 </div>
                 <div className={"inline-flex space-x-2 text-sm"}>
-                    <span>Canada</span>
+                    <span>{customerInfo.adresse.stateProvince} , {customerInfo.adresse.country.countryName}</span>
                 </div>
             </div>
         </div>
