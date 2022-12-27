@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import {useForm} from "react-hook-form";
 import {TfiEmail} from "react-icons/tfi";
@@ -7,12 +7,41 @@ import {GoLocation} from "react-icons/go";
 import {FaFacebook} from "react-icons/fa";
 import {FaInstagram} from "react-icons/fa";
 import {FaTwitter} from "react-icons/fa";
+import ContactUs from "../../service/contactRequests/ContactUs";
 
 const ContactPage = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors},reset} = useForm();
+    const [username, setUserName] = useState("")
+    const [email, setEmail] = useState("")
+    const [message, setMessage] = useState("")
+    const [status, setStatus] = useState();
 
-    const onSubmitMsg = (data) => {
-        console.log(data);
+    const onSubmitMsg = (data,e) => {
+        //console.log(data);
+        const contactor = {
+            username:data.username,
+            email:data.email,
+            message:data.message,
+        };
+        ContactUs({...contactor})
+            .then(response =>{
+                console.log(response);
+                if(response.status === 201){
+                    setUserName("")
+                    setEmail("")
+                    setMessage("")
+                }
+            }).then(() => {
+            setStatus({ type: 'success' });
+            e.target.reset();
+        })
+            .catch(e=>{
+                console.log(e);
+                setStatus({ type: 'error', e });
+
+            });
+
+
     }
     return (
         <HomeLayout>
@@ -68,12 +97,12 @@ const ContactPage = () => {
                                 <div>
                                     <p className={"mb-2 text-sm text-black"}>Your name</p>
                                     <input type={"text"} placeholder={"Your name"}
-                                           className={"w-full p-2 outline-2 outline-gray-400 bg-transparent border-[1px] border-gray-400 placeholder:font-light"} {...register("name", {
+                                           className={"w-full p-2 outline-2 outline-gray-400 bg-transparent border-[1px] border-gray-400 placeholder:font-light"} {...register("username", {
                                         required: "Name required!",
 
                                     })}/>
-                                    {errors?.name &&
-                                        <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.name.message}</p>}
+                                    {errors?.username &&
+                                        <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.username.message}</p>}
                                 </div>
                                 <div className={""}>
                                     <p className={"mb-2 text-sm text-black"}>Email</p>
@@ -91,12 +120,16 @@ const ContactPage = () => {
                                 <div>
                                     <p className={"mb-2 text-sm text-black "}>Message</p>
                                     <textarea type={"text"} placeholder={"Your message"}
-                                              className={"w-full p-2 outline-2 outline-gray-400 bg-transparent border-[1px] border-gray-400 placeholder:font-light"} {...register("msg", {
+                                              className={"w-full p-2 outline-2 outline-gray-400 bg-transparent border-[1px] border-gray-400 placeholder:font-light"} {...register("message", {
                                         required: "message required!",
 
                                     })}></textarea>
-                                    {errors?.msg &&
-                                        <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.msg.message}</p>}
+                                    {errors?.message &&
+                                        <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.message.message}</p>}
+                                </div>
+                                <div>
+                                    {status?.type === 'success' && <p className={"text-green-600 font-normal"}>Contact request submitted successfully</p>}
+                                    {status?.type === 'error' && (<p className={"text-red-600 font-normal"}>Invalid form submission</p>)}
                                 </div>
 
                                 <input type={"submit"} value={"SEND MESSAGE"}

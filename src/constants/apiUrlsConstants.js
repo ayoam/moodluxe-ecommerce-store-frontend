@@ -21,5 +21,7 @@ export const GET_CUSTOMER_BY_ID_URL = `${CUSTOMER_MAIN_URL}`
 export const POST_STRIPE_CHARGE_URL = `${SERVER_URL}/payments/stripe/charge`;
 export const POST_PLACE_ORDER_URL = `${ORDERS_MAIN_URL}/placeOrder`;
 export const GET_CUSTOMER_ORDERS_URL = `${ORDERS_MAIN_URL}/customer`;
+export const POST_CONTACT_US_URL = `${SERVER_URL}/contacts`;
+
 
 
