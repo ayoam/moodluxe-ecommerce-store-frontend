@@ -82,7 +82,7 @@ const ProductCTA = ({item})=>{
                     <ProductQuantity quantity={quantity} setQuantity={handleQuantityChange}/>
                 </div>
 
-                <button className={"bg-orange-200 text-black hover:text-white hover:bg-transparent border-2 border-transparent hover:border-red-600 text-md font-semibold p-3  mt-4 w-full transition-colors"} onClick={handleAddToCartClick}>ADD TO SHOPPING BAG</button>
+                <button className={"bg-[linear-gradient(to_right,_#ed213a,_#93291e)] border-red-600 hover:border-white border-2 text-white text-md font-semibold p-3  mt-4 w-full transition-colors"} onClick={handleAddToCartClick}>ADD TO SHOPPING BAG</button>
 
                 <ul className={"font-light flex flex-col gap-2 mt-4"}>
                     <li className={"flex items-center gap-2"}><BsPatchCheck/> Price match promise</li>

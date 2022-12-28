@@ -1,14 +1,12 @@
 import React, {useEffect} from 'react'
 import {IoClose} from "react-icons/io5";
 import CartItem from "../cartItem/CartItem";
-import testPhoto from "../../assets/testPhoto";
-import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
-import {cartIsActiveState,cartItemsState} from "../../recoil/atoms/cartAtom"
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {cartIsActiveState, cartItemsState} from "../../recoil/atoms/cartAtom"
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 import {useNavigate} from "react-router-dom";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import getCustomerCartBycartId from "../../service/cartRequests/getCustomerCart";
-import postOfflineCartItems from "../../service/cartRequests/postOfflineCartItems";
 
 const Cart = ()=>{
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
@@ -35,6 +33,7 @@ const Cart = ()=>{
         if(user){
             getCustomerCartBycartId(user.cartId)
                 .then(response=>{
+                    console.log(response?.data);
                     setCartItems(response?.data?.cartItemList);
                 })
         }else{
