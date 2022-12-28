@@ -14,11 +14,11 @@ const NavbarDropdownList = ({items,active,isBrand})=>{
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className={"absolute bg-white top-[80%] translate-x-[-50%] left-[50%] sm:left-4 sm:translate-x-[0%] shadow-lg inline-block min-w-[300px] z-50"}>
+                className={"absolute bg-white top-[80%] translate-x-[-50%] left-[50%] sm:left-4 sm:translate-x-[0%] shadow-lg inline-block min-w-[300px] z-50 rounded overflow-hidden "}>
                 <ul className={"font-normal text-left text-black "+brandClasses}>
                     {items.map((item,index)=>{
                         return <NavLink to={itemLink+item.trim().replace(" ","-").toLocaleLowerCase()} key={index}>
-                            <p className={"hover:bg-red-200 px-5 py-3 "}>{item}</p>
+                            <p className={"hover:bg-gray-300 px-5 py-3 text-base"}>{item}</p>
                         </NavLink>
 
                     })}

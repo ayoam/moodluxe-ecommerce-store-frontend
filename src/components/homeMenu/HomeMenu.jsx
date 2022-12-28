@@ -3,8 +3,10 @@ import {HiMenuAlt2, HiOutlineUser} from "react-icons/hi"
 import {IoClose} from "react-icons/io5"
 import {NavLink, useNavigate} from "react-router-dom";
 import NavbarDropdownList from "../navbarDropdownList/NavbarDropdownList";
-import {useRecoilState} from "recoil"
+import {useRecoilState, useRecoilValue} from "recoil"
 import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
+import UserDropDownList from "../userDropDownList/UserDropDownList";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 
 
 const categoryItems = ["Chronograph watches", "Digital watches", "Automatic watches", "Quartz watches", "Skeleton watches"]
@@ -19,6 +21,8 @@ const HomeMenu = () => {
     });
     const [categoryActive, setCategoryActive] = useState(false);
     const [brandActive, setBrandActive] = useState(false);
+    const [userBtnActive,setUserBtnActive] = useState(false);
+    const user = useRecoilValue(appUserState);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,25 +43,12 @@ const HomeMenu = () => {
         }
     }, [window.innerWidth]);
 
-
-    const userBtnHandler = () => {
+    const userBtnClickHandler = () => {
         navigate("/login")
     }
 
     return (
         <div>
-            {/*<div className={"flex justify-center items-center sm:hidden"}>*/}
-            {/*    {*/}
-            {/*        !menuActive ?*/}
-            {/*            <button onClick={() => setMenuActive(true)}><HiMenuAlt2 className={"text-white text-3xl"}/>*/}
-            {/*            </button>*/}
-            {/*            :*/}
-            {/*            <button onClick={() => setMenuActive(false)}><IoClose className={"text-white text-3xl"}/>*/}
-            {/*            </button>*/}
-            {/*    }*/}
-            {/*</div>*/}
-
-
             {menuActive &&
                 <div className={"absolute sm:relative z-50 bg-red-600 w-full  text-white text-lg font-semibold"}>
                     <ul className={"flex flex-col sm:flex-row justify-center mx-auto text-center py-5 sm:py-0"}>
@@ -91,9 +82,18 @@ const HomeMenu = () => {
                         >
                             <li className={"p-4"}>Contact us</li>
                         </NavLink>
-                        <button className={"flex sm:hidden justify-center items-center py-5"}>
-                            <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnHandler}/>
-                        </button>
+                        { user ?
+                            <button className={"relative flex sm:hidden py-5 justify-center items-center"}
+                                    onMouseOver={() => setUserBtnActive(prev => true)}
+                                    onMouseOut={() => setUserBtnActive(prev => false)}>
+                                <HiOutlineUser className={"text-3xl text-white"}/>
+                                <UserDropDownList active={userBtnActive}/>
+                            </button>
+                            :
+                            <button className={"flex sm:hidden py-5 justify-center items-center"}>
+                                <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnClickHandler}/>
+                            </button>
+                        }
                     </ul>
                 </div>
 

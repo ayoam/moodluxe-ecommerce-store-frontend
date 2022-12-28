@@ -15,6 +15,7 @@ import HomeMenuButton from "../homeMenuButton/HomeMenuButton";
 import {AiOutlineSearch} from "react-icons/ai"
 import {searchIsActiveState} from "../../recoil/atoms/searchBarAtom";
 import {appUserState, authenticationState} from "../../recoil/atoms/AuthenticationAtom";
+import UserDropDownList from "../userDropDownList/UserDropDownList";
 
 const categoryItems = ["Chronograph watches", "Digital watches", "Automatic watches", "Quartz watches", "Skeleton watches"]
 const brandItems = ["Casio", "Fossil", "Rolex", "Guess", "Swatch", "Hugo", "Tissot"]
@@ -25,6 +26,7 @@ const HomeHeader = () => {
     const [cartIsActive, setCartIsActive] = useRecoilState(cartIsActiveState);
     const [cartItems, setCartItems] = useRecoilState(cartItemsState);
     const [searchIsActive, setSearchIsActive] = useRecoilState(searchIsActiveState);
+    const [userBtnActive,setUserBtnActive] = useState(false);
     const user = useRecoilValue(appUserState);
     const navigate = useNavigate();
 
@@ -51,9 +53,20 @@ const HomeHeader = () => {
                     <button className={"flex justify-center items-center relative"}>
                         <AiOutlineSearch className={"text-3xl text-white"} onClick={() => setSearchIsActive(true)}/>
                     </button>
-                    <button className={"hidden sm:flex justify-center items-center"}>
-                        <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnClickHandler}/>
-                    </button>
+
+                    { user ?
+                        <button className={"relative hidden sm:flex justify-center items-center"}
+                                onMouseOver={() => setUserBtnActive(prev => true)}
+                                onMouseOut={() => setUserBtnActive(prev => false)}>
+                            <HiOutlineUser className={"text-3xl text-white"}/>
+                            <UserDropDownList active={userBtnActive}/>
+                        </button>
+                        :
+                        <button className={"hidden sm:flex justify-center items-center"}>
+                            <HiOutlineUser className={"text-3xl text-white"} onClick={userBtnClickHandler}/>
+                        </button>
+                    }
+
                     <button className={"flex justify-center items-center relative"}
                             onClick={() => setCartIsActive(prev => !prev)}>
                         {cartItems.length > 0 &&
