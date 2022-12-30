@@ -22,7 +22,7 @@ const LoginPage = () => {
     const [passwordShown, setPasswordShown] = useState(false);
 
     const togglePasswordVisiblity = () => {
-        setPasswordShown(passwordShown ? false : true);
+        setPasswordShown(prev=>!prev);
     };
 
     const onSubmit = (data) => {
@@ -76,10 +76,13 @@ const LoginPage = () => {
                                            className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 placeholder:font-light"} {...register("password", {
                                         required: "password required!"
                                     })}/>
-                                    {!passwordShown ? <i onClick={togglePasswordVisiblity}><AiFillEye
-                                            className="w-5 h-5 absolute -ml-7 -mt-2 cursor-pointer"/></i> :
+                                    {!passwordShown ?
+                                        <i onClick={togglePasswordVisiblity}><AiFillEye
+                                            className="w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                        :
                                         <i onClick={togglePasswordVisiblity}><AiFillEyeInvisible
-                                            className="w-5 h-5 absolute -ml-7 -mt-2 cursor-pointer"/></i>}
+                                            className="w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                    }
                                 </div>
 
                                 {errors?.email &&
