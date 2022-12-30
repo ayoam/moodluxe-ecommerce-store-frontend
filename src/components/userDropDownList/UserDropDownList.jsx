@@ -6,6 +6,7 @@ import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import {MdLogout, MdManageAccounts, MdOutlineManageAccounts} from "react-icons/md";
 import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
 import {useCookies} from "react-cookie";
+import {axiosInstance} from "../../service/apiService";
 
 const UserDropDownList = ({active})=>{
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const UserDropDownList = ({active})=>{
         localStorage.removeItem("kc_refreshToken");
         setUser(null);
         removeCookie("order-number",{path:'/'});
+        delete axiosInstance.defaults.headers.common["Authorization"];
         navigate("/");
     }
 
