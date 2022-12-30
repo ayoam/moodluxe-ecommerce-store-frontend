@@ -25,8 +25,6 @@ import InternalServerError from "./components/internalServerError/InternalServer
 import OrderCompletedPage from "./pages/orderCompletedPage/OrderCompletedPage";
 
 
-
-
 function App() {
 
     return (
@@ -51,9 +49,8 @@ function App() {
                         <Route path="/checkout" element={<CheckoutPage/>}/>
                         <Route path="/myAccount" element={<MyAccountPage/>}/>
                         <Route path="/orders/:orderId" element={<OrderPage/>}/>
-
+                        <Route path="/order-completed" element={<OrderCompletedPage/>}/>
                     </Route>
-                    <Route path="/order-completed" element={<OrderCompletedPage/>}/>
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>
