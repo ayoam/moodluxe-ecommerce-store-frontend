@@ -7,6 +7,7 @@ import {useLocalStorage} from "../../hooks/useLocalStorage";
 import {useNavigate} from "react-router-dom";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import getCustomerCartBycartId from "../../service/cartRequests/getCustomerCart";
+import {ROLE_CUSTOMER} from "../../constants/rolesConstants";
 
 const Cart = ()=>{
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
@@ -30,7 +31,7 @@ const Cart = ()=>{
     const user = useRecoilValue(appUserState);
 
     useEffect(() => {
-        if(user){
+        if(user?.roles?.includes(ROLE_CUSTOMER)){
             getCustomerCartBycartId(user.cartId)
                 .then(response=>{
                     console.log(response?.data);

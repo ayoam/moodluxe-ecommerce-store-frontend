@@ -1,84 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
-import testPhoto from "../../assets/testPhoto";
 import ProductItem from "../../components/productItem/ProductItem";
 import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
 import useUrlSearchParams from "../../hooks/useUrlSearchParams";
 import {useRecoilState} from "recoil";
-import { totalCountState } from "../../recoil/atoms/productListingAtom";
-import { useNavigate } from "react-router-dom";
-
-// const querySearchList = [
-//     {
-//         "brand":{
-//             "idb":11,
-//             "name":"Rolex"
-//         },
-//         "libelle":"Captain Cook Chronograph 43mm",
-//         "originalPrice":399.99,
-//         "discountPrice":null,
-//         "photoList":[
-//             {
-//                 "photoId":1212121,
-//                 "photo":testPhoto,
-//                 "extension":"jpg"
-//             }
-//         ],
-//         "idp":"12SQZ21SDE",
-//     },
-//     {
-//         "brand":{
-//             "idb":2,
-//             "name":"Rolex"
-//         },
-//         "libelle":"Captain Cook Chronograph 43mm",
-//         "originalPrice":12999.99,
-//         "discountPrice":11300.99,
-//         "photoList":[
-//             {
-//                 "photoId":13232332,
-//                 "photo":testPhoto,
-//                 "extension":"jpg"
-//             }
-//         ],
-//         "idp":"12SQZ21SDE",
-//     },
-//     {
-//         "brand":{
-//             "idb":9,
-//             "name":"Rolex"
-//         },
-//         "libelle":"Captain Cook Chronograph 43mm",
-//         "originalPrice":69.99,
-//         "discountPrice":62.99,
-//         "photoList":[
-//             {
-//                 "photoId":1322212,
-//                 "photo":testPhoto,
-//                 "extension":"jpg"
-//             }
-//         ],
-//         "idp":"12SQZ21SDE",
-//     },
-//     {
-//         "brand":{
-//             "idb":8,
-//             "name":"Rolex"
-//         },
-//         "libelle":"Captain Cook Chronograph 43mm",
-//         "originalPrice":129.99,
-//         "discountPrice":99.99,
-//         "photoList":[
-//             {
-//                 "photoId":1388712,
-//                 "photo":testPhoto,
-//                 "extension":"jpg"
-//             }
-//         ],
-//         "idp":"12SQZ21SDE",
-//     }
-// ]
-
+import {totalCountState} from "../../recoil/atoms/productListingAtom";
+import {useNavigate} from "react-router-dom";
 
 function SearchPage() {
     const limit = 8;
