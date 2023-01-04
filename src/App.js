@@ -24,6 +24,7 @@ import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 import InternalServerError from "./components/internalServerError/InternalServerError";
 import OrderCompletedPage from "./pages/orderCompletedPage/OrderCompletedPage";
 import AdminDashboardPage from "./pages/adminDashboardPage/AdminDashboardPage";
+import AdminOrdersPage from "./pages/adminOrdersPage/AdminOrdersPage";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
                     {/*</Route>*/}
 
                     <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
+                    <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
 
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
