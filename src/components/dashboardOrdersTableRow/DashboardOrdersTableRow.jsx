@@ -1,20 +1,5 @@
 import React from 'react'
-
-const orderStatusTag = {
-    "In progress": {
-        className:"bg-orange-400/40 text-orange-700",
-        text:"In progress"
-    },
-    "Shipped": {
-        className:"bg-blue-500/40 text-blue-800",
-        text:"Shipped"
-    },
-    "Delivered": {
-            className:"bg-green-400/40 text-green-800",
-            text:"Delivered"
-    }
-}
-
+import orderStatusTag from "../../constants/prderStatusConstants";
 const DashboardOrdersTableRow = ({order})=>{
     const orderDate = new Date(order?.orderDate);
     const formattedDate = (('0' + orderDate.getDate()).slice(-2) + '/'
