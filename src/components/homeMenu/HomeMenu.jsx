@@ -96,8 +96,6 @@ const HomeMenu = () => {
                         }
                     </ul>
                 </div>
-
-
             }</div>
     );
 }

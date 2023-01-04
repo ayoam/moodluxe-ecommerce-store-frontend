@@ -11,6 +11,7 @@ import {cartItemsState} from "../../recoil/atoms/cartAtom";
 import {axiosInstance} from "../../service/apiService";
 import {AiFillEye} from "react-icons/ai";
 import {AiFillEyeInvisible} from "react-icons/ai";
+import {ROLE_ADMIN, ROLE_CUSTOMER} from "../../constants/rolesConstants";
 
 
 const LoginPage = () => {
@@ -33,14 +34,20 @@ const LoginPage = () => {
                 setUser(response?.data["userInfo"]);
                 axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response?.data["access_token"]}`;
                 setInvalidCreds(false);
-                //add current cart items to customers cart
-                postOfflineCartItems(response?.data["userInfo"].cartId, cartItems)
-                    .then(response => {
-                        setCartItems(response?.data?.cartItemList);
-                        localStorage.removeItem("cartItems");
-                    })
 
-                navigate("/myAccount")
+                if(response?.data["userInfo"]?.roles?.includes(ROLE_ADMIN)){
+                    navigate("/admin/dashboard");
+                }
+                else if(response?.data["userInfo"]?.roles?.includes(ROLE_CUSTOMER)){
+                    //add current cart items to customers cart
+                    postOfflineCartItems(response?.data["userInfo"].cartId, cartItems)
+                        .then(response => {
+                            setCartItems(response?.data?.cartItemList);
+                            localStorage.removeItem("cartItems");
+                        })
+                    navigate("/myAccount");
+                }
+
             })
             .catch((error) => {
                 setInvalidCreds(true);

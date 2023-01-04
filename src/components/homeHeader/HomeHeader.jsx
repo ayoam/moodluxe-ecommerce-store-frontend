@@ -2,19 +2,15 @@ import React, {useState} from 'react'
 import logo from "../../assets/img/logo.png"
 import smallLogo from "../../assets/img/small-logo.png"
 import {MdOutlineShoppingBag} from "react-icons/md"
-import {HiMenuAlt2, HiOutlineUser} from "react-icons/hi"
-import {NavLink} from "react-router-dom";
-import NavbarDropdownList from "../navbarDropdownList/NavbarDropdownList";
+import {HiOutlineUser} from "react-icons/hi"
+import {useNavigate} from "react-router-dom";
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {cartIsActiveState, cartItemsState} from "../../recoil/atoms/cartAtom"
-import {useNavigate} from "react-router-dom";
 import HomeMenu from "../homeMenu/HomeMenu";
-import {IoClose} from "react-icons/io5";
-import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
 import HomeMenuButton from "../homeMenuButton/HomeMenuButton";
 import {AiOutlineSearch} from "react-icons/ai"
 import {searchIsActiveState} from "../../recoil/atoms/searchBarAtom";
-import {appUserState, authenticationState} from "../../recoil/atoms/AuthenticationAtom";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import UserDropDownList from "../userDropDownList/UserDropDownList";
 
 const categoryItems = ["Chronograph watches", "Digital watches", "Automatic watches", "Quartz watches", "Skeleton watches"]
