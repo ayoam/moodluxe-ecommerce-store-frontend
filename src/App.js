@@ -18,13 +18,14 @@ import MyAccountPage from "./pages/myAccountPage/MyAccountPage";
 import OrderPage from "./pages/orderPage/OrderPage";
 import AuthenticationProvider from "./components/authenticationProvider/AuthenticationProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import {ROLE_ADMIN, ROLE_CUSTOMER} from "./constants/rolesConstants";
+import {ROLE_CUSTOMER} from "./constants/rolesConstants";
 import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 
 import InternalServerError from "./components/internalServerError/InternalServerError";
 import OrderCompletedPage from "./pages/orderCompletedPage/OrderCompletedPage";
 import AdminDashboardPage from "./pages/adminDashboardPage/AdminDashboardPage";
-import AdminOrdersPage from "./pages/adminOrdersPage/AdminOrdersPage";
+import AdminOrderManagementPage from "./pages/adminOrderManagementPage/AdminOrderManagementPage";
+import AdminProductManagementPage from "./pages/adminProductManagementPage/AdminProductManagementPage";
 
 
 function App() {
@@ -58,7 +59,9 @@ function App() {
                     {/*</Route>*/}
 
                     <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
-                    <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
+                    <Route path="/admin/orders" element={<AdminOrderManagementPage/>}/>
+                    <Route path="/admin/orders/:orderId" element={<OrderPage/>}/>
+                    <Route path="/admin/products" element={<AdminProductManagementPage/>}/>
 
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
