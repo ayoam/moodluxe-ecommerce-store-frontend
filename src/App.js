@@ -18,13 +18,12 @@ import MyAccountPage from "./pages/myAccountPage/MyAccountPage";
 import OrderPage from "./pages/orderPage/OrderPage";
 import AuthenticationProvider from "./components/authenticationProvider/AuthenticationProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import {ROLE_ADMIN, ROLE_CUSTOMER} from "./constants/rolesConstants";
+import {ROLE_CUSTOMER} from "./constants/rolesConstants";
 import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 
 import InternalServerError from "./components/internalServerError/InternalServerError";
 import OrderCompletedPage from "./pages/orderCompletedPage/OrderCompletedPage";
 import AddressDetails from "./components/customerAddressDetails/AddressDetails";
-import SettingsPage from "./pages/settingsPage/SettingsPage";
 import CustomerDetailsUpdate from "./components/customerDetails/CustomerDetailsUpdate";
 import CustomerPasswordUpdate from "./components/customerDetails/CustomerPasswordUpdate";
 import AdminDashboardPage from "./pages/adminDashboardPage/AdminDashboardPage";
@@ -67,13 +66,12 @@ function App() {
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>
-                    <Route path="/settings" element={<SettingsPage/>}>
-                        <Route  path="" element={<Navigate to="/settings/address"/>}/>
+                    <Route path="/settings">
+                        <Route  path="" element={<NotFoundPage/>}/>
                         <Route  path="address" element={<AddressDetails/>}/>
-                        <Route  path="personalData" element={<CustomerDetailsUpdate/>}/>
+                        <Route  path="personalDetails" element={<CustomerDetailsUpdate/>}/>
                         <Route  path="password" element={<CustomerPasswordUpdate/>}/>
                     </Route>
-
                 </Route>
             </Routes>
         </BrowserRouter>

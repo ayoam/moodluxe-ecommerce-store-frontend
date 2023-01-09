@@ -37,7 +37,7 @@ function MyAccountPage() {
 
     },[user])
     const addressEditHandler = () => {
-        navigate("/settings")
+        navigate("/settings/address")
     }
 
 
