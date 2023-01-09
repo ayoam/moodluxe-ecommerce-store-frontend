@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useRecoilValue} from "recoil";
-import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import {appUserState} from "../../../recoil/atoms/AuthenticationAtom";
 import {useForm} from "react-hook-form";
 import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
-import UpdateCustomerPassword from "../../service/customerRequests/UpdateCustomerPassword";
+import UpdateCustomerPassword from "../../../service/customerRequests/UpdateCustomerPassword";
 import {useNavigate} from "react-router-dom";
-import CustomerSettingsLayout from "../../layouts/settingsLayout/CustomerSettingsLayout";
+import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
 
 function CustomerPasswordUpdate(props) {
     const user = useRecoilValue(appUserState);

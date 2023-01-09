@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useRecoilValue} from "recoil";
-import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import {appUserState} from "../../../recoil/atoms/AuthenticationAtom";
 import {Controller, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-import GetCustomerById from "../../service/customerRequests/GetCustomerById";
+import GetCustomerById from "../../../service/customerRequests/GetCustomerById";
 import PhoneInput from "react-phone-input-2";
-import UpdateCustomerDetailsById from "../../service/customerRequests/UpdateCustomerDetailsById";
-import CustomerSettingsLayout from "../../layouts/settingsLayout/CustomerSettingsLayout";
+import UpdateCustomerDetailsById from "../../../service/customerRequests/UpdateCustomerDetailsById";
+import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
 
 function CustomerDetailsUpdate(props) {
     const user = useRecoilValue(appUserState);

@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useRecoilValue} from "recoil";
-import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import {appUserState} from "../../../recoil/atoms/AuthenticationAtom";
 import {useForm} from "react-hook-form";
-import GetCustomerById from "../../service/customerRequests/GetCustomerById";
+import GetCustomerById from "../../../service/customerRequests/GetCustomerById";
 import {useNavigate} from "react-router-dom";
-import AddAddressForm from "./AddAddressForm";
-import UpdateCustomerAddressById from "../../service/customerRequests/UpdateCustomerAddressById";
-import axios from "axios";
-import GetCountries from "../../service/dataRequests/getCountries";
-import CustomerSettingsLayout from "../../layouts/settingsLayout/CustomerSettingsLayout";
+import UpdateCustomerAddressById from "../../../service/customerRequests/UpdateCustomerAddressById";
+import GetCountries from "../../../service/dataRequests/getCountries";
+import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
 
 
-function AddressDetails() {
+function CustomerAddressUpdate() {
     const user = useRecoilValue(appUserState);
     const [orderAddressInfo, setOrderAddressInfo] = useState(null);
     const [orderAddressEditing, setOrderAddressEditing] = useState(false);
@@ -189,4 +187,4 @@ function AddressDetails() {
     );
 }
 
-export default AddressDetails;
+export default CustomerAddressUpdate;
