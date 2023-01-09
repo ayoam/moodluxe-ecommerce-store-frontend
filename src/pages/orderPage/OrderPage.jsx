@@ -7,6 +7,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import getOrderById from "../../service/orderRequests/getOrderById";
 import NotFoundPage from "../404Page/NotFoundPage";
 import GenerateInvoice from "../../service/orderRequests/generateInvoice";
+import {useRecoilValue} from "recoil";
+import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import {ROLE_ADMIN, ROLE_CUSTOMER} from "../../constants/rolesConstants";
+import AdminLayout from "../../layouts/adminLayout/AdminLayout";
 
 function OrderPage(props) {
     const {orderId}=useParams();
@@ -15,6 +19,7 @@ function OrderPage(props) {
     const[status,setStatus] =useState(null);
     const [pageLoading,setPageLoading] = useState(true);
     const [invoiceLoading,setInvoiceLoading] = useState(false);
+    const user = useRecoilValue(appUserState);
 
     useEffect(()=>{
         getOrderById(orderId)
@@ -49,7 +54,14 @@ function OrderPage(props) {
 
     }
 
-    if(pageLoading) {return <HomeLayout><p className={"h-screen bg-secondaryBgColor text-white pt-28 text-center text-lg"}>loading ...</p></HomeLayout>}
+    if(pageLoading) {
+        if(user?.roles?.includes(ROLE_CUSTOMER)){
+            return <HomeLayout><p className={"h-screen bg-secondaryBgColor text-white pt-28 text-center text-lg"}>loading ...</p></HomeLayout>
+        }
+        else if (user?.roles?.includes(ROLE_ADMIN)) {
+            return <AdminLayout><p className={"h-screen bg-secondaryBgColor text-white pt-28 text-center text-lg"}>loading ...</p></AdminLayout>
+        }
+    }
 
     if(status===200) return (
         <HomeLayout>
@@ -76,7 +88,7 @@ function OrderPage(props) {
         </HomeLayout>
     );
 
-    if([400,404,500].includes(status)){return  <NotFoundPage/>}
+    if([400,404,500,503].includes(status)){return  <NotFoundPage/>}
 }
 
 export default OrderPage;

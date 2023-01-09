@@ -1,17 +1,18 @@
 import React from 'react'
 import AdminLayout from "../../layouts/adminLayout/AdminLayout";
 import OrderManagementTable from "../../components/orderManagementTable/OrderManagementTable";
+import ProductManagementTable from "../productManagementTable/ProductManagementTable";
 
-const AdminOrdersPage = ()=>{
+const AdminProductManagementPage = ()=>{
     return(
         <AdminLayout>
             <section className={"bg-secondaryBgColor min-h-[85vh]"}>
-                <div className={"p-4 py-8 sm:p-8 md:p-16 max-w-7xl mx-auto"}>
-                    <OrderManagementTable/>
+                <div className={"p-3 py-8 sm:p-8 md:p-10 max-w-7xl mx-auto"}>
+                    <ProductManagementTable/>
                 </div>
             </section>
         </AdminLayout>
     )
 }
 
-export default AdminOrdersPage
+export default AdminProductManagementPage
