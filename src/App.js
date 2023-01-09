@@ -23,6 +23,9 @@ import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 
 import InternalServerError from "./components/internalServerError/InternalServerError";
 import OrderCompletedPage from "./pages/orderCompletedPage/OrderCompletedPage";
+import CustomerAddressUpdate from "./pages/customerSettingsPage/customerAddressUpdate/CustomerAddressUpdate";
+import CustomerDetailsUpdate from "./pages/customerSettingsPage/customerDetailsUpdate/CustomerDetailsUpdate";
+import CustomerPasswordUpdate from "./pages/customerSettingsPage/customerPasswordUpdate/CustomerPasswordUpdate";
 import AdminDashboardPage from "./pages/adminDashboardPage/AdminDashboardPage";
 import AdminOrderManagementPage from "./pages/adminOrderManagementPage/AdminOrderManagementPage";
 import AdminProductManagementPage from "./pages/adminProductManagementPage/AdminProductManagementPage";
@@ -66,6 +69,12 @@ function App() {
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>
+                    <Route path="/settings">
+                        <Route  path="" element={<NotFoundPage/>}/>
+                        <Route  path="address" element={<CustomerAddressUpdate/>}/>
+                        <Route  path="personalDetails" element={<CustomerDetailsUpdate/>}/>
+                        <Route  path="password" element={<CustomerPasswordUpdate/>}/>
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

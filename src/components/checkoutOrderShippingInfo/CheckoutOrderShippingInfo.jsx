@@ -3,12 +3,21 @@ import {useForm} from "react-hook-form";
 import GetCustomerById from "../../service/customerRequests/GetCustomerById";
 import {useRecoilValue} from "recoil";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
+import GetCountries from "../../service/dataRequests/getCountries";
 
 const CheckoutOrderShippingInfo = ({orderAdresseInfo,setOrderAdresseInfo})=>{
     const user = useRecoilValue(appUserState);
     const [shippingFormEditing,setShippingFormEditing] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [countries, setCountries] = useState([]);
 
+    useEffect(() => {
+        GetCountries().then(
+            (response) => {
+                setCountries(response.data.data)
+            }
+        ).catch((error) => console.log(error));
+    }, [])
 
     const onShippingInfoSubmit = (data) => {
         setOrderAdresseInfo((prev)=>{
@@ -89,16 +98,19 @@ const CheckoutOrderShippingInfo = ({orderAdresseInfo,setOrderAdresseInfo})=>{
                                         {errors?.stateProvince &&
                                             <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.stateProvince.message}</p>}
                                     </div>
+
                                     <div className={""}>
                                         <p className={"text-sm font-light mb-1"}>Country</p>
                                         <select
-                                            defaultValue={orderAdresseInfo?.country}
                                             className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor"} {...register("country", {
                                             required: "country required!",
-                                        })}>
-                                            <option>United States</option>
-                                            <option>Denmark</option>
-                                            <option>Canada</option>
+                                        })}
+                                            defaultValue={orderAdresseInfo?.country}>
+                                            {countries.map((country, index) => (
+                                                    <option value={country.idc}
+                                                            key={index}>{country.countryName}</option>
+                                                )
+                                            )}
                                         </select>
                                         {errors?.country &&
                                             <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.country.message}</p>}

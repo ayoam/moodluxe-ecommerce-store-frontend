@@ -1,15 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
-import {useForm,Controller} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import RegisterCustomer from "../../service/customerRequests/RegisterCustomer";
-import {axiosInstance} from "../../service/apiService";
-import {POST_REGISTER_CUSTOMER_URL} from "../../constants/apiUrlsConstants";
 import CheckEmailExistance from "../../service/customerRequests/CheckEmailExistance";
-import { useCookies } from "react-cookie";
-import{useNavigate} from "react-router-dom";
+import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import GetCountries from "../../service/dataRequests/getCountries";
 
 const RegisterPage = () => {
     const {register, handleSubmit, watch, formState: {errors},control} = useForm(
@@ -24,16 +23,13 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
 
-    const getCountries = () =>{
-        axios.get("http://localhost:8080/api/v1/countries").then(
+    useEffect(() => {
+        GetCountries().then(
             (response)=>{
                 console.log(response.data)
                 setCountries(response.data.data)
             }
         ).catch((error) => console.log(error));
-        }
-    useEffect(() => {
-        getCountries();
     },[])
 
 
