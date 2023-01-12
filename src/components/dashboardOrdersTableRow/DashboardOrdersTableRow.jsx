@@ -1,5 +1,5 @@
 import React from 'react'
-import orderStatusTag from "../../constants/prderStatusConstants";
+import orderStatusTag from "../../constants/orderStatusConstants";
 const DashboardOrdersTableRow = ({order})=>{
     const orderDate = new Date(order?.orderDate);
     const formattedDate = (('0' + orderDate.getDate()).slice(-2) + '/'

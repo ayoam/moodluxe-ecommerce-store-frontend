@@ -18,7 +18,7 @@ import MyAccountPage from "./pages/myAccountPage/MyAccountPage";
 import OrderPage from "./pages/orderPage/OrderPage";
 import AuthenticationProvider from "./components/authenticationProvider/AuthenticationProvider";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import {ROLE_CUSTOMER} from "./constants/rolesConstants";
+import {ROLE_ADMIN, ROLE_CUSTOMER} from "./constants/rolesConstants";
 import UnauthorizedPage from "./components/unauthorizedPage/UnauthorizedPage";
 
 import InternalServerError from "./components/internalServerError/InternalServerError";
@@ -27,8 +27,9 @@ import CustomerAddressUpdate from "./pages/customerSettingsPage/customerAddressU
 import CustomerDetailsUpdate from "./pages/customerSettingsPage/customerDetailsUpdate/CustomerDetailsUpdate";
 import CustomerPasswordUpdate from "./pages/customerSettingsPage/customerPasswordUpdate/CustomerPasswordUpdate";
 import AdminDashboardPage from "./pages/adminDashboardPage/AdminDashboardPage";
-import AdminOrderManagementPage from "./pages/adminOrderManagementPage/AdminOrderManagementPage";
-import AdminProductManagementPage from "./pages/adminProductManagementPage/AdminProductManagementPage";
+import OrderManagementPage from "./pages/orderManagementPage/OrderManagementPage";
+import ProductManagementPage from "./pages/productManagementPage/ProductManagementPage";
+import AdminOrderDetailsPage from "./pages/adminOrderDetailsPage/AdminOrderDetailsPage";
 
 
 function App() {
@@ -58,13 +59,12 @@ function App() {
                         <Route path="/order-completed" element={<OrderCompletedPage/>}/>
                     </Route>
 
-                    {/*<Route element={<ProtectedRoute authorizedRoles={[ROLE_ADMIN]}/>}>*/}
-                    {/*</Route>*/}
-
-                    <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
-                    <Route path="/admin/orders" element={<AdminOrderManagementPage/>}/>
-                    <Route path="/admin/orders/:orderId" element={<OrderPage/>}/>
-                    <Route path="/admin/products" element={<AdminProductManagementPage/>}/>
+                    <Route element={<ProtectedRoute authorizedRoles={[ROLE_ADMIN]}/>}>
+                        <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
+                        <Route path="/admin/orders" element={<OrderManagementPage/>}/>
+                        <Route path="/admin/orders/:orderId" element={<AdminOrderDetailsPage/>}/>
+                        <Route path="/admin/products" element={<ProductManagementPage/>}/>
+                    </Route>
 
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>

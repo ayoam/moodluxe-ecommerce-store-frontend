@@ -2,7 +2,7 @@ import React from 'react'
 import AdminLayout from "../../layouts/adminLayout/AdminLayout";
 import OrderManagementTable from "../../components/orderManagementTable/OrderManagementTable";
 
-const AdminOrderManagementPage = ()=>{
+const OrderManagementPage = ()=>{
     return(
         <AdminLayout>
             <section className={"bg-secondaryBgColor min-h-[85vh]"}>
@@ -14,4 +14,4 @@ const AdminOrderManagementPage = ()=>{
     )
 }
 
-export default AdminOrderManagementPage
+export default OrderManagementPage
