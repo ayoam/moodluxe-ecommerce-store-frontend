@@ -30,6 +30,10 @@ import AdminDashboardPage from "./pages/adminDashboardPage/AdminDashboardPage";
 import OrderManagementPage from "./pages/orderManagementPage/OrderManagementPage";
 import ProductManagementPage from "./pages/productManagementPage/ProductManagementPage";
 import AdminOrderDetailsPage from "./pages/adminOrderDetailsPage/AdminOrderDetailsPage";
+import AdminCustomerManagementPage from "./pages/adminCustomerManagementPage/AdminCustomerManagementPage";
+import AdminMessageManagementPage from "./pages/adminMessageManagementPage/AdminMessageManagementPage";
+
+
 
 
 function App() {
@@ -51,13 +55,13 @@ function App() {
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/notFound" element={<NotFoundPage/>}/>
                     <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
-
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
                         <Route path="/checkout" element={<CheckoutPage/>}/>
                         <Route path="/myAccount" element={<MyAccountPage/>}/>
                         <Route path="/orders/:orderId" element={<OrderPage/>}/>
                         <Route path="/order-completed" element={<OrderCompletedPage/>}/>
                     </Route>
+
 
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_ADMIN]}/>}>
                         <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
@@ -66,6 +70,14 @@ function App() {
                         <Route path="/admin/products" element={<ProductManagementPage/>}/>
                     </Route>
 
+
+                    {/*<Route element={<ProtectedRoute authorizedRoles={[ROLE_ADMIN]}/>}>*/}
+                    {/*</Route>*/}
+
+                    <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
+                    <Route path="/admin/customers" element={<AdminCustomerManagementPage/>}/>
+                    <Route path="/admin/orders/:orderId" element={<OrderPage/>}/>
+                    <Route path="/admin/messages" element={<AdminMessageManagementPage/>}/>
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>
