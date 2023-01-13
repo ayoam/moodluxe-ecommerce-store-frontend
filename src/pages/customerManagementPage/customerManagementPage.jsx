@@ -3,7 +3,7 @@ import AdminLayout from "../../layouts/adminLayout/AdminLayout";
 import OrderManagementTable from "../../components/orderManagementTable/OrderManagementTable";
 import CustomerManagementTable from "../../components/customerManagementTable/CustomerManagementTable";
 
-const AdminCustomerManagementPage = () => {
+const CustomerManagementPage = () => {
     return (
         <AdminLayout>
             <section className={"bg-secondaryBgColor min-h-[85vh]"}>
@@ -11,7 +11,8 @@ const AdminCustomerManagementPage = () => {
                     <CustomerManagementTable/>
                 </div>
             </section>
-        </AdminLayout>    );
+        </AdminLayout>
+    );
 }
 
-export default AdminCustomerManagementPage;
+export default CustomerManagementPage;

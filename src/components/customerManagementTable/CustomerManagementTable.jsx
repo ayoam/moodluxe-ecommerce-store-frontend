@@ -1,27 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BsSearch} from "react-icons/bs";
 import OrderManagementTableRow from "../orderManagementTableRow/OrderManagementTableRow";
 import {TablePagination} from "@mui/material";
 import CustomerManagementTableRow from "../customerManagementTableRow/CustomerManagementTableRow";
+import MaterialTablePagination from "../materialTablePagination/MaterialTablePagination";
 
 const CustomerManagementTable = () => {
-    const tablePaginationStyle={
-        ".MuiTablePagination-selectLabel":{
-            fontFamily:"Poppins,sans-serif",
-            fontWeight:"600"
-        },
-        ".MuiTablePagination-displayedRows ":{
-            fontFamily:"Poppins,sans-serif!important"
-        },
-        ".MuiTablePagination-select":{
-            fontFamily:"Poppins,sans-serif!important",
-            padding:0
-        },
-        ".MuiTablePagination-toolbar":{
-            paddingRight:"10px",
-            paddingLeft:"5px"
-        }
-    };
+    const [totalCount,setTotalCount]=useState(12);
     return (
         <div>
             <h1 className={"text-2xl sm:text-3xl font-semibold text-white mb-8"}>Customer Management</h1>
@@ -44,7 +29,6 @@ const CustomerManagementTable = () => {
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Birth Date</th>
-                            <th>Address</th>
                             <th className={"w-30"}></th>
                         </tr>
                         </thead>
@@ -60,15 +44,7 @@ const CustomerManagementTable = () => {
                     </table>
                 </div>
                 <div className={"bg-white h-[80px]"}>
-                    <TablePagination
-                        count={14}
-                        onPageChange={()=>console.log("hi")}
-                        page={0}
-                        rowsPerPage={5}
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        sx={tablePaginationStyle}
-                    />
+                    {totalCount>0 && <MaterialTablePagination count={totalCount}/>}
                 </div>
             </div>
         </div>    );
