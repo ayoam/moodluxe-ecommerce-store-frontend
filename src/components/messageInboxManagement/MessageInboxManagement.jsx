@@ -1,35 +1,71 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BsSearch} from "react-icons/bs";
 import {HiReply} from "react-icons/hi";
-import {useNavigate} from "react-router-dom";
 import {MdOutlineArrowBackIos} from "react-icons/md";
+import GetUnreadMessagesCount from "../../service/contactRequests/GetUnreadMessagesCount";
+import GetAllContacts from "../../service/contactRequests/GetAllContacts";
+import UpdateUnreadMessages from "../../service/contactRequests/UpdateUnreadMessages";
+
 
 
 const MessageInboxManagement = () => {
-    const [messages, setMessages] = useState([{
-        id: 1,
-        name: 'Maverick Grizemann',
-        email: 'maverickgrizemann@gmail.com',
-        text: 'Lorem ipsum dolor sit amet,consectetur adipisicing elit. Debitis, doloribus?'
-    }, {
-        id: 2, name: 'john D', email: 'johnd@gmail.com', text: 'How are you?'
-    }, {
-        id: 3, name: 'Sara l', email: 'Saral@gmail.com', text: 'Nice to meet you.'
-    }]);
+    // const [messages, setMessages] = useState([{
+    //     id: 1,
+    //     name: 'Maverick Grizemann',
+    //     email: 'maverickgrizemann@gmail.com',
+    //     text: 'Lorem ipsum dolor sit amet,consectetur adipisicing elit. Debitis, doloribus?'
+    // }, {
+    //     id: 2, name: 'john D', email: 'johnd@gmail.com', text: 'How are you?'
+    // }, {
+    //     id: 3, name: 'Sara l', email: 'Saral@gmail.com', text: 'Nice to meet you.'
+    // }]);
+    const [messages, setMessages] = useState([{}])
+    const [unreadCount, setUnreadCount] = useState(0);
+    const [messageId, setMessageId] = useState(null);
     const [selectedMessage, setSelectedMessage] = useState(null);
     const [activeItem, setActiveItem] = useState(-1);
-    const navigate = useNavigate();
-    const handleSelect = (message, itemIndex) => {
+    const handleSelect = (id,message, itemIndex) => {
         setSelectedMessage(message)
         setActiveItem(itemIndex)
+        setMessageId(id);
     }
 
     const handleReturnbackBtn = ()=>{
         setSelectedMessage(null)
         setActiveItem(-1)
     }
+    useEffect(() => {
+         GetAllContacts().then(
+            (response ) => {
+                setMessages(response.data.data);
+            }
+            )
+
+         GetUnreadMessagesCount().then (
+               (res ) => {
+                   setUnreadCount(res.data);
+               }
+        ).catch((error) => console.log(error));
 
 
+    }, [selectedMessage]);
+
+
+    const markAsRead = (id) => {
+        UpdateUnreadMessages(id)
+           .then(res => {
+               setUnreadCount(res.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    useEffect(() => {
+        console.log(messageId)
+        if (messageId) {
+            markAsRead(messageId);
+        }
+    }, [messageId]);
     return (<div>
         <div
             className={"bg-gradient-to-br from-white to-gray-100 rounded-md shadow-[2px_2px_1px_2px_rgba(255,255,255,0.25)] overflow-hidden"}>
@@ -39,7 +75,7 @@ const MessageInboxManagement = () => {
                     <div className="flex flex-row items-center">
                         <div className="text-xl font-semibold">Messages</div>
                         <div
-                            className="flex items-center justify-center ml-2 text-xs h-5 w-5 text-white bg-red-500 rounded-full font-medium">5
+                            className={unreadCount > 0 ?"flex items-center justify-center ml-2 text-xs h-5 w-5 text-white bg-red-500 rounded-full font-medium":"hidden"}>{unreadCount}
                         </div>
                     </div>
 
@@ -48,7 +84,8 @@ const MessageInboxManagement = () => {
                     <div className="flex flex-col mt-4 overflow-y-auto">
                         {messages.map((message, index) => {
                                 return <MessageSideBarItem
-                                    key={message.id}
+                                    key={index}
+                                    id={message.idc}
                                     message={message}
                                     index={index}
                                     activeItem={activeItem}
@@ -77,7 +114,7 @@ export const FullMessage = ({message,handleReturnbackBtn}) => {
                 <div className="flex flex-row items-center px-6 py-5 rounded-2xl shadow-lg border-[1px] border-black/5">
                     <div
                         className="flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-pink-500 text-pink-100">
-                        {message.name.slice(0, 1).toUpperCase()}
+                        {message?.username?.slice(0, 1).toUpperCase()}
                     </div>
                     <div className="flex flex-col ml-3 gap-1">
                         <div className="font-semibold text-xs sm:text-sm">
@@ -88,7 +125,7 @@ export const FullMessage = ({message,handleReturnbackBtn}) => {
                 </div>
 
                 <div className="relative text-xs sm:text-sm bg-white flex-1 p-6 lg:p-10 shadow-lg rounded-xl border-[1px] border-black/5">
-                    {message.text}
+                    {message.message}
                 </div>
 
                 <div className="flex flex-row items-center mx-3 lg:mx-5">
@@ -107,20 +144,20 @@ export const FullMessage = ({message,handleReturnbackBtn}) => {
     );
 }
 
-export const MessageSideBarItem = ({activeItem, index, message, handleSelect}) => {
+export const MessageSideBarItem = ({id,activeItem, index, message, handleSelect}) => {
     return (
         <div
-            className={`cursor-pointer ${activeItem === index ? "flex flex-row items-center p-4 relative bg-gradient-to-r from-red-100 to-transparent border-l-2 border-l-red-500" : "flex flex-row items-center p-4 relative hover:bg-gradient-to-r from-red-100 to-transparent border-l-2 border-l-transparent hover:border-l-red-500"}`}
-            onClick={() => handleSelect(message, index)}>
+            className={`cursor-pointer ${activeItem === index ? "flex flex-row items-center p-4 relative bg-gradient-to-r from-red-100 to-transparent border-l-2 border-l-red-500" : "flex flex-row items-center p-4 relative hover:bg-gradient-to-r from-red-100 to-transparent border-l-2 border-l-transparent hover:border-l-red-500 border border-b-gray-200"} ${!message.read ? ' bg-gradient-to-r from-gray-300 to-transparent' : ''}`}
+            onClick={() => handleSelect(id,message, index)}>
             <div
                 className="flex items-center justify-center h-10 w-10 rounded-full bg-pink-500 text-pink-100  flex-shrink-0">
-                {message.name.slice(0, 1).toUpperCase()}
+                {message?.username?.slice(0, 1).toUpperCase()}
             </div>
             <div className="flex flex-col flex-grow ml-3">
                 <div className="flex items-center">
-                    <div className="text-sm font-medium">{message.name}</div>
+                    <div className="text-sm font-medium">{message.username}</div>
                 </div>
-                <div className="text-xs truncate w-40">{message.text}
+                <div className="text-xs truncate w-40">{message.message}
                 </div>
             </div>
         </div>
