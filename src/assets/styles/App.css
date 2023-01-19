@@ -28,3 +28,19 @@ input[type='number'] {
         margin: 0;
         -moz-appearance: textfield !important;
     }
+
+.ql-container{
+    border-bottom-left-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
+}
+
+.ql-snow.ql-toolbar {
+    border-top-left-radius: 0.25em;
+    border-top-right-radius: 0.25em;
+    border: 1px solid rgb(156 163 175) !important;
+    border-bottom: none!important;
+}
+
+.ql-container.ql-snow{
+    border: 1px solid rgb(156 163 175)!important;
+}

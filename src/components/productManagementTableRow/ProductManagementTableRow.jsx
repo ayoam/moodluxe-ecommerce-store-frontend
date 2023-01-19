@@ -4,11 +4,11 @@ import testPhoto from "../../assets/testPhoto";
 import productStatusTag from "../../constants/productStatusConstants";
 import {RiDeleteBin5Fill} from "react-icons/ri";
 import deleteProductById from "../../service/adminRequests/deleteProductById";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 const ProductManagementTableRow = ({product})=>{
     const [searchParams, setSearchParams] = useSearchParams();
-
+    const navigate = useNavigate();
     const handleDeleteBtnClick = ()=>{
         if(window.confirm("are you sure?")===true){
             deleteProductById(product.idp)
@@ -44,7 +44,7 @@ const ProductManagementTableRow = ({product})=>{
             <td className={"text-center px-2"}>
                 <div className={"flex items-center justify-around"}>
                     <button><RiDeleteBin5Fill className={"text-lg hover:text-red-600 transition-colors"} onClick={handleDeleteBtnClick}/></button>
-                    <button className={"bg-gray-200 hover:bg-gray-300 transition-colors shadow-inner flex justify-center items-center rounded-lg p-2 gap-1 font-semibold text-lg"}><TbEditCircle/></button>
+                    <button className={"bg-gray-200 hover:bg-gray-300 transition-colors shadow-inner flex justify-center items-center rounded-lg p-2 gap-1 font-semibold text-lg"} onClick={()=>navigate(product?.idp+"/edit")}><TbEditCircle/></button>
                 </div>
             </td>
         </tr>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 
 const AddAddressForm = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
 
 
     return (
@@ -15,7 +15,6 @@ const AddAddressForm = () => {
                 <div className={"md:col-span-2"}>
                     <p className={"text-sm font-light mb-1"}>Adresse</p>
                     <input type={"text"} placeholder={"Adresse"}
-
                            className={"w-full p-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400 bg-secondaryBgColor placeholder:font-light placeholder:text-sm"} {...register("adresse", {
                         required: "adresse required!",
                     })}/>
