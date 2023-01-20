@@ -4,8 +4,8 @@ import MessageInboxManagement from "../../components/messageInboxManagement/Mess
 function MessagesPage() {
     return (
         <AdminLayout>
-            <section className={"bg-secondaryBgColor min-h-[85vh]"}>
-                <div className={"p-3 py-8 sm:p-8 md:p-14 max-w-7xl mx-auto"}>
+            <section className={"bg-secondaryBgColor sm:min-h-[85vh]"}>
+                <div className={"p-0 sm:p-8 md:p-14 max-w-7xl mx-auto"}>
                     <MessageInboxManagement/>
                 </div>
             </section>
