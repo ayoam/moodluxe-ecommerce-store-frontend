@@ -6,21 +6,21 @@ import GetUnreadMessagesCount from "../../service/contactRequests/GetUnreadMessa
 import GetAllContacts from "../../service/contactRequests/GetAllContacts";
 import UpdateUnreadMessages from "../../service/contactRequests/UpdateUnreadMessages";
 
-const formatDate = (d)=>{
+const formatDate = (d) => {
     const date = new Date(d);
     return (('0' + date.getDate()).slice(-2) + '/'
-        + ('0' + (date.getMonth()+1)).slice(-2) + '/'
+        + ('0' + (date.getMonth() + 1)).slice(-2) + '/'
         + date.getFullYear());
 }
 
-const formatTime = (d)=>{
+const formatTime = (d) => {
     const date = new Date(d);
     let hr = date.getHours();
     let min = date.getMinutes();
-    if(min < 10 ) min = "0" + min;
+    if (min < 10) min = "0" + min;
 
     let ampm = "AM";
-    if( hr > 12 ) {
+    if (hr > 12) {
         hr -= 12;
         ampm = "PM";
     }
@@ -34,17 +34,9 @@ const MessageInboxManagement = () => {
     const [selectedMessage, setSelectedMessage] = useState(null);
     const [activeItem, setActiveItem] = useState(-1);
     const handleSelect = (id, message, itemIndex) => {
-        if(activeItem>=0){
-            setSelectedMessage(null)
-            setActiveItem(-1)
-            setMessageId(null);
-        }
-        else{
-            setSelectedMessage(message)
-            setActiveItem(itemIndex)
-            setMessageId(id);
-        }
-
+        setSelectedMessage(message)
+        setActiveItem(itemIndex)
+        setMessageId(id);
     }
 
     const handleReturnbackBtn = () => {
