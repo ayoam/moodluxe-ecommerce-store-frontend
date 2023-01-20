@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {BsSearch} from "react-icons/bs";
 import {HiReply} from "react-icons/hi";
 import {MdOutlineArrowBackIos} from "react-icons/md";
@@ -28,6 +28,7 @@ const formatTime = (d) => {
 }
 
 const MessageInboxManagement = () => {
+    const [initialMessages, setInitialMessages] = useState([{}])
     const [messages, setMessages] = useState([{}])
     const [unreadCount, setUnreadCount] = useState(0);
     const [messageId, setMessageId] = useState(null);
@@ -48,6 +49,7 @@ const MessageInboxManagement = () => {
     useEffect(() => {
         GetAllContacts().then(
             (response) => {
+                setInitialMessages(response.data.data);
                 setMessages(response.data.data);
             }
         )
@@ -72,7 +74,7 @@ const MessageInboxManagement = () => {
             });
     }
     useEffect(() => {
-        console.log(messageId)
+        // console.log(messageId)
         if (messageId) {
             markAsRead(messageId);
         }
@@ -90,7 +92,7 @@ const MessageInboxManagement = () => {
                         </div>
                     </div>
 
-                    <MessageSearchInput/>
+                    <MessageSearchInput setMessages={setMessages} initialMessages={initialMessages}/>
 
                     <div className="flex flex-col mt-4 overflow-y-auto">
                         {messages.map((message, index) => {
@@ -191,16 +193,22 @@ export const MessageSideBarItem = ({id, activeItem, index, message, handleSelect
     );
 }
 
-export const MessageSearchInput = () => {
+export const MessageSearchInput = ({setMessages,initialMessages}) => {
+    const searchInputRef=useRef();
+
+    const handleSearchChange = ()=>{
+        const value = searchInputRef.current.value.trim();
+        value!=="" ? setMessages(prev=>initialMessages.filter(x=>(x.username+x.email).toLowerCase().includes(value))) : setMessages(initialMessages);
+    }
+
     return (
-        <div className={"flex rounded-lg overflow-hidden mt-5"}>
+        <div className={"flex rounded-lg overflow-hidden mt-5 border-[1px] "}>
             <input type={"text"}
-                   className={"border-[1px] py-1 px-2 sm:p-2 w-full rounded-bl-md rounded-tl-md placeholder:font-light placeholder:text-sm outline-0 shadow-inner shadow-lg"}
-                   placeholder={"Search Messages"}/>
-            <button
-                className={"hover:bg-gray-100 transition-colors flex items-center justify-center py-2 px-4 rounded-br-md rounded-tr-md border-[1px] border-l-0"}>
-                <BsSearch/>
-            </button>
+                   className={"p-2.5 w-full placeholder:font-light placeholder:text-sm outline-0 shadow-inner shadow-lg text-sm"}
+                   placeholder={"Search Messages"}
+                   ref={searchInputRef}
+                   onChange={handleSearchChange}
+            />
         </div>
     );
 }
