@@ -7,7 +7,7 @@ import ProductManagementTabs from "../productManagementTabs/ProductManagementTab
 import MaterialTablePagination from "../materialTablePagination/MaterialTablePagination";
 import {getValueFromURL} from "../../utils/getValueFromURL";
 import useUrlSearchParams from "../../hooks/useUrlSearchParams";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import getOrdersByUrlParams from "../../service/adminRequests/getOrdersByUrlParams";
 import {useRecoilValue} from "recoil";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
@@ -22,6 +22,7 @@ const ProductManagementTable = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState("asc");
     const [tableLoading, setTableLoading] = useState(true);
+    const navigate = useNavigate();
     const {urlSearchParams} = useUrlSearchParams();
     const user = useRecoilValue(appUserState);
 
@@ -80,11 +81,11 @@ const ProductManagementTable = () => {
                 className={"bg-gradient-to-br from-white to-gray-100 rounded-md shadow-[2px_2px_1px_2px_rgba(255,255,255,0.25)] overflow-hidden"}>
                 <ProductManagementTabs/>
 
-                <div className={"p-3 sm:p-5 border-b-[1px]"}>
+                <div className={"p-3 sm:p-5 border-b-[1px] flex flex-col sm:flex-row gap-2 justify-between"}>
                     <div className={"flex rounded-lg overflow-hidden"}>
                         <input type={"text"}
                                ref={searchRef} onChange={handleSearchChange} defaultValue={searchInput}
-                               className={"border-[1px] py-1 px-2 sm:p-2 rounded-bl-md rounded-tl-md placeholder:font-light placeholder:text-sm outline-0 shadow-inner shadow-lg"}
+                               className={"border-[1px] py-1 px-2 sm:p-2 rounded-bl-md rounded-tl-md placeholder:font-light placeholder:text-sm outline-0 shadow-inner shadow-lg w-full sm:w-auto"}
                                placeholder={"Search Products"}
                         />
                         <button
@@ -92,6 +93,9 @@ const ProductManagementTable = () => {
                             onClick={handleSearchClick}>
                             <BsSearch/>
                         </button>
+                    </div>
+                    <div>
+                        <button className={"bg-green-600 hover:bg-green-700 transition-colors rounded px-5 shadow-inner py-2 text-white text-sm"} onClick={()=>navigate("/admin/products/create")}>Add Product</button>
                     </div>
                 </div>
 
