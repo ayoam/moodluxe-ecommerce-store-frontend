@@ -32,6 +32,8 @@ import ProductManagementPage from "./pages/productManagementPage/ProductManageme
 import AdminOrderDetailsPage from "./pages/adminOrderDetailsPage/AdminOrderDetailsPage";
 import CustomerManagementPage from "./pages/customerManagementPage/customerManagementPage";
 import MessagesPage from "./pages/messagesPage/messagesPage";
+import AddProductPage from "./pages/addProductPage/AddProductPage";
+import EditProductPage from "./pages/editProductPage/EditProductPage";
 
 
 
@@ -44,6 +46,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route element={<AuthenticationProvider/>}>
+
                     <Route path="/" element={<Navigate to="/home"/>}/>
                     <Route path="/home" element={<HomePage/>}/>
                     <Route path="/products/:productId" element={<ProductPage/>}/>
@@ -56,38 +59,35 @@ function App() {
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/notFound" element={<NotFoundPage/>}/>
                     <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
+
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
                         <Route path="/checkout" element={<CheckoutPage/>}/>
                         <Route path="/myAccount" element={<MyAccountPage/>}/>
                         <Route path="/orders/:orderId" element={<OrderPage/>}/>
                         <Route path="/order-completed" element={<OrderCompletedPage/>}/>
+                        <Route path="/settings">
+                            <Route  path="" element={<NotFoundPage/>}/>
+                            <Route  path="address" element={<CustomerAddressUpdate/>}/>
+                            <Route  path="personalDetails" element={<CustomerDetailsUpdate/>}/>
+                            <Route  path="password" element={<CustomerPasswordUpdate/>}/>
+                        </Route>
                     </Route>
-
 
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_ADMIN]}/>}>
                         <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
                         <Route path="/admin/orders" element={<OrderManagementPage/>}/>
                         <Route path="/admin/orders/:orderId" element={<AdminOrderDetailsPage/>}/>
                         <Route path="/admin/products" element={<ProductManagementPage/>}/>
+                        <Route path="/admin/products/create" element={<AddProductPage/>}/>
+                        <Route path="/admin/products/:productId/edit" element={<EditProductPage/>}/>
+                        <Route path="/admin/customers" element={<CustomerManagementPage/>}/>
+                        <Route path="/admin/messages" element={<MessagesPage/>}/>
                     </Route>
 
-
-                    {/*<Route element={<ProtectedRoute authorizedRoles={[ROLE_ADMIN]}/>}>*/}
-                    {/*</Route>*/}
-
-                    <Route path="/admin/dashboard" element={<AdminDashboardPage/>}/>
-                    <Route path="/admin/customers" element={<CustomerManagementPage/>}/>
-                    <Route path="/admin/orders/:orderId" element={<OrderPage/>}/>
-                    <Route path="/admin/messages" element={<MessagesPage/>}/>
                     <Route path="/500" element={<InternalServerError/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                     <Route path="/401" element={<UnauthorizedPage/>}/>
-                    <Route path="/settings">
-                        <Route  path="" element={<NotFoundPage/>}/>
-                        <Route  path="address" element={<CustomerAddressUpdate/>}/>
-                        <Route  path="personalDetails" element={<CustomerDetailsUpdate/>}/>
-                        <Route  path="password" element={<CustomerPasswordUpdate/>}/>
-                    </Route>
+
                 </Route>
             </Routes>
         </BrowserRouter>
