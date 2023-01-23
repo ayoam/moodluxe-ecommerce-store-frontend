@@ -4,7 +4,7 @@ import DashboardOrdersTableRow from "../dashboardOrdersTableRow/DashboardOrdersT
 const DashboardOrdersTable = ({latestOrders})=>{
     return(
         <div className={"mt-8 bg-gradient-to-br from-white to-gray-100 rounded-md shadow-[2px_2px_1px_2px_rgba(255,255,255,0.25)] p-4"}>
-            <h1 className={"text-lg font-semibold text-red-600 drop-shadow-sm"}>Latest orders</h1>
+            <h1 className={"text-lg font-semibold text-black/80"}>Latest orders</h1>
             <div className={"overflow-auto h-[400px] scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 mt-4 overflow-x-scroll"}>
                 {
                     latestOrders?.length>0 ?

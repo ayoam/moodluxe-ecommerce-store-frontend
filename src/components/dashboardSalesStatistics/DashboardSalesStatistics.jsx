@@ -62,7 +62,7 @@ const DashboardSalesStatistics = ({statsData})=>{
 
     return(
         <div className={"lg:col-span-2 bg-gradient-to-br from-white to-gray-100 rounded-md shadow-[2px_2px_1px_2px_rgba(255,255,255,0.25)] h-[400px] p-4"}>
-            <h1 className={"font-semibold text-base text-red-600 drop-shadow-sm"}>Sales statistics</h1>
+            <h1 className={"font-semibold text-base text-black/80"}>Sales statistics</h1>
             <div className={"h-[320px] mt-4"}>
                 {statsData && <Line options={options} data={data}/>}
             </div>

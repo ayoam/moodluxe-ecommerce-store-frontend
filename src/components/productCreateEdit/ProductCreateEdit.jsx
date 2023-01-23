@@ -15,6 +15,8 @@ import {getValueFromURL} from "../../utils/getValueFromURL";
 import {BsCheckCircleFill} from "react-icons/bs";
 import GetProductById from "../../service/productRequests/GetProductById";
 import putUpdateProduct from "../../service/adminRequests/putUpdateProduct";
+import NotificationToast from "../notificationToast/NotificationToast";
+import {MdOutlineArrowBackIos} from "react-icons/md";
 
 const cardStyle = "bg-white rounded-md shadow-[2px_2px_1px_2px_rgba(255,255,255,0.25)] px-5 py-6"
 
@@ -35,34 +37,41 @@ const ProductCreateEdit = ({pageType}) => {
     const titleDescriptionFormRef = useRef();
     const productDetailsFormRef = useRef();
     const [validateImageUpload, setValidateImageUpload] = useState(false);
-    const [pageIsLoading,setPageIsLoading]=useState(false);
-    const [saveError,setSaveError]=useState(null);
-    const navigate=useNavigate();
-    const { productId } = useParams();
+    const [pageIsLoading, setPageIsLoading] = useState(false);
+    const [saveError, setSaveError] = useState(null);
+    const navigate = useNavigate();
+    const {productId} = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const [isNewlyCreated,setNewlyCreated]=useState(false);
-    const [productEditData,setProductEditData]=useState(null);
+    const [isNewlyCreated, setNewlyCreated] = useState(false);
+    const [productEditData, setProductEditData] = useState(null);
+    const [showNotifToast, setShowNotifToast] = useState(false)
 
     //check if a product is newly created
     useEffect(() => {
-        if(pageType==="edit"){
+        if (pageType === "edit") {
             const newlyCreated = getValueFromURL("newlyCreated", searchParams);
-            if(newlyCreated) {
+            if (newlyCreated) {
                 setNewlyCreated(true);
-                setTimeout(()=>{setNewlyCreated(false)},10000)
+                setTimeout(() => {
+                    setNewlyCreated(false)
+                    searchParams.delete("newlyCreated");
+                    setSearchParams(searchParams);
+                }, 10000)
+            } else {
+                setNewlyCreated(false)
             }
-            else{setNewlyCreated(false)};
+
         }
     }, [searchParams]);
 
     useEffect(() => {
-        if(pageType==="edit"){
+        if (pageType === "edit") {
             GetProductById(productId)
-                .then(response=>{
+                .then(response => {
                     // console.log(response?.data);
                     setProductEditData(response?.data);
                 })
-                .catch(error=>console.log(error));
+                .catch(error => console.log(error));
         }
     }, []);
 
@@ -72,23 +81,23 @@ const ProductCreateEdit = ({pageType}) => {
         // console.log(checkAllFields,"*********",saveBtnClicked)
         if (isFirstRender.current && checkAllFields && saveBtnClicked) {
             const productInfo = {
-                "libelle":allFormsData.title,
-                "description":allFormsData.description,
-                "originalPrice":allFormsData.price,
-                "discountPrice":allFormsData.compareToPrice,
-                "quantity":allFormsData.stock,
-                "active":allFormsData.status==="active",
-                "categoriesIdList":allFormsData.collections.map(x=>x.idc),
-                "idBrand":allFormsData.brand
+                "libelle": allFormsData.title,
+                "description": allFormsData.description,
+                "originalPrice": allFormsData.price,
+                "discountPrice": allFormsData.compareToPrice,
+                "quantity": allFormsData.stock,
+                "active": allFormsData.status === "active",
+                "categoriesIdList": allFormsData.collections.map(x => x.idc),
+                "idBrand": allFormsData.brand
             }
 
             const bodyFormData = new FormData();
             const blob = new Blob([JSON.stringify(productInfo)], {
                 type: "application/json"
             });
-            bodyFormData.append("productInfo",blob);
-            allFormsData.photos.forEach(item=>{
-                bodyFormData.append("photo",item.file);
+            bodyFormData.append("productInfo", blob);
+            allFormsData.photos.forEach(item => {
+                bodyFormData.append("photo", item.file);
             })
 
             if (pageType === "create") {
@@ -97,37 +106,40 @@ const ProductCreateEdit = ({pageType}) => {
                 handleEditProduct(bodyFormData);
             }
             isFirstRender.current = false;
-        }
-        else{
+        } else {
             setSaveBtnClicked(false);
         }
     }, [allFormsData, saveBtnClicked])
 
-    const handleCreateProduct = (bodyFormData)=>{
+    const handleCreateProduct = (bodyFormData) => {
         setPageIsLoading(true);
         postCreateProduct(bodyFormData)
-            .then(response=>{
+            .then(response => {
                 const productId = response?.data.idp;
-                navigate("/admin/products/"+productId+"/edit"+"?newlyCreated=true");
+                navigate("/admin/products/" + productId + "/edit" + "?newlyCreated=true");
             })
-            .catch(error=>{
+            .catch(error => {
                 console.log(error);
                 setSaveError("An error occurred while saving the product");
             })
-            .finally(()=>setPageIsLoading(false));
+            .finally(() => setPageIsLoading(false));
     }
 
-    const handleEditProduct=(bodyFormData)=>{
+    const handleEditProduct = (bodyFormData) => {
         setPageIsLoading(true);
-        putUpdateProduct(bodyFormData,productId)
-            .then(response=>{
-                alert("product updated!");
+        putUpdateProduct(bodyFormData, productId)
+            .then(response => {
+                // alert("product updated!");
+                setShowNotifToast(true);
+                // window.scrollTo(0, 0);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                setTimeout(() => setShowNotifToast(false), 5000);
             })
-            .catch(error=>{
+            .catch(error => {
                 console.log(error);
                 setSaveError("An error occurred while updating the product");
             })
-            .finally(()=>setPageIsLoading(false));
+            .finally(() => setPageIsLoading(false));
     }
 
     const handleSaveBtnClick = () => {
@@ -138,7 +150,7 @@ const ProductCreateEdit = ({pageType}) => {
         //trigger image upload validation
         setValidateImageUpload(true);
 
-        isFirstRender.current=true;
+        isFirstRender.current = true;
         setSaveBtnClicked(true);
     }
 
@@ -150,28 +162,42 @@ const ProductCreateEdit = ({pageType}) => {
         }
     }
 
-    if(!productEditData && pageType==="edit") return null;
+    if (!productEditData && pageType === "edit") return null;
 
     return (
         <AdminLayout>
             <section className={"bg-secondaryBgColor min-h-[85vh] relative"}>
+                {showNotifToast && <NotificationToast message={"product updated!"}/>}
+
                 {pageIsLoading &&
-                    <div className={"absolute w-full h-full top-0 right-0 z-50 bg-black/60 flex justify-center items-center"}>
+                    <div
+                        className={"absolute w-full h-full top-0 right-0 z-50 bg-black/60 flex justify-center items-center"}>
                         <img src={loadingSpinner} alt={"loading spinner"} className={"w-[100px]"}/>
                     </div>
                 }
                 <div className={"p-3 py-8 sm:p-8 md:px-20 lg:p-10 max-w-7xl mx-auto"}>
-                    <h1 className={"text-2xl sm:text-3xl font-semibold text-white mb-8"}>{pageType==="edit"?`Product #${productId}`:"Create Product"}</h1>
+                    <div className={"flex gap-3 items-center mb-8"}>
+                        <button
+                            className={"bg-gray-100 p-3 rounded-lg shadow-inner hover:bg-gray-200 transition-colors"} onClick={()=>navigate(-1)}>
+                            <MdOutlineArrowBackIos/>
+                        </button>
+                        <h1 className={"text-2xl sm:text-3xl font-semibold text-white"}>{pageType === "edit" ? `Editing Product #${productId}` : "Create Product"}</h1>
+                    </div>
+
                     {isNewlyCreated && <NewlyCreatedTag title={productEditData?.libelle}/>}
                     <div className={"flex flex-col lg:flex-row gap-5"}>
                         <div className={"w-full lg:w-2/3 space-y-5"}>
-                            <TitleDescriptionCard formRef={titleDescriptionFormRef} setData={setAllFormsData} productEditData={productEditData}/>
-                            <ImageUploadCard setData={setAllFormsData} validate={validateImageUpload} productEditPhotoList={productEditData?.photoList}/>
+                            <TitleDescriptionCard formRef={titleDescriptionFormRef} setData={setAllFormsData}
+                                                  productEditData={productEditData}/>
+                            <ImageUploadCard setData={setAllFormsData} validate={validateImageUpload}
+                                             productEditPhotoList={productEditData?.photoList}/>
                         </div>
-                        <ProductDetailsCards formRef={productDetailsFormRef} setData={setAllFormsData} productEditData={productEditData}/>
+                        <ProductDetailsCards formRef={productDetailsFormRef} setData={setAllFormsData}
+                                             productEditData={productEditData}/>
                     </div>
                     <div className={"flex justify-end border-t-[1px] border-t-white/50 mt-8"}>
-                        <div className={"flex flex-col-reverse w-full sm:w-auto sm:flex-row justify-center items-center mt-4 gap-4"}>
+                        <div
+                            className={"flex flex-col-reverse w-full sm:w-auto sm:flex-row justify-center items-center mt-4 gap-4"}>
                             {saveError && <p className={"text-red-500"}>{saveError}</p>}
                             <button
                                 className={"bg-green-600 hover:bg-green-700 transition-colors px-4 py-2 text-white rounded w-full sm:w-auto"}
@@ -186,24 +212,27 @@ const ProductCreateEdit = ({pageType}) => {
     )
 }
 
-const NewlyCreatedTag = ({title})=>{
+const NewlyCreatedTag = ({title}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
-    const handleCloseClick = ()=>{
+    const handleCloseClick = () => {
         searchParams.delete("newlyCreated")
         setSearchParams(searchParams);
     }
 
     return (
-        <div className={"text-black bg-green-100 border-[1px] border-green-600 rounded-lg p-5 mb-6 flex justify-between shadow-white shadow"}>
+        <div
+            className={"text-black bg-green-100 border-[1px] border-green-600 rounded-lg p-5 mb-6 flex justify-between shadow-white shadow"}>
             <div className={"flex gap-4"}>
                 <div>
                     <BsCheckCircleFill className={"text-green-700 text-xl"}/>
                 </div>
                 <div>
                     <p className={"font-medium"}>Added {title}</p>
-                    <button className={"text-sm underline text-black/70"} onClick={()=>navigate("/admin/products/create")}>Add another product</button>
+                    <button className={"text-sm underline text-black/70"}
+                            onClick={() => navigate("/admin/products/create")}>Add another product
+                    </button>
                 </div>
             </div>
             <div>
@@ -213,7 +242,7 @@ const NewlyCreatedTag = ({title})=>{
     )
 }
 
-const TitleDescriptionCard = ({formRef, setData,productEditData}) => {
+const TitleDescriptionCard = ({formRef, setData, productEditData}) => {
     const {register, handleSubmit, formState: {errors}, control} = useForm();
 
     const handleFormSubmit = (data) => {
@@ -264,7 +293,7 @@ const TitleDescriptionCard = ({formRef, setData,productEditData}) => {
     );
 }
 
-const CollectionsSelect = ({setData, isTouched, setIsTouched,collectionsList,productEditData}) => {
+const CollectionsSelect = ({setData, isTouched, setIsTouched, collectionsList, productEditData}) => {
     const [selectedCollections, setSelectedCollections] = useState([]);
     const [error, setError] = useState(null);
     const collectionsSelectRef = useRef(0);
@@ -276,11 +305,11 @@ const CollectionsSelect = ({setData, isTouched, setIsTouched,collectionsList,pro
         collectionsSelectRef.current.value = 0;
     }
 
-    useEffect(()=>{
-        if(productEditData){
+    useEffect(() => {
+        if (productEditData) {
             setSelectedCollections(productEditData?.categoryList);
         }
-    },[])
+    }, [])
 
     useEffect(() => {
         if (selectedCollections.length === 0) {
@@ -311,8 +340,8 @@ const CollectionsSelect = ({setData, isTouched, setIsTouched,collectionsList,pro
                 {collectionsList?.map((item, index) => {
                     return (
                         <option value={item.idc}
-                                    key={index}
-                                    disabled={selectedCollections.map(x => x?.idc).includes(item.idc)}>
+                                key={index}
+                                disabled={selectedCollections.map(x => x?.idc).includes(item.idc)}>
                             {item.name}
                         </option>
                     );
@@ -337,7 +366,7 @@ const CollectionsSelect = ({setData, isTouched, setIsTouched,collectionsList,pro
     );
 }
 
-const ProductDetailsCards = ({formRef, setData,productEditData}) => {
+const ProductDetailsCards = ({formRef, setData, productEditData}) => {
     const {register, handleSubmit, formState: {errors}, control} = useForm();
     const [validateCollections, setValidateCollections] = useState(false);
     const [brands, setBrands] = useState(null);
@@ -387,14 +416,14 @@ const ProductDetailsCards = ({formRef, setData,productEditData}) => {
                         <label className={""}>Product status</label>
                         <CustomSelect
                             style={"border-gray-400 border-[1px] rounded outline-none font-light"}
-                            defaultValue={productEditData?.active || productEditData?.active===true?"active": productEditData?.active===false ? "draft" : null}
+                            defaultValue={productEditData?.active || productEditData?.active === true ? "active" : productEditData?.active === false ? "draft" : null}
                             register={
-                            {
-                                ...register("status", {
-                                    required: "status required!",
-                                })
-                            }
-                        }>
+                                {
+                                    ...register("status", {
+                                        required: "status required!",
+                                    })
+                                }
+                            }>
                             <option value={"active"}>Active</option>
                             <option value={"draft"}>Draft</option>
                         </CustomSelect>
@@ -420,7 +449,8 @@ const ProductDetailsCards = ({formRef, setData,productEditData}) => {
 
                     </div>}
                     <CollectionsSelect setData={setData} isTouched={validateCollections}
-                                       setIsTouched={setValidateCollections} collectionsList={collections} productEditData={productEditData}/>
+                                       setIsTouched={setValidateCollections} collectionsList={collections}
+                                       productEditData={productEditData}/>
                 </div>
                 <div className={`${cardStyle} space-y-4`}>
                     <div className={"flex flex-col gap-1 text-sm"}>
@@ -447,7 +477,7 @@ const ProductDetailsCards = ({formRef, setData,productEditData}) => {
                     <div className={"flex flex-col gap-1 text-sm"}>
                         <label className={""}>Stock (SKU)</label>
                         <input type={"number"}
-                               defaultValue={productEditData?.quantity>=0?productEditData?.quantity:1}
+                               defaultValue={productEditData?.quantity >= 0 ? productEditData?.quantity : 1}
                                className={"border-gray-400 border-[1px] rounded outline-none p-2 font-light"}
                                {...register("stock", {
                                    required: "stock required!",
@@ -461,7 +491,7 @@ const ProductDetailsCards = ({formRef, setData,productEditData}) => {
     );
 }
 
-const ImageUploadCard = ({setData, validate,productEditPhotoList}) => {
+const ImageUploadCard = ({setData, validate, productEditPhotoList}) => {
     const [images, setImages] = useState([]);
     const [error, setError] = useState(null);
     const fileInputRef = useRef();
@@ -469,17 +499,22 @@ const ImageUploadCard = ({setData, validate,productEditPhotoList}) => {
 
     useEffect(() => {
         // console.log("======>",productEditPhotoList.map(x=>x.photoId));
-        if(productEditPhotoList && isFirstRender.current){
-            productEditPhotoList.forEach(item=>{
-                const file = dataURLtoFile(item.photo,item.extension,item.photoId);
-                setImages(prev=>[...prev,{filename:item.photoId, extension:item.extension, fileURL: URL.createObjectURL(file),file:file}])
+        if (productEditPhotoList && isFirstRender.current) {
+            productEditPhotoList.forEach(item => {
+                const file = dataURLtoFile(item.photo, item.extension, item.photoId);
+                setImages(prev => [...prev, {
+                    filename: item.photoId,
+                    extension: item.extension,
+                    fileURL: URL.createObjectURL(file),
+                    file: file
+                }])
 
             })
-            isFirstRender.current=false;
+            isFirstRender.current = false;
         }
     }, []);
 
-    const dataURLtoFile=(base64,extension,fileName)=>{
+    const dataURLtoFile = (base64, extension, fileName) => {
         const dataurl = `data:image/${extension};base64,${base64}`;
         let arr = dataurl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
@@ -487,17 +522,22 @@ const ImageUploadCard = ({setData, validate,productEditPhotoList}) => {
             n = bstr.length,
             u8arr = new Uint8Array(n);
 
-        while(n--){
+        while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
 
-        return new File([u8arr], fileName, {type:mime});
+        return new File([u8arr], fileName, {type: mime});
     }
 
     const handleFileInputChange = ({target: {files}}) => {
         const filename = files[0]?.name;
         const extension = files[0]?.type;
-        files && setImages(prev => [...prev, {filename, extension, fileURL: URL.createObjectURL(files[0]),file:files[0]}])
+        files && setImages(prev => [...prev, {
+            filename,
+            extension,
+            fileURL: URL.createObjectURL(files[0]),
+            file: files[0]
+        }])
     }
 
     useEffect(() => {

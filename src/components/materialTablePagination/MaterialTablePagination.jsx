@@ -3,6 +3,7 @@ import {TablePagination} from "@mui/material";
 import useUrlSearchParams from "../../hooks/useUrlSearchParams";
 import {useSearchParams} from "react-router-dom";
 import {getValueFromURL} from "../../utils/getValueFromURL";
+import zIndex from "@mui/material/styles/zIndex";
 
 const tablePaginationStyle={
     ".MuiTablePagination-selectLabel":{

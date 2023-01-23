@@ -1,68 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
-import testPhoto from "../../assets/testPhoto"
-import {testPhoto2} from "../../assets/testPhoto"
 import ProductImages from "../../components/productImages/ProductImages";
 import ProductCTA from "../../components/productCTA/ProductCTA";
 import ProductInfo from "../../components/productInfo/ProductInfo";
-import GetProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
-import useUrlSearchParams from "../../hooks/useUrlSearchParams";
-import {useParams,useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import GetProductById from "../../service/productRequests/GetProductById";
-import {logDOM} from "@testing-library/react";
 import NotFoundPage from "../404Page/NotFoundPage";
-
-
-// const photoList= [
-//     {
-//         "photoId":1655121,
-//         "photo":testPhoto,
-//         "extension":"jpg"
-//     },
-//     {
-//         "photoId":14545121,
-//         "photo":testPhoto2,
-//         "extension":"jpg"
-//     },
-//     {
-//         "photoId":121233321,
-//         "photo":testPhoto,
-//         "extension":"jpg"
-//     },
-//     {
-//         "photoId":1212321,
-//         "photo":testPhoto2,
-//         "extension":"jpg"
-//     }
-//     ,
-//     {
-//         "photoId":1212121,
-//         "photo":testPhoto,
-//         "extension":"jpg"
-//     }
-//     ,
-//     {
-//         "photoId":1212121,
-//         "photo":testPhoto,
-//         "extension":"jpg"
-//     }
-//
-// ];
-//
-//
-// const product =
-//     {
-//         "brand":{
-//             "idb":1,
-//             "name":"Fossil"
-//         },
-//         "libelle":"Captain Cook Chronograph 43mm",
-//         "originalPrice":399.99,
-//         "discountPrice":329.99,
-//         "photoList":photoList,
-//         "idp":"12SQZ21SDE",
-//     };
-
 
 const ProductPage = ()=>{
     const {productId}=useParams();
