@@ -9,7 +9,7 @@ const DashboardOrdersTableRow = ({order})=>{
     return(
         <tr className={"border-b-[1px] text-sm text-black/70 transition duration-300 ease-in-out hover:bg-gray-100 hover:cursor-pointer"}>
             <td className={"p-3 text-black/60 font-semibold"}>#{order?.orderNumber}</td>
-            <td className={"font-semibold p-3 text-black/100"}>{order?.orderAdresse?.fullName}</td>
+            <td className={"font-medium p-3 text-black/100"}>{order?.orderAdresse?.fullName}</td>
             <td className={"p-3"}>{order?.orderAdresse?.country}</td>
             <td className={"p-3"}>${order?.orderTotal?.toFixed(2)}</td>
             <td className={"p-3 w-32"}>

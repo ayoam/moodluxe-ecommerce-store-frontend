@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {IoIosArrowForward} from "react-icons/io"
+import parse from 'html-react-parser';
 
 const ProductInfoTab = ({item,setIsActive})=>{
 
@@ -13,8 +14,8 @@ const ProductInfoTab = ({item,setIsActive})=>{
             </div>
             {
                 item.isActive &&
-                <div className={"py-8 text-sm font-light"}>
-                    {item?.content}
+                <div className={"py-8 text-sm font-light !text-white "}>
+                    { parse(item?.content.replaceAll("color: rgb(33, 37, 41)","color: white")) }
                 </div>
             }
 

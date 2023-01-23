@@ -118,10 +118,6 @@ const MessageInboxManagement = () => {
 
 export const FullMessage = ({message, handleReturnbackBtn}) => {
 
-    // useEffect(()=>{
-    //     console.log(message);
-    // },[message])
-
     return (
         <>
             <div

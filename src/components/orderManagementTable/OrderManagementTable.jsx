@@ -1,10 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {BsArrowDown, BsSearch} from "react-icons/bs";
-import DashboardOrdersTableRow from "../dashboardOrdersTableRow/DashboardOrdersTableRow";
-import orderStatusTag from "../../constants/orderStatusConstants";
-import {AiFillPrinter, AiOutlineEye} from "react-icons/ai";
 import OrderManagementTableRow from "../orderManagementTableRow/OrderManagementTableRow";
-import {TablePagination} from "@mui/material";
 import useUrlSearchParams from "../../hooks/useUrlSearchParams";
 import {useSearchParams} from "react-router-dom";
 import OrderManagementTabs from "../orderManagementTabs/OrderManagementTabs";

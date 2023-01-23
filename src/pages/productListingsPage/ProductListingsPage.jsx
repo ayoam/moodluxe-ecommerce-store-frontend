@@ -50,7 +50,7 @@ const ProductListingsPage = ()=>{
 
     useEffect(() => {
         if(urlSearchParams){
-            GetProductsByQueryParams({...urlSearchParams,limit,category})
+            GetProductsByQueryParams({...urlSearchParams,limit,category,status:"active"})
                 .then(response =>{
 
                     console.log(response);
