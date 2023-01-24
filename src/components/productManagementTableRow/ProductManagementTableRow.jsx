@@ -37,7 +37,7 @@ const ProductManagementTableRow = ({product})=>{
                 }
             </td>
             <td>{product?.brand.name}</td>
-            <td>${product?.discountPrice ? product?.discountPrice.toFixed(2) : product?.originalPrice.toFixed(2)}</td>
+            <td>${product?.price?.toFixed(2)}</td>
             <td >
                 {product?.quantity>0 ?  <p className={"text-green-600 font-semibold"}>In stock <span className={"font-normal"}>({product?.quantity})</span></p> : <p className={"text-red-600/80 font-semibold"}>Out of stock</p>}
             </td>
