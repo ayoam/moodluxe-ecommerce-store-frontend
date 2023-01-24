@@ -26,7 +26,7 @@ const ProductCTA = ({item})=>{
             "productId":item.idp,
             "mainPhoto":{extension:item.photoList[0].extension,photo:item.photoList[0].photo},
             "libelle":item.libelle,
-            "price":item.discountPrice?item.discountPrice:item.originalPrice,
+            "price":item.price,
             "quantity":quantity,
             "productStock":item.quantity,
         };
@@ -66,15 +66,8 @@ const ProductCTA = ({item})=>{
                 <p className={"font-extralight text-xl"}>{item.libelle}</p>
 
                 <div className={"flex flex-row items-center gap-4 text-2xl"}>
-                    {item.discountPrice ?
-                        <>
-                            <p className={"line-through font-extralight text-xl"}>{item.originalPrice}$</p>
-                            <p className={""}>{item.discountPrice}$</p>
-                        </>
-                        :
-                        <p className={""}>{item.originalPrice}$</p>
-                    }
-
+                    {item?.compareToPrice && <p className={"line-through font-extralight text-xl"}>{item?.compareToPrice}$</p>}
+                    <p>{item?.price}$</p>
                 </div>
 
                 <div className={"flex flex-row gap-3 items-center"}>

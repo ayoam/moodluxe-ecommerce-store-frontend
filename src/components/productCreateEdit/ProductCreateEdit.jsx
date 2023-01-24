@@ -83,8 +83,8 @@ const ProductCreateEdit = ({pageType}) => {
             const productInfo = {
                 "libelle": allFormsData.title,
                 "description": allFormsData.description,
-                "originalPrice": allFormsData.price,
-                "discountPrice": allFormsData.compareToPrice,
+                "price": allFormsData.price,
+                "compareToPrice": allFormsData.compareToPrice,
                 "quantity": allFormsData.stock,
                 "active": allFormsData.status === "active",
                 "categoriesIdList": allFormsData.collections.map(x => x.idc),
@@ -456,7 +456,7 @@ const ProductDetailsCards = ({formRef, setData, productEditData}) => {
                     <div className={"flex flex-col gap-1 text-sm"}>
                         <label className={""}>Price</label>
                         <input type={"text"} placeholder={"$ 0.00"}
-                               defaultValue={productEditData?.originalPrice}
+                               defaultValue={productEditData?.price}
                                className={"border-gray-400 border-[1px] rounded outline-none p-2 font-light"}
                                {...register("price", {
                                    required: "price required!",
@@ -468,7 +468,7 @@ const ProductDetailsCards = ({formRef, setData, productEditData}) => {
                     <div className={"flex flex-col gap-1 text-sm"}>
                         <label className={""}>Compare to price</label>
                         <input type={"text"} placeholder={"$ 0.00"}
-                               defaultValue={productEditData?.discountPrice}
+                               defaultValue={productEditData?.compareToPrice}
                                className={"border-gray-400 border-[1px] rounded outline-none p-2 font-light"}
                                {...register("compareToPrice")}/>
                         {errors?.compareToPrice &&
