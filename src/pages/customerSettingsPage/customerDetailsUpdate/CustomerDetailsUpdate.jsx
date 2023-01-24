@@ -7,11 +7,14 @@ import GetCustomerById from "../../../service/customerRequests/GetCustomerById";
 import PhoneInput from "react-phone-input-2";
 import UpdateCustomerDetailsById from "../../../service/customerRequests/UpdateCustomerDetailsById";
 import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
+import {ImUser} from "react-icons/im";
+import CustomerInfosUpdatedModal from "../../../components/customerInfosUpdatedModal/CustomerInfosUpdatedModal";
 
 function CustomerDetailsUpdate(props) {
     const user = useRecoilValue(appUserState);
     const [customerInfo, setCustomerInfo] = useState(null);
-    const {register, handleSubmit, watch, formState: {errors}, control,reset} = useForm();
+    const [showModal, setShowModal] = useState(false);
+    const {register, handleSubmit, watch, formState: {errors}, control, reset} = useForm();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,7 +55,8 @@ function CustomerDetailsUpdate(props) {
             (response) => {
                 // console.log("==>", response)
                 if (response?.data) {
-                    navigate(0);
+                    // navigate(0);
+                    setShowModal(true)
                 }
             }
         )
@@ -66,6 +70,9 @@ function CustomerDetailsUpdate(props) {
             return ""
         }
 
+    }
+    const handleModalClose = ()=>{
+        navigate(0);
     }
     return (
         <CustomerSettingsLayout>
@@ -137,8 +144,8 @@ function CustomerDetailsUpdate(props) {
                         </div>
                         <div className={"lg:col-span-2"}>
                             <p className={"text-sm font-light mb-1"}>Birth Date</p>
-                            <input type={"date"} placeholder={"Birth date"}
-                                   value={formatDate(customerInfo?.birthDate)}
+                            <input type={"date"} placeholder={""}
+                                   defaultValue={formatDate(customerInfo?.birthDate)}
                                    className={"w-full p-2 outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm"} {...register("birthDate", {
                                 required: "birth date required!",
                             })}/>
@@ -148,13 +155,17 @@ function CustomerDetailsUpdate(props) {
                         <div></div>
                         <div className={"text-right"}>
                             <button type={"submit"}
-                                    className={"bg-blue-500 hover:bg-blue-600 py-2 px-4  cursor-pointer rounded-sm w-full sm:w-auto text-white"}>Save
+                                    className={"bg-blue-500 hover:bg-blue-600 py-2 px-4  cursor-pointer rounded-sm w-full sm:w-auto text-white"}
+                                    >Save
                             </button>
                         </div>
 
                     </div>
                 </form>
             }
+            {showModal && (
+               <CustomerInfosUpdatedModal closeModal={handleModalClose}/>
+            )}
         </CustomerSettingsLayout>
     );
 }

@@ -6,12 +6,14 @@ import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 import UpdateCustomerPassword from "../../../service/customerRequests/UpdateCustomerPassword";
 import {useNavigate} from "react-router-dom";
 import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
+import CustomerInfosUpdatedModal from "../../../components/customerInfosUpdatedModal/CustomerInfosUpdatedModal";
 
 function CustomerPasswordUpdate(props) {
     const user = useRecoilValue(appUserState);
     const [oldPasswordShown, setOldPasswordShown] = useState(false);
     const [newPasswordShown, setNewPasswordShown] = useState(false);
     const [passwordShown, setPasswordShown] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const navigate = useNavigate();
 
@@ -27,10 +29,14 @@ function CustomerPasswordUpdate(props) {
         UpdateCustomerPassword(customerPasword).then((response) => {
             // console.log("==>", response)
             if (response?.status === 200) {
-                navigate(0);
+                // navigate(0);
+                setShowModal(true);
             }
 
         })
+    }
+    const handleModalClose = ()=>{
+        navigate(0);
     }
     return (<CustomerSettingsLayout>
             <form onSubmit={handleSubmit(submit)} className={"w-full"}>
@@ -94,6 +100,9 @@ function CustomerPasswordUpdate(props) {
 
                 </div>
             </form>
+        {showModal && (
+            <CustomerInfosUpdatedModal closeModal={handleModalClose}/>
+        )}
         </CustomerSettingsLayout>);
 }
 

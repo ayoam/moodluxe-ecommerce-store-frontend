@@ -9,6 +9,7 @@ import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import GetCountries from "../../service/dataRequests/getCountries";
+import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 
 const RegisterPage = () => {
     const {register, handleSubmit, watch, formState: {errors},control} = useForm(
@@ -20,9 +21,12 @@ const RegisterPage = () => {
     const [isLoading,setIsLoading] = useState(false);
     const [cookies, setCookie] = useCookies(["verify-email"]);
     const [countries, setCountries] = useState([]);
+    const [passwordShown, setPasswordShown] = useState(false);
     const navigate = useNavigate();
 
-
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(prev=>!prev);
+    };
     useEffect(() => {
         GetCountries().then(
             (response)=>{
@@ -199,22 +203,41 @@ const RegisterPage = () => {
                             </div>
                             <div className={""}>
                                 <p className={"text-sm font-light mb-2"}>Password</p>
-                                <input type={"password"} placeholder={""}
+                                <div className={"relative flex items-center"}>
+                                <input type={passwordShown ? "text" : "password"} placeholder={""}
                                        className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("password", {
                                     required: "password required!",
                                 })}/>
+                                {!passwordShown ?
+                                    <i onClick={togglePasswordVisiblity}><AiFillEye
+                                        className=" w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                    :
+                                    <i onClick={togglePasswordVisiblity}><AiFillEyeInvisible
+                                        className="w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                }
+                                </div>
                                 {errors?.password &&
                                     <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.password.message}</p>}
+
                             </div>
                             <div className={""}>
                                 <p className={"text-sm font-light mb-2"}>Confirm password</p>
-                                <input type={"password"} placeholder={""}
+                                <div className={"relative flex items-center"}>
+                                <input type={passwordShown ? "text" : "password"} placeholder={""}
                                        className={"w-full py-1 px-2 outline-2 outline-blue-400 bg-transparent border-[1px] border-gray-400"} {...register("passwordConfirm",
                                     {
                                         validate: value =>
                                             value === password.current || "passwords doesn't match"
                                     }
                                 )}/>
+                                    {!passwordShown ?
+                                        <i onClick={togglePasswordVisiblity}><AiFillEye
+                                            className=" w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                        :
+                                        <i onClick={togglePasswordVisiblity}><AiFillEyeInvisible
+                                            className="w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                    }
+                                </div>
                                 {errors?.passwordConfirm &&
                                     <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.passwordConfirm.message}</p>}
                             </div>

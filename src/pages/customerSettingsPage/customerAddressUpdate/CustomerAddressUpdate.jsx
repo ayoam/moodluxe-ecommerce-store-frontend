@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import UpdateCustomerAddressById from "../../../service/customerRequests/UpdateCustomerAddressById";
 import GetCountries from "../../../service/dataRequests/getCountries";
 import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
+import CustomerInfosUpdatedModal from "../../../components/customerInfosUpdatedModal/CustomerInfosUpdatedModal";
 
 
 function CustomerAddressUpdate() {
@@ -15,6 +16,7 @@ function CustomerAddressUpdate() {
     const [orderAddressEditing, setOrderAddressEditing] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
     const [countries, setCountries] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const navigate = useNavigate();
 
@@ -68,10 +70,14 @@ function CustomerAddressUpdate() {
             (response) => {
                 // console.log("==>", response)
                 if (response?.data) {
-                    navigate(0);
+                    // navigate(0);
+                    setShowModal(true);
                 }
             }
         )
+    }
+    const handleModalClose = ()=>{
+        navigate(0);
     }
 
     return (
@@ -182,7 +188,11 @@ function CustomerAddressUpdate() {
                                 {/*<button className={"text-blue-500 underline hover:text-blue-400 ml-4"}>Delete</button>*/}
                             </div>
                         </div>} </>}
+
                 </div>
+            {showModal && (
+                <CustomerInfosUpdatedModal closeModal={handleModalClose}/>
+            )}
             </CustomerSettingsLayout>
     );
 }
