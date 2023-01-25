@@ -8,6 +8,7 @@ module.exports = {
       colors:{
         "mainBgColor":"#191a1a",
         "secondaryBgColor":"#252728",
+        "thirdBgColor":"#373b3d",
         "whiteBgColor":"#F9F9F9"
       },
       fontFamily: {

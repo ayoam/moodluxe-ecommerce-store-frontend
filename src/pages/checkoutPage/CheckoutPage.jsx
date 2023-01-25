@@ -164,6 +164,12 @@ const CheckoutPage = ()=>{
                 });
                 navigate("/order-completed");
             })
+            .catch(error=>{
+                if(error?.response?.status){
+                    console.log(error?.response?.data?.message);
+                    alert(error?.response?.data?.message);
+                }
+            })
             .finally(()=>{
                 setPaymentLoading(false);
             })
@@ -185,7 +191,7 @@ const CheckoutPage = ()=>{
                 </div>
             }
             <CheckoutLayout>
-                <section className={"bg-secondaryBgColor"}>
+                <section className={"bg-thirdBgColor"}>
                     <div className={"max-w-6xl min-h-screen pt-8 pb-12 mx-auto px-2 sm:px-6 text-white"}>
                         <h1 className={"text-3xl font-semibold mb-6 text-center lg:text-left"}>CHECKOUT</h1>
                         <div className={"sm:w-[90%] md:w-[80%] lg:w-full mx-auto"}>
