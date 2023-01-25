@@ -72,7 +72,7 @@ const ProductCTA = ({item})=>{
 
                 <div className={"flex flex-row gap-3 items-center"}>
                     <p className={"font-extralight font-playfair"}>Quantity</p>
-                    <ProductQuantity quantity={quantity} setQuantity={handleQuantityChange}/>
+                    <ProductQuantity quantity={quantity} setQuantity={handleQuantityChange} limit={item.quantity}/>
                 </div>
 
                 <div>

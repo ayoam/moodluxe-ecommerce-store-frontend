@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {HiMenuAlt2, HiOutlineUser} from "react-icons/hi"
 import {IoClose} from "react-icons/io5"
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import NavbarDropdownList from "../navbarDropdownList/NavbarDropdownList";
 import {useRecoilState, useRecoilValue} from "recoil"
 import {menuActiveState} from "../../recoil/atoms/homeMenuAtom";
@@ -25,8 +25,8 @@ const HomeMenu = () => {
     const user = useRecoilValue(appUserState);
     const navigate = useNavigate();
 
-    useEffect(() => {
 
+    useEffect(() => {
         const handleResize = () => {
             setDimensions({
                 width: window.innerWidth,

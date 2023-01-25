@@ -4,7 +4,7 @@ import CartItem from "../cartItem/CartItem";
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {cartIsActiveState, cartItemsState} from "../../recoil/atoms/cartAtom"
 import {useLocalStorage} from "../../hooks/useLocalStorage";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import getCustomerCartBycartId from "../../service/cartRequests/getCustomerCart";
 import {ROLE_CUSTOMER} from "../../constants/rolesConstants";
@@ -12,23 +12,14 @@ import {ROLE_CUSTOMER} from "../../constants/rolesConstants";
 const Cart = ()=>{
     const [cartIsActive,setCartIsActive] = useRecoilState(cartIsActiveState);
     const [cartItems,setCartItems] = useRecoilState(cartItemsState);
-
-    const [cartItemsLC,setCartItemsLC]=useLocalStorage("cart_items",[
-        // {
-        //     "productId":"15JHSQS2",
-        //     "mainPhoto":{
-        //         "photoId":1,
-        //         "photo":testPhoto,
-        //         "extension":"jpg"
-        //     },
-        //     "libelle":"Captain Cook Chronograph 43mm",
-        //     "price":329.99,
-        //     "quantity":1
-        // }
-    ])
-
+    const [cartItemsLC,setCartItemsLC]=useLocalStorage("cart_items",[])
     const navigate =useNavigate();
     const user = useRecoilValue(appUserState);
+    let location = useLocation();
+
+    React.useEffect(() => {
+        setCartIsActive(false);
+    }, [location]);
 
     useEffect(() => {
         if(user?.roles?.includes(ROLE_CUSTOMER)){
