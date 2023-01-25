@@ -57,7 +57,7 @@ const ProductCTA = ({item})=>{
         }
 
     }
-
+    console.log("===",item.quantity)
     return(
         <>
             <div className={"text-white  lg:w-1/2 flex flex-col gap-6"}>
@@ -76,7 +76,14 @@ const ProductCTA = ({item})=>{
                 </div>
 
                 <div>
-                    <button className={"bg-gradient-to-b from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-md font-semibold px-16 py-4 mt-4 transition-all w-full sm:w-auto"} onClick={handleAddToCartClick}>ADD TO SHOPPING BAG</button>
+                    <button
+                        className={`bg-gradient-to-b from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-md font-semibold px-16 py-4 mt-4 transition-all w-full sm:w-auto ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+                        onClick={item.quantity > 0 ? handleAddToCartClick : null}
+                        disabled={item.quantity === 0}
+                    >
+                        {item.quantity === 0 ? 'SOLD OUT' : 'ADD TO SHOPPING BAG'}
+                    </button>
+                    {item.quantity > 0 && item.quantity <= 3 && <p className="text-red-700">only {item.quantity} left in stock</p>}
                 </div>
 
                 <ul className={"font-light flex flex-col gap-2 mt-4"}>
