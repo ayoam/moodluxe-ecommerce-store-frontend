@@ -210,10 +210,10 @@ const RegisterPage = () => {
                                 })}/>
                                 {!passwordShown ?
                                     <i onClick={togglePasswordVisiblity}><AiFillEye
-                                        className=" w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                        className=" w-5 h-5 absolute right-2 top-0 translate-y-1/3 cursor-pointer"/></i>
                                     :
                                     <i onClick={togglePasswordVisiblity}><AiFillEyeInvisible
-                                        className="w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                        className="w-5 h-5 absolute right-2 top-0 translate-y-1/3 cursor-pointer"/></i>
                                 }
                                 </div>
                                 {errors?.password &&
@@ -232,10 +232,10 @@ const RegisterPage = () => {
                                 )}/>
                                     {!passwordShown ?
                                         <i onClick={togglePasswordVisiblity}><AiFillEye
-                                            className=" w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                            className=" w-5 h-5 absolute right-2 top-0 translate-y-1/3 cursor-pointer"/></i>
                                         :
                                         <i onClick={togglePasswordVisiblity}><AiFillEyeInvisible
-                                            className="w-5 h-5 absolute right-2 top-0 translate-y-1/2 cursor-pointer"/></i>
+                                            className="w-5 h-5 absolute right-2 top-0 translate-y-1/3 cursor-pointer"/></i>
                                     }
                                 </div>
                                 {errors?.passwordConfirm &&

@@ -7,7 +7,6 @@ import GetCustomerById from "../../../service/customerRequests/GetCustomerById";
 import PhoneInput from "react-phone-input-2";
 import UpdateCustomerDetailsById from "../../../service/customerRequests/UpdateCustomerDetailsById";
 import CustomerSettingsLayout from "../../../layouts/settingsLayout/CustomerSettingsLayout";
-import {ImUser} from "react-icons/im";
 import CustomerInfosUpdatedModal from "../../../components/customerInfosUpdatedModal/CustomerInfosUpdatedModal";
 
 function CustomerDetailsUpdate(props) {
@@ -17,26 +16,26 @@ function CustomerDetailsUpdate(props) {
     const {register, handleSubmit, watch, formState: {errors}, control, reset} = useForm();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const CustomerRequest = async () => {
-            return await Promise.all([
-                GetCustomerById(user?.customerId)
-                    .then(response => {
-                        console.log(response)
-                        setCustomerInfo((prev) => {
-                            return {
-                                firstName: response?.data?.firstName,
-                                lastName: response?.data?.lastName,
-                                phoneNumber: response?.data?.phoneNumber,
-                                country: response?.data?.adresse.country.countryName,
-                                birthDate: response?.data?.birthDate,
-                                email: response?.data?.email
-                            }
-                        });
-                    })
-            ])
-        }
+    const CustomerRequest = async () => {
+        return await Promise.all([
+            GetCustomerById(user?.customerId)
+                .then(response => {
+                    console.log(response)
+                    setCustomerInfo((prev) => {
+                        return {
+                            firstName: response?.data?.firstName,
+                            lastName: response?.data?.lastName,
+                            phoneNumber: response?.data?.phoneNumber,
+                            country: response?.data?.adresse.country.countryName,
+                            birthDate: response?.data?.birthDate,
+                            email: response?.data?.email
+                        }
+                    });
+                })
+        ])
+    }
 
+    useEffect(() => {
         if (user) {
             CustomerRequest();
         }
@@ -44,7 +43,7 @@ function CustomerDetailsUpdate(props) {
 
 
     const submit = (data) => {
-        console.log(data)
+        // console.log(data)
         const customerDetails = {
             firstName: data.firstName,
             lastName: data.lastName,
@@ -53,10 +52,10 @@ function CustomerDetailsUpdate(props) {
         };
         UpdateCustomerDetailsById(user.customerId, customerDetails).then(
             (response) => {
-                // console.log("==>", response)
                 if (response?.data) {
-                    // navigate(0);
                     setShowModal(true)
+                    reset();
+                    user && CustomerRequest();
                 }
             }
         )
@@ -71,8 +70,8 @@ function CustomerDetailsUpdate(props) {
         }
 
     }
-    const handleModalClose = ()=>{
-        navigate(0);
+    const handleModalClose = () => {
+        setShowModal(false);
     }
     return (
         <CustomerSettingsLayout>
@@ -80,12 +79,12 @@ function CustomerDetailsUpdate(props) {
                 <form onSubmit={handleSubmit(submit)} className={"w-full"}>
                     <h1 className={"font-bold text-xl  mb-4"}>Update your personal information</h1>
                     <div
-                        className={"p-4 py-6 grid grid-cols-1 lg:grid-cols-2 w-full gap-2 md:gap-4 rounded-md p-4 bg-white text-black"}>
+                        className={"p-6 grid grid-cols-1 lg:grid-cols-2 w-full gap-2 md:gap-4 rounded-md p-4 bg-white text-black"}>
                         <div>
                             <p className={"text-sm font-light mb-1"}>First name</p>
                             <input type={"text"} placeholder={"First name"}
                                    defaultValue={customerInfo?.firstName}
-                                   className={"w-full p-2 outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm"} {...register("firstName", {
+                                   className={"w-full p-2.5 outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm text-sm"} {...register("firstName", {
                                 required: "first name required!",
                             })}/>
                             {errors?.firstName &&
@@ -95,7 +94,7 @@ function CustomerDetailsUpdate(props) {
                             <p className={"text-sm font-light mb-1"}>Last name</p>
                             <input type={"text"} placeholder={"Last name"}
                                    defaultValue={customerInfo?.lastName}
-                                   className={"w-full p-2 outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm"} {...register("lastName", {
+                                   className={"w-full p-2.5 text-sm outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm"} {...register("lastName", {
                                 required: "last name required!",
                             })}/>
                             {errors?.lastName &&
@@ -106,7 +105,7 @@ function CustomerDetailsUpdate(props) {
                             <input type={"text"} placeholder={"Email"}
                                    defaultValue={customerInfo?.email}
                                    readOnly
-                                   className={"w-full p-2 outline-none border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm read-only:bg-gray-100 read-only:text-gray-500"}/>
+                                   className={"w-full p-2.5 text-sm outline-none border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm read-only:bg-gray-100 read-only:text-gray-500"}/>
                         </div>
                         <div className={"lg:col-span-2"}>
                             <p className={"text-sm font-light mb-1"}>Phone Number</p>
@@ -146,7 +145,7 @@ function CustomerDetailsUpdate(props) {
                             <p className={"text-sm font-light mb-1"}>Birth Date</p>
                             <input type={"date"} placeholder={""}
                                    defaultValue={formatDate(customerInfo?.birthDate)}
-                                   className={"w-full p-2 outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm"} {...register("birthDate", {
+                                   className={"w-full p-2.5 text-sm outline-2 outline-blue-400 border-[1px] border-gray-400 placeholder:font-light placeholder:text-sm"} {...register("birthDate", {
                                 required: "birth date required!",
                             })}/>
                             {errors?.birthDate &&
@@ -155,8 +154,8 @@ function CustomerDetailsUpdate(props) {
                         <div></div>
                         <div className={"text-right"}>
                             <button type={"submit"}
-                                    className={"bg-blue-500 hover:bg-blue-600 py-2 px-4  cursor-pointer rounded-sm w-full sm:w-auto text-white"}
-                                    >Save
+                                    className={"bg-blue-500 hover:bg-blue-600 py-2 px-4  cursor-pointer rounded-md w-full sm:w-auto text-white font-medium"}
+                            >Save
                             </button>
                         </div>
 
@@ -164,7 +163,7 @@ function CustomerDetailsUpdate(props) {
                 </form>
             }
             {showModal && (
-               <CustomerInfosUpdatedModal closeModal={handleModalClose}/>
+                <CustomerInfosUpdatedModal closeModal={handleModalClose}/>
             )}
         </CustomerSettingsLayout>
     );
