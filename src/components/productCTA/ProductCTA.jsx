@@ -76,17 +76,25 @@ const ProductCTA = ({item})=>{
                 </div>
 
                 <div>
-                    <button
-                        className={`bg-gradient-to-b from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-md font-semibold px-16 py-4 mt-4 transition-all w-full sm:w-auto ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
-                        onClick={item.quantity > 0 ? handleAddToCartClick : null}
-                        disabled={item.quantity === 0}
-                    >
-                        {item.quantity === 0 ? 'SOLD OUT' : 'ADD TO SHOPPING BAG'}
-                    </button>
-                    {item.quantity > 0 && item.quantity <= 3 && <p className="text-red-700">only {item.quantity} left in stock</p>}
+                    {item?.quantity > 0 ?
+                        <button
+                            className={`bg-gradient-to-b from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-md font-semibold px-16 py-4 mt-4 transition-all w-full sm:w-auto lg:min-w-[300px]`}
+                            onClick={handleAddToCartClick}
+                        >
+                            ADD TO SHOPPING BAG
+                        </button>
+                        :
+                        <button
+                            className={`bg-gray-500 border-2 border-gray-400 text-white text-md font-semibold px-16 py-3.5 mt-4 transition-all w-full sm:w-auto lg:min-w-[300px] cursor-default opacity-50`}
+                            disabled={true}
+                        >
+                            SOLD OUT
+                        </button>
+                    }
+                    {item.quantity > 0 &&  item.quantity <= 3 && <p className="text-orange-400 mt-6">Only {item.quantity} left in stock </p>}
                 </div>
 
-                <ul className={"font-light flex flex-col gap-2 mt-4"}>
+                <ul className={"font-light flex flex-col gap-2 mt-2"}>
                     <li className={"flex items-center gap-2"}><BsPatchCheck/> Price match promise</li>
                     <li className={"flex items-center gap-2"}><BsTruck/> Free delivery on all orders</li>
                     <li className={"flex items-center gap-2"}><BsArrowCounterclockwise/> Safe & secure transaction</li>
