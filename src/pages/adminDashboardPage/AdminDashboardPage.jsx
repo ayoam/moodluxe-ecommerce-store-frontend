@@ -7,7 +7,7 @@ import {FiPackage} from "react-icons/fi";
 import {TbUsers} from "react-icons/tb";
 import DashboardOrdersTable from "../../components/dashboardOrdersTable/DashboardOrdersTable";
 import DashboardSalesStatistics from "../../components/dashboardSalesStatistics/DashboardSalesStatistics";
-import DashboardTopSellingItems from "../../components/dashboardTopSellingItems/DashboardTopSellingItems";
+import DashboardTopSellingItemsTable from "../../components/dashboardTopSellingItems/DashboardTopSellingItemsTable";
 import getLatestOrders from "../../service/adminRequests/getLatestOrders";
 import HomeLayout from "../../layouts/homeLayout/HomeLayout";
 import {useRecoilValue} from "recoil";
@@ -16,6 +16,7 @@ import getSalesStatistics from "../../service/adminRequests/getSalesStatistics";
 import getTotalOrdersAndSales from "../../service/adminRequests/getTotalOrdersAndSales";
 import getTotalProducts from "../../service/adminRequests/getTotalProducts";
 import getTotalCustomers from "../../service/adminRequests/getTotalCustomers";
+import getTopSellingItems from "../../service/adminRequests/getTopSellingItems";
 
 const AdminDashboardPage = ()=>{
     const [latestOrders,setLatestOrders] = useState(null);
@@ -25,6 +26,7 @@ const AdminDashboardPage = ()=>{
     const [totalOrders,setTotalOrders] = useState(null);
     const [totalProducts,setTotalProducts] = useState(null);
     const [totalCustomers,setTotalCustomers] = useState(null);
+    const [topSellingItems,setTopSellingItems] = useState(null);
     const user = useRecoilValue(appUserState);
 
     useEffect(()=>{
@@ -54,6 +56,11 @@ const AdminDashboardPage = ()=>{
                     .then(response => {
                         setTotalCustomers(response?.data);
                     }),
+                getTopSellingItems()
+                    .then(response => {
+                        console.log("====",response.data)
+                        setTopSellingItems(response?.data);
+                    })
             ]);
         }
 
@@ -78,7 +85,7 @@ const AdminDashboardPage = ()=>{
                     </div>
                     <div className={"grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4 mt-8"}>
                         <DashboardSalesStatistics statsData={salesStats}/>
-                        <DashboardTopSellingItems/>
+                        <DashboardTopSellingItemsTable topSellingItems={topSellingItems}/>
                     </div>
                     <DashboardOrdersTable latestOrders={latestOrders}/>
                 </div>
