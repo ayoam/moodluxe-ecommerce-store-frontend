@@ -30,7 +30,6 @@ const CheckoutPage = ()=>{
 
     //close cart
     useEffect(() => {
-        console.log(user);
         setCartActive(false);
     }, []);
 
