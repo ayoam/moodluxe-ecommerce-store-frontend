@@ -48,11 +48,12 @@ const ProductCreateEdit = ({pageType}) => {
 
     //check if a product is newly created
     useEffect(() => {
+        let timer;
         if (pageType === "edit") {
             const newlyCreated = getValueFromURL("newlyCreated", searchParams);
             if (newlyCreated) {
                 setNewlyCreated(true);
-                setTimeout(() => {
+                 timer = setTimeout(() => {
                     setNewlyCreated(false)
                     searchParams.delete("newlyCreated");
                     setSearchParams(searchParams);
@@ -62,6 +63,9 @@ const ProductCreateEdit = ({pageType}) => {
             }
 
         }
+        return () => {
+            clearTimeout(timer);
+        };
     }, [searchParams]);
 
     useEffect(() => {
