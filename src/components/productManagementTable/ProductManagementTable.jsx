@@ -1,14 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {BsArrowDown, BsSearch} from "react-icons/bs";
-import OrderManagementTableRow from "../orderManagementTableRow/OrderManagementTableRow";
-import {TablePagination} from "@mui/material";
 import ProductManagementTableRow from "../productManagementTableRow/ProductManagementTableRow";
 import ProductManagementTabs from "../productManagementTabs/ProductManagementTabs";
 import MaterialTablePagination from "../materialTablePagination/MaterialTablePagination";
 import {getValueFromURL} from "../../utils/getValueFromURL";
 import useUrlSearchParams from "../../hooks/useUrlSearchParams";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import getOrdersByUrlParams from "../../service/adminRequests/getOrdersByUrlParams";
 import {useRecoilValue} from "recoil";
 import {appUserState} from "../../recoil/atoms/AuthenticationAtom";
 import getProductsByQueryParams from "../../service/productRequests/GetProductsByQueryParams";
