@@ -4,13 +4,23 @@ import productStatusTag from "../../constants/productStatusConstants";
 import {RiDeleteBin5Fill} from "react-icons/ri";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import DeleteConfirmationModal from "../deleteConfirmationModal/DeleteConfirmationModal";
+import deleteProductById from "../../service/adminRequests/deleteProductById";
 
 const ProductManagementTableRow = ({product})=>{
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const handleModalClose = ()=>{
         setShowDeleteModal(false);
+    }
+
+    const handleProductDelete = ()=>{
+        deleteProductById(product.idp)
+            .then(response => {
+                console.log(response);
+                setSearchParams(searchParams);
+            }).catch(error => console.log(error))
     }
 
     return(
@@ -37,7 +47,7 @@ const ProductManagementTableRow = ({product})=>{
             <td className={"text-center px-2"}>
                 <div className={"flex items-center justify-around"}>
                     <button><RiDeleteBin5Fill className={"text-lg hover:text-red-600 transition-colors"} onClick={()=>setShowDeleteModal(true)}/></button>
-                    {showDeleteModal&& <DeleteConfirmationModal product={product} closeModal={handleModalClose}/>}
+                    {showDeleteModal && <DeleteConfirmationModal product={product} closeModal={handleModalClose} deleteConfirmed={handleProductDelete}/>}
                     <button className={"bg-gray-200 hover:bg-gray-300 transition-colors shadow-inner flex justify-center items-center rounded-lg p-2 gap-1 font-semibold text-lg"} onClick={()=>navigate(product?.idp+"/edit")}><TbEditCircle/></button>
                 </div>
             </td>
