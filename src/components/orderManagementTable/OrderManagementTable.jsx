@@ -16,7 +16,7 @@ const OrderManagementTable = ()=>{
     const searchRef = useRef();
     const [searchInput,setSearchInput]=useState("");
     const [searchParams, setSearchParams] = useSearchParams();
-    const [sort,setSort]=useState("asc");
+    const [sort,setSort]=useState("desc");
     const [orders,setOrders] = useState(null);
     const [totalCount,setTotalCount] = useState(null);
     const { urlSearchParams } = useUrlSearchParams();

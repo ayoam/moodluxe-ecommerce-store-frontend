@@ -17,7 +17,7 @@ const ProductManagementTable = () => {
     const searchRef = useRef();
     const [searchInput, setSearchInput] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
-    const [sort, setSort] = useState("asc");
+    const [sort, setSort] = useState("desc");
     const [tableLoading, setTableLoading] = useState(true);
     const navigate = useNavigate();
     const {urlSearchParams} = useUrlSearchParams();

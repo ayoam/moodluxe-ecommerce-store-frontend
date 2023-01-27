@@ -1,17 +1,17 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {axiosInstance} from "../apiService";
 import {GET_PRODUCT_URL} from "../../constants/apiUrlsConstants";
+import {AxiosHeadersWithoutAuthorization} from "../../utils/AxiosHeadersWithoutAuthorization";
 
-const GetProductById = async(productId)=>{
-    let response = null;
-    // try {
-    //     response = await axiosInstance.get(GET_PRODUCT_URL+"/"+productId);
-    //     return response;
-    // } catch (e) {
-    //     // console.log(e);
-    //     return null;
-    // }
-    response = await axiosInstance.get(GET_PRODUCT_URL+"/"+productId);
+const GetProductById = async (productId) => {
+    let response = await axiosInstance.get(GET_PRODUCT_URL + "/" + productId,
+        {
+            headers: {
+                common: {
+                    ...AxiosHeadersWithoutAuthorization(axiosInstance)
+                }
+            }
+        });
     return response;
 }
 
