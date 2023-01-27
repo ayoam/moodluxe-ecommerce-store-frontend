@@ -30,6 +30,7 @@ const CheckoutPage = ()=>{
 
     //close cart
     useEffect(() => {
+        console.log(user);
         setCartActive(false);
     }, []);
 
@@ -141,7 +142,7 @@ const CheckoutPage = ()=>{
         //create order in backend
         const data = {
             customerID:user?.customerId,
-            adresse:orderAdresseInfo,
+            adresse:{...orderAdresseInfo,email:user?.email},
             items:cartItems.map(item=>{
                 return {
                     productId:item.productId,
