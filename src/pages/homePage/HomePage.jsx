@@ -6,6 +6,7 @@ import BestSellerSection from "../../components/bestSellerSection/BestSellerSect
 import AboutSection from "../../components/aboutSection/AboutSection";
 import NewsLettersSection from "../../components/newslettersSection/NewsLettersSection";
 import ScrollTopButton from "../../components/scrollUpButton/ScrollTopButton";
+import NewsLetterPopup from "../../components/newsLetterPopup/NewsLetterPopup";
 
 const HomePage = ()=>{
 
@@ -17,6 +18,7 @@ const HomePage = ()=>{
             <AboutSection/>
             <NewsLettersSection/>
             <ScrollTopButton/>
+            <NewsLetterPopup/>
         </HomeLayout>
     )
 }
