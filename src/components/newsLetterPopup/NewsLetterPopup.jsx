@@ -7,13 +7,16 @@ const NewsLetterPopup = () => {
     const {register, handleSubmit, formState: {errors}, control} = useForm();
     const [showPopup, setShowPopup] = useState(false);
     useEffect(() => {
+        // const timer = setTimeout(() => {
+        //     setShowPopup(true);
+        // }, 3000)
+        // return clearTimeout(timer);
         setTimeout(() => {
             setShowPopup(true);
         }, 3000)
-
     }, [])
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
     };
     return (
         <div className={`fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:flex sm:items-center sm:justify-center ${
@@ -41,8 +44,9 @@ const NewsLetterPopup = () => {
                     aria-labelledby="modal-headline"
                 >
                     <div>
-                        <AiOutlineClose className={"absolute text-2xl right-3 top-3 hover:text-gray-500"}
-                                        onClick={() => setShowPopup(false)}/>
+                        <button onClick={() => setShowPopup(false)}>
+                            <AiOutlineClose className={"absolute text-2xl right-3 top-3 hover:text-gray-500"}/>
+                        </button>
                         <div className="mt-14 mx-auto font-bold text-2xl text-center text-dark-800">
                             Subscribe to our Newsletter
                         </div>

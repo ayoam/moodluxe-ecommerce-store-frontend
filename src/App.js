@@ -34,6 +34,8 @@ import CustomerManagementPage from "./pages/customerManagementPage/customerManag
 import MessagesPage from "./pages/messagesPage/messagesPage";
 import AddProductPage from "./pages/addProductPage/AddProductPage";
 import EditProductPage from "./pages/editProductPage/EditProductPage";
+import ReactDom from "react-dom";
+import NewsLetterPopup from "./components/newsLetterPopup/NewsLetterPopup";
 
 
 
@@ -91,6 +93,7 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
+        {ReactDom.createPortal(<NewsLetterPopup/>,document.getElementById('newsletter-popup'))}
     </>
   );
 }
