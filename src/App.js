@@ -34,6 +34,7 @@ import CustomerManagementPage from "./pages/customerManagementPage/customerManag
 import MessagesPage from "./pages/messagesPage/messagesPage";
 import AddProductPage from "./pages/addProductPage/AddProductPage";
 import EditProductPage from "./pages/editProductPage/EditProductPage";
+import ConfirmEmailPage from "./pages/confirmEmailPage/ConfirmEmailPage";
 
 
 
@@ -59,6 +60,7 @@ function App() {
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/notFound" element={<NotFoundPage/>}/>
                     <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
+                    <Route path="/confirm-account" element={<ConfirmEmailPage/>}/>
 
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
                         <Route path="/checkout" element={<CheckoutPage/>}/>
