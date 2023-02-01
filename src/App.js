@@ -38,10 +38,6 @@ import ReactDom from "react-dom";
 import NewsLetterPopup from "./components/newsLetterPopup/NewsLetterPopup";
 import ConfirmEmailPage from "./pages/confirmEmailPage/ConfirmEmailPage";
 
-
-
-
-
 function App() {
 
     return (
@@ -55,7 +51,7 @@ function App() {
                     <Route path="/products/:productId" element={<ProductPage/>}/>
                     <Route path="/collections/:collectionId" element={<ProductListingsPage/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
-                    <Route path="/register" element={<RegisterPage/>}/>git statu
+                    <Route path="/register" element={<RegisterPage/>}/>
                     <Route path="/brands/:brandName" element={<BrandPage/>}/>
                     <Route path="/contact-us" element={<ContactPage/>}/>
                     <Route path="/cart" element={<CartPage/>}/>
@@ -95,7 +91,6 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
-        {ReactDom.createPortal(<NewsLetterPopup/>,document.getElementById('newsletter-popup'))}
     </>
   );
 }
