@@ -95,7 +95,6 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
-        {ReactDom.createPortal(<NewsLetterPopup/>,document.getElementById('newsletter-popup'))}
     </>
   );
 }

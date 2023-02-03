@@ -19,6 +19,7 @@ const HomePage = ()=>{
             <AboutSection/>
             <NewsLettersSection/>
             <ScrollTopButton/>
+            {ReactDom.createPortal(<NewsLetterPopup/>,document.getElementById('newsletter-popup'))}
         </HomeLayout>
     )
 }

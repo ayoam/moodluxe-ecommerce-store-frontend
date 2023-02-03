@@ -10,7 +10,7 @@ const ConfirmEmailPage = ()=>{
     const [emailVerified, setEmailVerified] = useState(false);
     const [linkInvalid, setLinkInvalid] = useState(false);
     const [linkExpired, setLinkExpired] = useState(false);
-
+    const [keycloakId, setKeycloakId] = useState(null);
 
     useEffect(()=>{
         const confirmToken = searchParams.get("token");
@@ -28,6 +28,7 @@ const ConfirmEmailPage = ()=>{
                 else if(error.response.status===500){
                     console.log("link expired!");
                     setLinkExpired(true);
+                    setKeycloakId(error?.response?.data?.keycloakID);
                 }
             });
 
@@ -43,8 +44,7 @@ const ConfirmEmailPage = ()=>{
                 <NotFoundPage/>
             )}
             {linkExpired && (
-                <ConfirmEmailLinkExpired/>
-
+                <ConfirmEmailLinkExpired keycloakId={keycloakId}/>
             )}
         </div>
     )
