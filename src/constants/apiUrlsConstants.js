@@ -10,6 +10,8 @@ export const POST_REGISTER_CUSTOMER_URL = `${SERVER_URL}/auth/register`;
 export const POST_CONFIRM_EMAIL_URL = `${SERVER_URL}/auth/confirm-email`;
 export const POST_RESEND_CONFIRM_EMAIL_URL = `${SERVER_URL}/auth/resend-confirmation-email`;
 
+export const POST_FORGOT_PASSWORD_EMAIL = `${SERVER_URL}/auth/forgotPassword`;
+export const PUT_RESET_PASSWORD = `${SERVER_URL}/auth/password-reset`;
 export const GET_BRAND_URL = `${SERVER_URL}/brands`;
 export const GET_CHECK_EMAIL_URL = `${SERVER_URL}/auth/check-email`;
 export const POST_LOGIN_URL = `${SERVER_URL}/auth/login`;
