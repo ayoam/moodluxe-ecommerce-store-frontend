@@ -37,6 +37,8 @@ export const GET_CONTACT_URL = `${SERVER_URL}/contacts`;
 export const PUT_UPDATE_UNREAD_MESSAGE_BY_ID_URL =`/read`
 export const GET_UNREAD_MESSAGE_COUNT_URL = `${SERVER_URL}/contacts/unread-count`;
 export const POST_GENERATE_INVOICE_URL = `${ORDERS_MAIN_URL}/invoice/`;
+export const POST_CHECK_RESET_PASSWORD_TOKEN = `${SERVER_URL}/auth/check-password-reset-token/`;
+export const POST_RESEND_RESET_PASSWORD_EMAIL = `${SERVER_URL}/auth/resend-password-reset-email/`;
 
 
 

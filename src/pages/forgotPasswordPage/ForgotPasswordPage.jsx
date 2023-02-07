@@ -15,10 +15,10 @@ const ForgotPasswordPage = () => {
             });
             if (response.status === 200) {
                 console.log(response.status)
-                setResponseMessage("A reset password link has been sent to your email. Please check your inbox.");
+                setResponseMessage(<p className={"text-green-500"}>A link has been sent to your email. Please check your inbox.</p>);
             }
         } catch (error) {
-            setResponseMessage("An error occurred while processing your request. Please try again later.");
+            setResponseMessage(<p className={"text-red-500"}>An error occurred while processing your request. Please try again later.</p>);
         }
         reset()
     };
@@ -37,7 +37,7 @@ const ForgotPasswordPage = () => {
                     <p className="block font-medium mb-2">Email</p>
                     <input
                         type="text"
-                        className="w-full border border-gray-400 p-2 rounded-lg text-black"
+                        className="w-full border border-gray-400 p-2 rounded text-black outline-0"
                         {...register("email", {
                             required: "email required!",
                             pattern: {
@@ -49,7 +49,7 @@ const ForgotPasswordPage = () => {
                     {errors?.email &&
                         <p className={"text-sm mt-2 font-light text-red-400"}>{errors?.email.message}</p>}
                 </div>
-                <button className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600" onClick={handleSubmit(Submit)}>
+                <button className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors" onClick={handleSubmit(Submit)}>
                     Continue
                 </button>
 
