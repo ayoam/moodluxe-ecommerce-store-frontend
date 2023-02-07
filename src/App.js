@@ -37,6 +37,8 @@ import EditProductPage from "./pages/editProductPage/EditProductPage";
 import ReactDom from "react-dom";
 import NewsLetterPopup from "./components/newsLetterPopup/NewsLetterPopup";
 import ConfirmEmailPage from "./pages/confirmEmailPage/ConfirmEmailPage";
+import ForgotPasswordPage from "./pages/forgotPasswordPage/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/resetPasswordPage/ResetPasswordPage";
 
 function App() {
 
@@ -59,6 +61,8 @@ function App() {
                     <Route path="/notFound" element={<NotFoundPage/>}/>
                     <Route path="/verify-your-email" element={<VerifyEmailPage/>}/>
                     <Route path="/confirm-account" element={<ConfirmEmailPage/>}/>
+                    <Route path="/forgotten-password" element={<ForgotPasswordPage/>}/>
+                    <Route path="/password-reset" element={<ResetPasswordPage/>}/>
 
                     <Route element={<ProtectedRoute authorizedRoles={[ROLE_CUSTOMER]}/>}>
                         <Route path="/checkout" element={<CheckoutPage/>}/>
