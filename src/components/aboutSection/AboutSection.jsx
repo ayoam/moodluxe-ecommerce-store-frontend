@@ -11,7 +11,7 @@ const AboutSection = ()=>{
                 <div className={"p-2 sm:p-8 md:p-6 text-white flex flex-col justify-center md:w-[50%]"}>
                     <div className={"text-center md:text-left"}>
                         <h1 className={"font-semibold text-2xl sm:text-3xl mb-4 font-playfair"}>MOODLUXE</h1>
-                        <p className={"text-md sm:text-lg font-extralight"}>Chez Mood Luxe, nous prenons beaucoup de soin à sélectionner nos produits. Nous offrons une sélection de produits de luxe importés et qui sont les mieux classés sur les plus grandes plateformes de e-commerce au monde .</p>
+                        <p className={"text-md sm:text-lg font-extralight"}>We take great care in selecting our products. We offer a selection of luxury imported products that are highly rated on the world's largest e-commerce platforms.</p>
                     </div>
                 </div>
             </div>

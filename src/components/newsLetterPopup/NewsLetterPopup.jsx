@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import watchBG from '../../assets/img/men-watch.jpg'
 import {useForm} from "react-hook-form";
-import {AiOutlineClose} from "react-icons/ai";
+import {MdOutlineClose} from "react-icons/md";
 
 const NewsLetterPopup = () => {
     const {register, handleSubmit, formState: {errors}, control} = useForm();
@@ -45,7 +45,7 @@ const NewsLetterPopup = () => {
                 >
                     <div>
                         <button onClick={() => setShowPopup(false)}>
-                            <AiOutlineClose className={"absolute text-2xl right-3 top-3 hover:text-gray-500"}/>
+                            <MdOutlineClose className={"absolute text-2xl right-3 top-3 hover:text-gray-500"}/>
                         </button>
                         <div className="mt-14 mx-auto font-bold text-2xl text-center text-dark-800">
                             Subscribe to our Newsletter
